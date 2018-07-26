@@ -5,7 +5,7 @@
         -webkit-margin-after: 0px;
     }
     body {
-        font-family: 'Microsoft YaHei', '黑体', 'Arial', '宋体', sans-serif;
+        font-family: 'Yuanti SC','Microsoft YaHei', '黑体', 'Arial', '宋体', sans-serif;
         line-height: 1.4285;
     }
     [data-dpr='1'] body {
@@ -98,19 +98,25 @@
         background-color: #fff;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
+        [data-platform='IPhone'] &{
+            min-height: 1206px;
+        }
     }
     .lz-logo {
         position: absolute;
         left: 69px;
-        top: (20+93/2)/1448*100%;
+        top: (36+56/2)/1206*100%;
         transform: translateY(-50%);
-        width: 174px;
-        height: 93px;
+        width: 103px;
+        height: 56px;
     }
     .activity-detail {
         position: absolute;
-        top: 32px;
-        right: 26px;
+        width: 141px;
+        height: 39px;
+        top: (46+39/2)/1206*100%;
+        transform: translateY(-50%);
+        right: 65px;
         text-decoration: underline;
         color: #fff;
     }
@@ -120,8 +126,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        // background-color: rgba(0, 0, 0, 0.57);
-        background-color: rgba(186,232,237,0.5);
+        background-color: rgba(0, 0, 0, 0.57);
         z-index: 10;
     }
     .share-guide {
@@ -156,23 +161,68 @@
         }
     }
     .detail-dialog {
-        width: 400px;
+        width: 600px;
+        height: 860px;
         box-sizing: border-box;
-        padding: 0 15px;
-        .content {
-            color: #5e5e5f;
-            margin: 0 0 50px;
-            text-indent: 40px;
-            text-align: left;
-            font-size: 24px;
+        color: #b3451e;
+        background-color: #fff;
+        position: absolute;
+        left: 50%;
+        top: (117+860/2)/1206*100%;
+        transform: translate(-50%,-50%);
+        border-radius: 10px;
+        box-shadow: 10.5px 18.187px 49px 0px rgba(244, 232, 219, 0.39);
+        padding: 50px 0 30px;
+        .activity-theme{
+            text-align: center;
+            font-size: 28px;
         }
-        .iknowBtn {
-            width: 284px;
-            height: 84px;
-            margin: 0 auto;
-            background: url('../assets/iknowBtn.png') no-repeat;
+        .content {
+            text-align: left;
+            font-size: 20px;
+            line-height: 32px;
+            background: url('../assets/loveletter/detail-content-bg.png') no-repeat;
+            background-size: 100% 100%;
+            width: 455px;
+            margin: 0 auto 25px;
+            padding: 50px 40px;
+            box-sizing: border-box;
+            position: relative;
+            &:first-of-type{
+                margin-top: 60px;
+            }
+            .sub-tit{
+                background: url('../assets/loveletter/detail-content-title-bg.png') no-repeat;
+                background-size: 100% auto;
+                width: 212px;
+                height: 42px;
+                line-height: 38px;
+                color: #fff;
+                font-size: 26px;
+                position: absolute;
+                top: -21px;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+            }
+        }
+        .download-app{
+            width: 452px;
+            height: 116px;
+            margin: 70px auto 0px;
+            background: url('../assets/loveletter/detail-bar.png') no-repeat;
             background-size: 100% auto;
         }
+    }
+    .iknowBtn {
+        width: 264px;
+        height: 120px;
+        background: url('../assets/iknowBtn.png') no-repeat;
+        background-size: 100% auto;
+        position: absolute;
+        top: (1050+120/2)/1206*100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
     }
     .common-dialog {
         border-radius: 36px;

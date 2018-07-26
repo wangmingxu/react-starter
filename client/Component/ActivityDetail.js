@@ -1,5 +1,6 @@
 import React from 'react';
 import DetailDialog from './DetailDialog';
+import DetailBtn from 'assets/btn-activity-detail.png';
 
 class ActivityDetail extends React.Component {
   constructor(props) {
@@ -12,16 +13,17 @@ class ActivityDetail extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <span
+        <img
+          src={DetailBtn}
+          alt="activity-detail"
           className="activity-detail"
           onClick={() => {
             this.setState({ showDialog: true });
           }}
-        >
-          活动详情
-        </span>
+        />
         <DetailDialog
-          showDialog={this.state.showDialog}
+          type={2}
+          status={this.state.showDialog}
           onClose={() => {
             this.setState({ showDialog: false });
           }}
