@@ -9,7 +9,10 @@ class Index extends React.Component {
     return (<div styleName="record-page">
       <Logo />
       <div styleName="main">
-      11
+      <img src="https://h5.lizhi.fm/static/voicereport/common/3.png" alt="avatar" styleName="avatar" />
+      <div styleName="subject-text">
+      <div styleName="tit"/>
+      </div>
       </div>
     </div>);
   }
