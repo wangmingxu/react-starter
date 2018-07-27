@@ -26,8 +26,12 @@
             height: 285px;
             background: url('../assets/loveletter/detail-content-bg.png') no-repeat;
             background-size: 100% 100%;
-            margin: 0 auto 40px;
+            margin: 0 auto 35px;
             position: relative;
+            padding: 70px 40px 20px;
+            box-sizing: border-box;
+            color: #b3451e;
+            font-size: 20px;
             .tit{
                 width: 212px;
                 height: 42px;
@@ -37,6 +41,35 @@
                 top: -21px;
                 background: url('../assets/loveletter/suject-tit.png') no-repeat;
                 background-size: 100% auto;
+            }
+            .from{
+                font-size: 18px;
+                text-align: right;
+                margin-top: 30px;
+            }
+        }
+        .time{
+            font-size: 42px;
+            margin-left: 115px;
+            color: #55210a;
+        }
+        .process-bar{
+            width: 375px;
+            height: 20px;
+            margin: 0 auto;
+            background: url('../assets/loveletter/process-bar.png') no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+            padding: 0 4px;
+            box-sizing: border-box;
+            .inset{
+                position: absolute;
+                height: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 50%;
+                border-radius: 7px;
+                background-color: #df703f;
             }
         }
     }
