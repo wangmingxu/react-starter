@@ -11,6 +11,7 @@ import promiseFinally from 'promise.prototype.finally';
 import shareCover from './assets/share_cover.jpg';
 import store from 'Store';
 import get from 'lodash/get';
+import 'url-search-params-polyfill';
 
 promiseFinally.shim();
 

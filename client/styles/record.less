@@ -51,6 +51,7 @@
         .time{
             font-size: 42px;
             margin-left: 115px;
+            margin-bottom: 50px;
             color: #55210a;
         }
         .process-bar{
@@ -62,15 +63,60 @@
             position: relative;
             padding: 0 4px;
             box-sizing: border-box;
+            display: flex;
+            align-items: center;
             .inset{
-                position: absolute;
                 height: 14px;
-                top: 50%;
-                transform: translateY(-50%);
                 width: 50%;
                 border-radius: 7px;
-                background-color: #df703f;
+                background: url('../assets/loveletter/process-bar-inset.png') no-repeat;
+                background-size: 100% 100%;
+                transform: translateZ(0);
+            }
+            .cursor{
+                width: 35px;
+                height: 47px;
+                top: -50px;
+                background: url('../assets/loveletter/cursor.png') no-repeat;
+                background-size: 100% auto;
+                left: 0;
+                transform: translateX(-50%);
+                position: absolute;
             }
         }
+    }
+    .btn-start{
+        width: 267px;
+        height: 119px;
+        position: absolute;
+        left: 50%;
+        top: (1058+119/2)/1206*100%;
+        transform: translate(-50%,-50%);
+        background: url('../assets/loveletter/btn-start-record.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .btn-stop{
+        .btn-start;
+        background-image: url('../assets/loveletter/btn-stop-record.png');
+    }
+    .btn-next{
+        width: 263px;
+        height: 119px;
+        position: absolute;
+        top: (1058+119/2)/1206*100%;
+        transform: translateY(-50%);
+        left: 73px;
+        background: url('../assets/loveletter/btn-next.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .btn-remake{
+        width: 263px;
+        height: 119px;
+        position: absolute;
+        top: (1058+119/2)/1206*100%;
+        transform: translateY(-50%);
+        right: 73px;
+        background: url('../assets/loveletter/btn-remake.png') no-repeat;
+        background-size: 100% auto;
     }
 }

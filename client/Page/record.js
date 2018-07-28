@@ -1,10 +1,44 @@
 import React from 'react';
 import '../styles/record.less';
 import Logo from 'Component/Logo';
+import RecordManage, { RecordStatus } from 'Component/recordManage';
 
 class Index extends React.Component {
-  componentDidMount() {}
+  state = {
+    status: RecordStatus.WAITING_RECORD,
+    recordTime: 0,
+  }
+  componentDidMount() {
+    this.recordManager = new RecordManage({
+      lzRecordType: 2,
+      onRecordTimeChange: this.handleTimeChange,
+      onRecordStatusChange: this.handleStatusChange,
+      onUploadFinish: this.handleUploadFinish,
+    });
+  }
+  startRecord = () => {
+    this.recordManager.startRecord();
+  }
+  endRecord = () => {
+    this.recordManager.endRecord();
+  }
+  uploadAudio = () => {
+    this.recordManager.uploadAudio();
+  }
+  remake = () => {
+    // todo
+  }
+  handleTimeChange = (time) => {
+    this.setState({ recordTime: time });
+  }
+  handleStatusChange = (status) => {
+    this.setState({ status });
+  }
+  handleUploadFinish = (id) => {
+    console.log(id);
+  }
   render() {
+    const { status, recordTime } = this.state;
     return (
       <div styleName="record-page">
         <Logo />
@@ -22,9 +56,14 @@ class Index extends React.Component {
           </div>
           <div styleName="time">TIME</div>
           <div styleName="process-bar">
-            <div styleName="inset" />
+            <div styleName="inset" style={{ width: `${Math.min(recordTime, 5000) / 5000 * 100}%` }} />
+            <div styleName="cursor" style={{ left: `${Math.min(recordTime, 5000) / 5000 * 100}%` }} />
           </div>
         </div>
+        {status === RecordStatus.WAITING_RECORD ? (<div styleName="btn-start" onClick={this.startRecord} />) : null}
+        {status === RecordStatus.RECORD_START ? (<div styleName="btn-stop" onClick={this.endRecord} />) : null}
+        {status === RecordStatus.RECORD_FINISH ? (<div styleName="btn-next" onClick={this.uploadAudio} />) : null}
+        {status === RecordStatus.RECORD_FINISH ? (<div styleName="btn-remake" onClick={this.remake} />) : null}
       </div>
     );
   }

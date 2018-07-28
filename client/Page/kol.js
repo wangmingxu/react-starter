@@ -8,6 +8,10 @@ import Star from 'assets/loveletter/star.png';
 
 class Kol extends React.Component {
   componentDidMount() {}
+  navToRecord = () => {
+    const { history } = this.props;
+    history.push('/record');
+  }
   render() {
     return (
       <React.Fragment>
@@ -67,7 +71,7 @@ class Kol extends React.Component {
                 </div>
               </div>
             </div>
-            <div styleName="btn" />
+            <div styleName="btn" onClick={this.navToRecord} />
           </div>
           <div styleName="kol-page">
             <Logo />
