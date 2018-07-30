@@ -3,18 +3,18 @@ import { findDOMNode } from 'react-dom';
 
 const threshold = 150;
 
-export default Wrapper => class onePage extends Wrapper {
+export default class onePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      offsetHeight: 0,
       scale: 1,
+      offsetHeight: 0,
     };
-    this.pageRef = React.createRef();
+    // this.pageRef = React.createRef();
   }
   componentDidMount() {
     const docHeight = document.documentElement.clientHeight;
-    const pageEle = findDOMNode(this.pageRef.current); //eslint-disable-line
+    const pageEle = findDOMNode(this); //eslint-disable-line
     const pageHeight = pageEle.clientHeight;
     const offsetHeight = Math.abs(pageHeight - docHeight);
     if (offsetHeight <= threshold) {
@@ -23,6 +23,7 @@ export default Wrapper => class onePage extends Wrapper {
     }
   }
   render() {
-    return <Wrapper {...this.props} {...this.state} ref={this.pageRef} />;
+    return this.props.render(this.state);
+    // return <Wrapper {...this.props} {...this.state} ref={this.pageRef} />;
   }
-};
+}

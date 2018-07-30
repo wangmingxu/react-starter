@@ -2,6 +2,7 @@ import { createComponent } from 'Component/Bundle'; // bundle模型用来异步�
 
 import Index from 'Page/index';
 import Kol from 'Page/kol';
+import Ugc from 'Page/ugc';
 import Record from 'Page/record';
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
   {
     path: '/kol',
     component: createComponent(Kol),
+    exact: true,
+  },
+  {
+    path: '/ugc',
+    component: createComponent(Ugc),
     exact: true,
   },
   {
