@@ -1,0 +1,123 @@
+.audio-page{
+    height: 100%;
+    background: url('../assets/loveletter/audio-bg-part1.png') no-repeat;
+    background-size: 100% auto;
+    background-position: left center;
+    .theme1&{
+        background-image: url('../assets/loveletter/audio-bg-part1.png');
+    }
+    .theme2&{
+        background-image: url('../assets/loveletter/audio-bg-part2.png');
+    }
+    .theme3&{
+        background-image: url('../assets/loveletter/audio-bg-part3.png');
+    }
+    .theme4&{
+        background-image: url('../assets/loveletter/audio-bg-part4.png');
+    }
+    .btn-record{
+        position: absolute;
+        width: 371px;
+        height: 107px;
+        left: 50%;
+        top: 1027/1206*100%;
+        transform: translateX(-50%);
+        // top: (1027+107/2)/1206*100%;
+        // transform: translate(-50%,-50%);
+        background: url('../assets/loveletter/audio-btn-part1.png') no-repeat;
+        background-size: 100% auto;
+        .theme1&{
+            background-image: url('../assets/loveletter/audio-btn-part1.png');
+        }
+        .theme2&{
+            background-image: url('../assets/loveletter/audio-btn-part1.png');
+        }
+        .theme3&{
+            background-image: url('../assets/loveletter/audio-btn-part3.png');
+        }
+        .theme4&{
+            background-image: url('../assets/loveletter/audio-btn-part3.png');
+        }
+    }
+    .btn-join{
+        position: absolute;
+        left: 50px;
+        top: (1027+107/2)/1206*100%;
+        transform: translateY(-50%);
+        width: 283px;
+        height: 128px;
+        background: url('../assets/loveletter/btn-join.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .btn-poster{
+        position: absolute;
+        left: 50px;
+        top: (1027+107/2)/1206*100%;
+        transform: translateY(-50%);
+        width: 283px;
+        height: 128px;
+        background: url('../assets/loveletter/btn-makePoster.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .btn-knowMore{
+        position: absolute;
+        right: 50px;
+        top: (1027+107/2)/1206*100%;
+        transform: translateY(-50%);
+        width: 283px;
+        height: 128px;
+        background: url('../assets/loveletter/btn-showDetail.png') no-repeat;
+        background-size: 100% auto;
+    }
+    .logo{
+        position: absolute;
+        left: 68px;
+        top: 1031px;
+        width: 152px;
+    }
+    .scan-tip{
+        font-size: 26px;
+        color: #313334;
+        position: absolute;
+        right: 204px;
+        top: 1040px;
+        text-align: right;
+    }
+}
+.btn-tab{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 107px;
+    height: 109px;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    &.prev{
+        left: 0;
+        background-image: url('../assets/loveletter/arrow-left.png');
+    }
+    &.next{
+        right: 0;
+        background-image: url('../assets/loveletter/arrow-right.png');
+    }
+}
+.tip-swipe{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 51px;
+    background: url('../assets/loveletter/audio-tip.png') no-repeat;
+    background-size: 100% auto;
+    pointer-events: none;
+}
+.tip-save{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 51px;
+    background: url('../assets/loveletter/tip-savePic.png') no-repeat;
+    background-size: 100% auto;
+    pointer-events: none;
+}

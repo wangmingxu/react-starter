@@ -1,54 +1,37 @@
 import React from 'react';
-import '../styles/kol.less';
+import '../styles/audio.less';
 import Logo from 'Component/Logo';
-import ActiveStar from 'assets/loveletter/star-active.png';
-import Star from 'assets/loveletter/star.png';
+import DetailDialog from 'Component/DetailDialog';
+import Letter from 'Component/Letter';
 
 class Ugc extends React.Component {
+  state = {
+    showDetailDialog: false,
+  }
   componentDidMount() {}
-  navToRecord = () => {
+  makePoster = () => {
     const { history } = this.props;
-    history.push('/record');
+    history.push('/poster');
+  }
+  knowMore = () => {
+    this.setState({ showDetailDialog: true });
   }
   render() {
+    const { showDetailDialog } = this.state;
     return (
       <React.Fragment>
         <Logo />
-        <div styleName="kol-page">
-          <div styleName="book">
-            <img
-              src="https://h5.lizhi.fm/static/voicereport/common/3.png"
-              styleName="avatar"
-              alt="avatar"
-            />
-            <div styleName="btn-play" />
-            <div styleName="card">
-                来自诗歌岛用户@流马的情书<br />—荔枝主播@薄荷微凉-小糖 FM13593倾声演绎
-            </div>
-            <div styleName="voice-index">
-              <div styleName="item">
-                <div styleName="label">撩人指数：</div>
-                <div styleName="val">
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={Star} alt="star" styleName="star" />
-                </div>
-              </div>
-              <div styleName="item">
-                <div styleName="label">催泪指数：</div>
-                <div styleName="val">
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={ActiveStar} alt="star" styleName="star active" />
-                  <img src={Star} alt="star" styleName="star" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div styleName="btn" onClick={this.navToRecord} />
+        <DetailDialog
+          status={showDetailDialog}
+          type={2}
+          onClose={() => {
+            this.setState({ showDetailDialog: false });
+          }}
+        />
+        <div styleName="audio-page">
+          <Letter theme={1} />
+          <div styleName="btn-poster" onClick={this.makePoster} />
+          <div styleName="btn-knowMore" onClick={this.knowMore} />
         </div>
       </React.Fragment>
     );

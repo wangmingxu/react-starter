@@ -1,22 +1,59 @@
 import React from 'react';
-import '../styles/kol.less';
+import '../styles/audio.less';
 import Logo from 'Component/Logo';
 import ActivityDetail from 'Component/ActivityDetail';
 import ReactSwipe from 'react-swipe';
-import ActiveStar from 'assets/loveletter/star-active.png';
-import Star from 'assets/loveletter/star.png';
+import Letter from 'Component/Letter';
+import classNames from 'classnames';
+
+const PlayStatus = {
+  WAIT_PLAY: 1,
+  PAUSE: 2,
+  PLAYING: 3,
+};
 
 class Kol extends React.Component {
-  componentDidMount() {}
+  state = {
+    status: PlayStatus.WAIT_PLAY,
+  }
+  componentDidMount() {
+    this.player = new Audio();
+    this.player.addEventListener('ended', this.onAudioPlayEnd);
+    // this.player.addEventListener('')
+  }
+  onAudioPlayEnd = () => {
+    this.setState({ status: playStatus.WAIT_PLAY });
+  }
+  play = async (e) => {
+    e && e.stopPropagation();
+    await this.player.play();
+    this.setState({ status: playStatus.PLAYING });
+  }
+  pause = (e) => {
+    e && e.stopPropagation();
+    this.player.pause();
+    this.setState({ status: playStatus.PAUSE });
+  }
+  swipeRef = null;
   navToRecord = () => {
     const { history } = this.props;
     history.push('/record');
+  }
+  handleSlide = (i) => {
+    console.log(i);
+  }
+  prev = () => {
+    this.swipeRef.prev();
+  }
+  next = () => {
+    this.swipeRef.next();
   }
   render() {
     return (
       <React.Fragment>
         <ReactSwipe
-          swipeOptions={{ continuous: true }}
+          ref={(e) => { this.swipeRef = e; }}
+          swipeOptions={{ continuous: true, callback: this.handleSlide }}
           style={{
             container: {
               height: '100%',
@@ -37,51 +74,28 @@ class Kol extends React.Component {
             },
           }}
         >
-          <div styleName="kol-page">
-            <div styleName="book">
-              <img
-                src="https://h5.lizhi.fm/static/voicereport/common/3.png"
-                styleName="avatar"
-                alt="avatar"
-              />
-              <div styleName="btn-play" />
-              <div styleName="card">
-                来自诗歌岛用户@流马的情书<br />—荔枝主播@薄荷微凉-小糖 FM13593倾声演绎
-              </div>
-              <div styleName="voice-index">
-                <div styleName="item">
-                  <div styleName="label">撩人指数：</div>
-                  <div styleName="val">
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={Star} alt="star" styleName="star" />
-                  </div>
-                </div>
-                <div styleName="item">
-                  <div styleName="label">催泪指数：</div>
-                  <div styleName="val">
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={ActiveStar} alt="star" styleName="star active" />
-                    <img src={Star} alt="star" styleName="star" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div styleName="btn" onClick={this.navToRecord} />
+          <div styleName={classNames('audio-page', `theme${1}`)}>
+            <Letter theme={1} />
+            <div styleName="btn-record" onClick={this.navToRecord} />
           </div>
-          <div styleName="kol-page">
-            <Logo />
+          <div styleName={classNames('audio-page', `theme${2}`)}>
+            <Letter theme={2} />
+            <div styleName="btn-record" onClick={this.navToRecord} />
+          </div>
+          <div styleName={classNames('audio-page', `theme${3}`)}>
+            <Letter theme={3} />
+            <div styleName="btn-record" onClick={this.navToRecord} />
+          </div>
+          <div styleName={classNames('audio-page', `theme${4}`)}>
+            <Letter theme={4} />
+            <div styleName="btn-record" onClick={this.navToRecord} />
           </div>
         </ReactSwipe>
         <Logo />
         <ActivityDetail />
-        <div styleName="btn-tab prev" />
-        <div styleName="btn-tab next" />
-        <div styleName="tip" />
+        <div styleName="btn-tab prev" onClick={this.prev} />
+        <div styleName="btn-tab next" onClick={this.next} />
+        <div styleName="tip-swipe" />
       </React.Fragment>
     );
   }

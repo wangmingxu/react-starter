@@ -4,6 +4,7 @@ import Index from 'Page/index';
 import Kol from 'Page/kol';
 import Ugc from 'Page/ugc';
 import Record from 'Page/record';
+import Poster from 'Page/poster';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
   {
     path: '/record',
     component: createComponent(Record),
+    exact: true,
+  },
+  {
+    path: '/poster',
+    component: createComponent(Poster),
     exact: true,
   },
 ];

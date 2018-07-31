@@ -1,0 +1,161 @@
+.book{
+    position: absolute;
+    top: (120+820/2)/1206*100%;
+    transform: translateY(-50%);
+    left: 133px;
+    height: 820px;
+    width: 515px;
+    .avatar{
+        border: 3px solid rgb(81, 209, 255);
+        border-radius: 50% 50%;
+        width: 145px;
+        height: 145px;
+        display: block;
+        margin: 70px auto 0px;
+        .theme1&{
+            border-color: rgb(81, 209, 255);
+        }
+        .theme2&{
+            border-color: rgb(255, 158, 150);
+        }
+        .theme3&{
+            border-color: rgb(255, 158, 150);
+        }
+        .theme4&{
+            border-color: rgb(88, 202, 225);
+        }
+    }
+    .nickName{
+        font-size: 32px;
+        color: #56d4ff;
+        text-align: center;
+        .theme1&{
+            color: #56d4ff;
+        }
+        .theme2&{
+            color: #ff9e96;
+        }
+        .theme3&{
+            color: #ff9e96;
+        }
+        .theme4&{
+            color: #56d4ff;
+        }
+    }
+    .btn-play{
+        width: 262px;
+        display: block;
+        margin: 0 auto 10px;
+    }
+    .card{
+        width: 463px;
+        height: 223px;
+        margin: 0 auto;
+        position: relative;
+        background: url('../assets/loveletter/card-bg-part1.png') no-repeat;
+        background-size: 100% auto;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-size: 21px;
+        line-height: 40px;
+        color: #62b8ff;
+        .defeat{
+            line-height: 40px;
+            background-color: #3eebff;
+            // transform: matrix( 0.4637598972838,0,0,0.45957541948837,0,0);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px;
+            width: 420px;
+            text-align: center;
+            color: #fff;
+            .num{
+                color: #ffc7cd;
+                font-size: 28px;
+                vertical-align: bottom;
+                margin: 0 5px;
+            }
+            .theme1&{
+                background-color: #3eebff;
+                .num{
+                    color: #ffc7cd;
+                }
+            }
+            .theme2&{
+                background-color: #ff6c75;
+                .num{
+                    color: #12fbf6;
+                }
+            }
+            .theme3&{
+                background-color: #ff6c75;
+                .num{
+                    color: #12fbf6;
+                }
+            }
+            .theme4&{
+                background-color: #49e1d7;
+                .num{
+                    color: #ffd7a9;
+                }
+            }
+        }
+        .theme1&{
+            color: #62b8ff;
+            background-image: url('../assets/loveletter/card-bg-part1.png');
+        }
+        .theme2&{
+            color: #ff947f;
+            background-image: url('../assets/loveletter/card-bg-part2.png');
+        }
+        .theme3&{
+            color: #ff947f;
+            background-image: url('../assets/loveletter/card-bg-part2.png');
+        }
+        .theme4&{
+            color: #05b9ac;
+            background-image: url('../assets/loveletter/card-bg-part4.png');
+        }
+    }
+    .voice-index{
+        margin: 50px auto;
+        color: #62b8ff;
+        width: 100%;
+        .theme1&{
+            color: #62b8ff;
+        }
+        .theme2&{
+            color: #ff6971;
+        }
+        .theme3&{
+            color: #ff6971;
+        }
+        .theme4&{
+            color: #05b9ac;
+        }
+        .item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            .label{
+                font-size: 32px;
+            }
+            .val{
+                display: flex;
+                .star{
+                    width: 31px;
+                    height: 26px;
+                    margin-right: 10px;
+                    .active{
+
+                    }
+                }
+            }
+        }
+    }
+}

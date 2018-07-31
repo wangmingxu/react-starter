@@ -22,7 +22,7 @@ class ActivityDetail extends React.Component {
           }}
         />
         <DetailDialog
-          type={2}
+          type={1}
           status={this.state.showDialog}
           onClose={() => {
             this.setState({ showDialog: false });

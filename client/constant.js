@@ -1,3 +1,14 @@
+import btnPlay1 from 'assets/loveletter/btn-play-part1.png';
+import btnPlay2 from 'assets/loveletter/btn-play-part2.png';
+import btnPlay4 from 'assets/loveletter/btn-play-part4.png';
+import ActiveStar1 from 'assets/loveletter/star-active-part1.png';
+import ActiveStar2 from 'assets/loveletter/star-active-part2.png';
+import ActiveStar3 from 'assets/loveletter/star-active-part3.png';
+import ActiveStar4 from 'assets/loveletter/star-active-part4.png';
+
+export const playBtnArr = [btnPlay1, btnPlay2, btnPlay2, btnPlay4];
+export const starArr = [ActiveStar1, ActiveStar2, ActiveStar3, ActiveStar4];
+
 export const cookiePrefix = 'base_cityfm_hangzhou_single_dog_';
 export const tokenKey = `${cookiePrefix}token`;
 export const idKey = `${cookiePrefix}id`;
