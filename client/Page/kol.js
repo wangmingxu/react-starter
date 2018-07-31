@@ -5,34 +5,14 @@ import ActivityDetail from 'Component/ActivityDetail';
 import ReactSwipe from 'react-swipe';
 import Letter from 'Component/Letter';
 import classNames from 'classnames';
-
-const PlayStatus = {
-  WAIT_PLAY: 1,
-  PAUSE: 2,
-  PLAYING: 3,
-};
+import player from 'utils/audioPlayer';
+import { Toast } from 'antd-mobile';
+import OnePage from 'Hoc/onePage';
+import { kolMap } from 'constant';
 
 class Kol extends React.Component {
-  state = {
-    status: PlayStatus.WAIT_PLAY,
-  }
-  componentDidMount() {
-    this.player = new Audio();
-    this.player.addEventListener('ended', this.onAudioPlayEnd);
-    // this.player.addEventListener('')
-  }
-  onAudioPlayEnd = () => {
-    this.setState({ status: playStatus.WAIT_PLAY });
-  }
-  play = async (e) => {
-    e && e.stopPropagation();
-    await this.player.play();
-    this.setState({ status: playStatus.PLAYING });
-  }
-  pause = (e) => {
-    e && e.stopPropagation();
-    this.player.pause();
-    this.setState({ status: playStatus.PAUSE });
+  componentWillUnmount() {
+    player.pause();
   }
   swipeRef = null;
   navToRecord = () => {
@@ -40,10 +20,21 @@ class Kol extends React.Component {
     history.push('/record');
   }
   handleSlide = (i) => {
-    console.log(i);
+    player.src = kolMap[i].audioUrl;
+    try {
+      Toast.info('正在加载音频...');
+      player.play();
+      Toast.hide();
+    } catch (error) {
+      window.alert(error);
+    }
   }
   prev = () => {
-    this.swipeRef.prev();
+    try {
+      this.swipeRef.prev();
+    } catch (error) {
+      console.log(error);
+    }
   }
   next = () => {
     this.swipeRef.next();
@@ -74,22 +65,17 @@ class Kol extends React.Component {
             },
           }}
         >
-          <div styleName={classNames('audio-page', `theme${1}`)}>
-            <Letter theme={1} />
-            <div styleName="btn-record" onClick={this.navToRecord} />
-          </div>
-          <div styleName={classNames('audio-page', `theme${2}`)}>
-            <Letter theme={2} />
-            <div styleName="btn-record" onClick={this.navToRecord} />
-          </div>
-          <div styleName={classNames('audio-page', `theme${3}`)}>
-            <Letter theme={3} />
-            <div styleName="btn-record" onClick={this.navToRecord} />
-          </div>
-          <div styleName={classNames('audio-page', `theme${4}`)}>
-            <Letter theme={4} />
-            <div styleName="btn-record" onClick={this.navToRecord} />
-          </div>
+          {kolMap.map((item, i) => (
+            <div styleName={classNames('audio-page', `theme${i % 4 + 1}`)} key={i}>
+              <OnePage render={({ scale }) => (
+                <div className="onePage" style={{ transform: `scale(${scale})` }}>
+                  <Letter theme={i % 4 + 1} audioInfo={item} />
+                  <div styleName="btn-record" onClick={this.navToRecord} />
+                </div>
+              )}
+              />
+            </div>
+          ))}
         </ReactSwipe>
         <Logo />
         <ActivityDetail />

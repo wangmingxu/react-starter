@@ -1,10 +1,26 @@
 .book{
     position: absolute;
-    top: (120+820/2)/1206*100%;
+    top: (125+870/2)/1206*100%;
     transform: translateY(-50%);
-    left: 133px;
-    height: 820px;
-    width: 515px;
+    left: 63px;
+    height: 870px;
+    width: 613px;
+    background: url('../assets/loveletter/book-part1.png') no-repeat;
+    background-size: 100% auto;
+    box-sizing: border-box;
+    padding-left: 50px;
+    .theme1&{
+        background-image: url('../assets/loveletter/book-part1.png')
+    }
+    .theme2&{
+        background-image: url('../assets/loveletter/book-part2.png')
+    }
+    .theme3&{
+        background-image: url('../assets/loveletter/book-part2.png')
+    }
+    .theme4&{
+        background-image: url('../assets/loveletter/book-part1.png')
+    }
     .avatar{
         border: 3px solid rgb(81, 209, 255);
         border-radius: 50% 50%;
@@ -43,7 +59,8 @@
         }
     }
     .btn-play{
-        width: 262px;
+        width: 242px;
+        height: 87px;
         display: block;
         margin: 0 auto 10px;
     }
@@ -82,7 +99,7 @@
             .theme1&{
                 background-color: #3eebff;
                 .num{
-                    color: #ffc7cd;
+                    color: rgb(94, 147, 224);;
                 }
             }
             .theme2&{
@@ -100,7 +117,7 @@
             .theme4&{
                 background-color: #49e1d7;
                 .num{
-                    color: #ffd7a9;
+                    color: rgb(219, 251, 163);
                 }
             }
         }

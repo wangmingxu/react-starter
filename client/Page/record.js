@@ -3,6 +3,7 @@ import '../styles/record.less';
 import Logo from 'Component/Logo';
 import RecordManage, { RecordStatus } from 'Component/recordManage';
 import OnePage from 'Hoc/onePage';
+import api from 'utils/api';
 
 class Index extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class Index extends React.Component {
     this.recordManager.uploadAudio();
   }
   remake = () => {
-    // todo
+    this.setState({ status: RecordStatus.WAITING_RECORD });
   }
   handleTimeChange = (time) => {
     this.setState({ recordTime: time });
@@ -37,6 +38,10 @@ class Index extends React.Component {
   }
   handleUploadFinish = (id) => {
     console.log(id);
+    const idName = window.isApp ? 'uploadid' : 'mediaId';
+    api.addAudio({
+      [idName]: id,
+    });
   }
   render() {
     const { status, recordTime } = this.state;
@@ -44,7 +49,7 @@ class Index extends React.Component {
       <div styleName="record-page">
         <Logo />
         <OnePage render={({ scale }) => (
-          <div styleName="onePage" style={{ transform: `scale(${scale})` }}>
+          <div className="onePage" style={{ transform: `scale(${scale})` }}>
             <div styleName="main">
               <img
                 src="https://h5.lizhi.fm/static/voicereport/common/3.png"

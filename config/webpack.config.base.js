@@ -69,7 +69,7 @@ const baseConfig = {
         ],
       },
       {
-        test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
+        test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf|mp3)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
         use: [
           {
             loader: 'url-loader',

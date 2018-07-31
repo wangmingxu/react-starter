@@ -5,7 +5,8 @@
         -webkit-margin-after: 0px;
     }
     body {
-        font-family: 'Yuanti SC','Microsoft YaHei', '黑体', 'Arial', '宋体', sans-serif;
+        font-family: 'Yuanti SC', 'Microsoft YaHei', '黑体', 'Arial', '宋体',
+            sans-serif;
         line-height: 1.4285;
     }
     [data-dpr='1'] body {
@@ -105,7 +106,7 @@
     .lz-logo {
         position: absolute;
         left: 69px;
-        top: (36+56/2)/1206*100%;
+        top: (36+56/2)/1206 * 100%;
         transform: translateY(-50%);
         width: 103px;
         height: 56px;
@@ -114,7 +115,7 @@
         position: absolute;
         width: 141px;
         height: 39px;
-        top: (46+39/2)/1206*100%;
+        top: (46+39/2)/1206 * 100%;
         transform: translateY(-50%);
         right: 65px;
         text-decoration: underline;
@@ -147,7 +148,11 @@
             width: 100%;
             .btn {
                 width: 214px;
-                background-image: linear-gradient( to bottom, rgb(255,186,217) 0%, rgb(252,89,163) 100%);
+                background-image: linear-gradient(
+                    to bottom,
+                    rgb(255, 186, 217) 0%,
+                    rgb(252, 89, 163) 100%
+                );
                 display: inline-block;
                 border-radius: 10px;
                 box-sizing: border-box;
@@ -168,30 +173,32 @@
         background-color: #fff;
         position: absolute;
         left: 50%;
-        top: (117+860/2)/1206*100%;
-        transform: translate(-50%,-50%);
+        top: (117+860/2)/1206 * 100%;
+        transform: translate(-50%, -50%);
         border-radius: 10px;
         box-shadow: 10.5px 18.187px 49px 0px rgba(244, 232, 219, 0.39);
         padding: 50px 0 30px;
-        .activity-theme{
+        .activity-theme {
             text-align: center;
             font-size: 28px;
         }
         .content {
             margin-top: 60px;
-            .item{
+            .item {
                 text-align: left;
                 font-size: 20px;
                 line-height: 32px;
-                background: url('../assets/loveletter/detail-content-bg.png') no-repeat;
+                background: url('../assets/loveletter/detail-content-bg.png')
+                    no-repeat;
                 background-size: 100% 100%;
                 width: 455px;
                 margin: 0 auto 25px;
                 padding: 50px 40px;
                 box-sizing: border-box;
                 position: relative;
-                .sub-tit{
-                    background: url('../assets/loveletter/detail-content-title-bg.png') no-repeat;
+                .sub-tit {
+                    background: url('../assets/loveletter/detail-content-title-bg.png')
+                        no-repeat;
                     background-size: 100% auto;
                     width: 212px;
                     height: 42px;
@@ -206,7 +213,7 @@
                 }
             }
         }
-        .download-app{
+        .download-app {
             width: 452px;
             height: 116px;
             margin: 70px auto 0px;
@@ -220,9 +227,9 @@
         background: url('../assets/iknowBtn.png') no-repeat;
         background-size: 100% auto;
         position: absolute;
-        top: (1050+120/2)/1206*100%;
+        top: (1050+120/2)/1206 * 100%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
     }
     .common-dialog {
         border-radius: 36px;
@@ -233,9 +240,9 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         background-color: #fff;
-        .btn-close{
+        .btn-close {
             width: 54px;
             height: 53px;
             padding: 10px;
@@ -257,7 +264,7 @@
             text-align: center;
             box-sizing: border-box;
             padding: 20px;
-            .msg{
+            .msg {
                 color: #628585;
                 font-size: 28px;
             }
@@ -266,38 +273,43 @@
     .openbrowser {
         background-color: rgba(0, 0, 0, 0.7);
         .guide-weixin-ios {
-          html[data-platform='Android'] & {
-            display: none;
-          }
-          position: absolute;
-          right: 40px;
-          top: 10px;
-          width: 548px;
+            html[data-platform='Android'] & {
+                display: none;
+            }
+            position: absolute;
+            right: 40px;
+            top: 10px;
+            width: 548px;
         }
         .guide-weixin-android {
-          html:not([data-platform='Android']) & {
-            display: none;
-          }
-          width: 560px;
-          position: absolute;
-          right: 60px;
-          top: 10px;
+            html:not([data-platform='Android']) & {
+                display: none;
+            }
+            width: 560px;
+            position: absolute;
+            right: 60px;
+            top: 10px;
         }
         .guide-btn-download {
-          position: absolute;
-          top: 460 * 2px;
-          left: 50%;
-          margin-left: -100 * 2px;
-          font-size: 30px;
-          color: #ffffff;
-          width: 200 * 2px;
-          height: 50 * 2px;
-          line-height: 50 * 2px;
-          text-align: center;
-          background: #fe5353;
-          border-radius: 2 * 2px;
-          text-decoration: none;
-          outline: none;
+            position: absolute;
+            top: 460 * 2px;
+            left: 50%;
+            margin-left: -100 * 2px;
+            font-size: 30px;
+            color: #ffffff;
+            width: 200 * 2px;
+            height: 50 * 2px;
+            line-height: 50 * 2px;
+            text-align: center;
+            background: #fe5353;
+            border-radius: 2 * 2px;
+            text-decoration: none;
+            outline: none;
         }
-      }
+    }
+    .onePage {
+        height: 100%;
+        min-height: 1206px;
+        transform-origin: 50% 0;
+    }
 }

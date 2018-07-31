@@ -57,8 +57,8 @@ function apiConfig(rMap) {
 }
 
 const api = apiConfig({
-  getCity: 'GET /hangzhou/singleDog/getCity',
-  listLuckyDoy: 'POST /activity/listLuckyDoy',
+  addAudio: 'GET /loveletter/addAudio',
+  audioInfo: 'GET /loveletter/info',
   trans: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
 });
 
