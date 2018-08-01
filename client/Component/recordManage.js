@@ -147,7 +147,7 @@ class RecordManage {
       return;
     }
     this.changeRecordStatus(RecordStatus.RECORD_FINISH);
-    this.duration = this.recordingTime / 1000;
+    this.duration = this.recordingTime;
     if (window.isApp) {
       await lz.stopRecordVoice({
         isNeedUpload: this.$options.immediateUpload,

@@ -1,10 +1,6 @@
 export function imgPreload(srcList) {
   const promiseList = srcList.map((src) => {
     let img = new Image();
-    img.style.width = 0;
-    img.style.height = 0;
-    img.style.visibility = 'hidden';
-    document.body.appendChild(img);
     return new Promise((resolve, reject) => {
       img.onload = function () {
         img.onload = null;

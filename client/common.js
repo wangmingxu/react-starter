@@ -32,11 +32,17 @@ window.isPre = location.host.includes('pre') || location.search.includes('pre');
 
 // 添加请求拦截器
 axiosInstance.interceptors.request.use((config) => {
+  const { method } = config;
+  const dataKey = method === 'get' ? 'params' : 'data';
   if (window.isApp) {
-    const { method } = config;
-    const dataKey = method === 'get' ? 'params' : 'data';
     Object.assign(config, {
       [dataKey]: Object.assign(config[dataKey] || {}, { token: get(store.getState(), ['Global', 'token']) }),
+    });
+  } else if (window.isWX) {
+    const qs = new URLSearchParams(location.search);
+    const openId = qs.get('openid');
+    Object.assign(config, {
+      [dataKey]: Object.assign(config[dataKey] || {}, { openId }),
     });
   }
   return config;
@@ -45,7 +51,7 @@ axiosInstance.interceptors.request.use((config) => {
 window.shareData = {
   url: window.location.href.replace(location.hash, ''),
   link: window.location.href,
-  title: '声音气质报告',
+  title: '声音情书',
   desc: '快来测试一下',
   'image-url': shareCover,
   imgUrl: shareCover,

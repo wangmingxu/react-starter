@@ -20,7 +20,7 @@ class Kol extends React.Component {
     history.push('/record');
   }
   handleSlide = (i) => {
-    player.src = kolMap[i].audioUrl;
+    player.src = kolMap[i].audio;
     try {
       Toast.info('正在加载音频...');
       player.play();
@@ -69,7 +69,7 @@ class Kol extends React.Component {
             <div styleName={classNames('audio-page', `theme${i % 4 + 1}`)} key={i}>
               <OnePage render={({ scale }) => (
                 <div className="onePage" style={{ transform: `scale(${scale})` }}>
-                  <Letter theme={i % 4 + 1} audioInfo={item} />
+                  <Letter audioInfo={item} />
                   <div styleName="btn-record" onClick={this.navToRecord} />
                 </div>
               )}

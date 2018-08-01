@@ -4,19 +4,31 @@ import Logo from 'Component/Logo';
 import RecordManage, { RecordStatus } from 'Component/recordManage';
 import OnePage from 'Hoc/onePage';
 import api from 'utils/api';
+import { Toast } from 'antd-mobile';
+import { sleep } from 'utils/promisify';
+import { letterText } from 'constant';
+import random from 'lodash/random';
 
 class Index extends React.Component {
-  state = {
-    status: RecordStatus.WAITING_RECORD,
-    recordTime: 0,
-  }
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: RecordStatus.WAITING_RECORD,
+      recordTime: 0,
+      textId: random(letterText.length - 1),
+    };
     this.recordManager = new RecordManage({
       lzRecordType: 2,
       onRecordTimeChange: this.handleTimeChange,
       onRecordStatusChange: this.handleStatusChange,
       onUploadFinish: this.handleUploadFinish,
     });
+  }
+  componentDidMount() {
+    this.recordManager.init();
+  }
+  componentWillUnmount() {
+    this.recordManager.destroy();
   }
   startRecord = () => {
     this.recordManager.startRecord();
@@ -28,7 +40,7 @@ class Index extends React.Component {
     this.recordManager.uploadAudio();
   }
   remake = () => {
-    this.setState({ status: RecordStatus.WAITING_RECORD });
+    this.recordManager.remakeRecord();
   }
   handleTimeChange = (time) => {
     this.setState({ recordTime: time });
@@ -36,15 +48,40 @@ class Index extends React.Component {
   handleStatusChange = (status) => {
     this.setState({ status });
   }
-  handleUploadFinish = (id) => {
+  handleUploadFinish = async (id) => {
     console.log(id);
-    const idName = window.isApp ? 'uploadid' : 'mediaId';
-    api.addAudio({
-      [idName]: id,
+    const { highBand } = await this.transAudio(id);
+    const idKey = window.isApp ? 'uploadid' : 'mediaId';
+    const { data: audioId } = await api.addAudio({
+      [idKey]: id,
+      audio: highBand,
+      duration: this.recordManager.duration,
+      textId: this.state.textId,
+      theme: random(1, 4),
     });
+    this.props.history.push(`/ugc/${audioId}`);
+  }
+  transAudio = async (id) => {
+    try {
+      const trans = window.isApp ? api.transApp : api.transWX;
+      const idKey = window.isApp ? 'upload_id' : 'media_id';
+      Toast.loading('正在进行音频转码...', 0);
+      const res = await trans({ [idKey]: id });
+      if (res.status === 0) {
+        Toast.hide();
+        return res.data;
+      } else if (res.status === 4) {
+        await sleep(1000);
+        const data = await this.transAudio(id);
+        return data;
+      }
+    } catch (error) {
+      Toast.fail(error);
+      return Promise.reject(error);
+    }
   }
   render() {
-    const { status, recordTime } = this.state;
+    const { status, recordTime, textId } = this.state;
     return (
       <div styleName="record-page">
         <Logo />
@@ -58,14 +95,13 @@ class Index extends React.Component {
               />
               <div styleName="subject-text">
                 <div styleName="tit" />
-            你是乞力马扎罗山顶的雪，我是山脚下不 知名农户家里炉灶上的一团火。你在我心
-            里亘古不变，而我的爱生生不息。想你的 时候，我就努力发热。
-                <div styleName="from">——来自喜茶用户@栖檀w的情书</div>
+                <div dangerouslySetInnerHTML={{ __html: letterText[textId].text }} />
+                <div styleName="from">{letterText[textId].from}</div>
               </div>
               <div styleName="time">TIME</div>
               <div styleName="process-bar">
-                <div styleName="inset" style={{ width: `${Math.min(recordTime, 5000) / 5000 * 100}%` }} />
-                <div styleName="cursor" style={{ left: `${Math.min(recordTime, 5000) / 5000 * 100}%` }} />
+                <div styleName="inset" style={{ width: `${Math.min(recordTime, 60000) / 60000 * 100}%` }} />
+                <div styleName="cursor" style={{ left: `${Math.min(recordTime, 60000) / 60000 * 100}%` }} />
               </div>
             </div>
             {status === RecordStatus.WAITING_RECORD ? (<div styleName="btn-start" onClick={this.startRecord} />) : null}

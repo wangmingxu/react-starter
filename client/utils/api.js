@@ -15,6 +15,7 @@ const ResponseStructure = {
 const CustomResStatus = {
   SUCCESS: 0,
   NO_LOGIN: 2,
+  Polling: 4,
 };
 
 // 添加响应拦截器
@@ -27,7 +28,7 @@ axiosInstance.interceptors.response.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     const { status, msg } = ResponseStructure;
-    if (response[status] === CustomResStatus.SUCCESS) {
+    if ([CustomResStatus.SUCCESS, CustomResStatus.Polling].includes(response[status])) {
       return Promise.resolve(response);
     }
     return Promise.reject(response[msg]);
@@ -58,8 +59,9 @@ function apiConfig(rMap) {
 
 const api = apiConfig({
   addAudio: 'GET /loveletter/addAudio',
-  audioInfo: 'GET /loveletter/info',
-  trans: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
+  loadAudioInfo: 'GET /loveletter/info',
+  transApp: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
+  transWX: 'GET //oauthbiz.lizhi.fm/transWechatAudioNew?tag=brand',
 });
 
 export default api;

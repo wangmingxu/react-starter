@@ -18,7 +18,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/ugc',
+    path: '/ugc/:id',
     component: createComponent(Ugc),
     exact: true,
   },
@@ -28,7 +28,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/poster',
+    path: '/poster/:id',
     component: createComponent(Poster),
     exact: true,
   },

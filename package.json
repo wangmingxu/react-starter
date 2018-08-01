@@ -93,6 +93,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "serialize-javascript": "^1.4.0",
+    "twemoji": "^11.0.0",
     "universal-cookie-express": "^2.1.0",
     "url-search-params-polyfill": "^4.0.1"
   },
