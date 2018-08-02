@@ -72,7 +72,7 @@
     .logo {
         position: absolute;
         left: 68px;
-        top: 1031px;
+        top: 1031/1206*100%;
         width: 152px;
     }
     .scan-tip {
@@ -80,9 +80,16 @@
         color: #313334;
         position: absolute;
         right: 204px;
-        top: 1040px;
+        top: 1040/1206*100%;
         text-align: right;
         font-weight: bold;
+    }
+    .qrcode{
+        position: absolute;
+        top: 1020/1206*100%;
+        width: 96px;
+        height: 96px;
+        right: 77px;
     }
 }
 .btn-tab {
@@ -136,13 +143,6 @@
     [data-lizhi='false'] &{
         display: none;
     }
-}
-.qrcode{
-    position: absolute;
-    top: 1020px;
-    width: 96px;
-    height: 96px;
-    right: 77px;
 }
 .picture{
     width: 100%;

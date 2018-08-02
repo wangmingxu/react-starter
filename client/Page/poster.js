@@ -56,7 +56,7 @@ class Poster extends React.Component {
   save = throttle(() => {
     const { imgData } = this.state;
     lz.saveImage({
-      image: imgData,
+      image: imgData.split(',')[1],
     }).then((ret) => {
       // lz.alt(rst);
       if (ret.status === 'success') {

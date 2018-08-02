@@ -1,7 +1,7 @@
 {
   "name": "loveletter",
   "version": "1.0.0",
-  "versionToken": "base_cityfm_hangzhou_single_dog",
+  "versionToken": "marketing_lover_letter",
   "description": "声音情书",
   "scripts": {
     "start": "npm run dev:ssr",
