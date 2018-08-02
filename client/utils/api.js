@@ -60,6 +60,7 @@ function apiConfig(rMap) {
 const api = apiConfig({
   addAudio: 'GET /loveletter/addAudio',
   loadAudioInfo: 'GET /loveletter/info',
+  loadUser: 'GET //oauthbiz.lizhi.fm/weixin/loadUser?tag=brand',
   transApp: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
   transWX: 'GET //oauthbiz.lizhi.fm/transWechatAudioNew?tag=brand',
 });

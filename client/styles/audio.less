@@ -82,6 +82,7 @@
         right: 204px;
         top: 1040px;
         text-align: right;
+        font-weight: bold;
     }
 }
 .btn-tab {
@@ -120,4 +121,30 @@
     background: url('../assets/loveletter/tip-savePic.png') no-repeat;
     background-size: 100% auto;
     pointer-events: none;
+    [data-lizhi='true'] &{
+        display: none;
+    }
+}
+.btn-save{
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    width: 177px;
+    height: 52px;
+    background: url('../assets/loveletter/btn-save.png') no-repeat;
+    background-size: 100% auto;
+    [data-lizhi='false'] &{
+        display: none;
+    }
+}
+.qrcode{
+    position: absolute;
+    top: 1020px;
+    width: 96px;
+    height: 96px;
+    right: 77px;
+}
+.picture{
+    width: 100%;
+    display: block;
 }

@@ -3,6 +3,7 @@
     background: url('../assets/loveletter/record-bg.png') no-repeat;
     background-size: 100% auto;
     background-position: left center;
+    font-weight: bold;
     .main{
         width: 600px;
         height: 860px;
@@ -28,10 +29,19 @@
             background-size: 100% 100%;
             margin: 0 auto 35px;
             position: relative;
-            padding: 70px 40px 20px;
+            padding: 30px 30px 20px;
             box-sizing: border-box;
             color: #b3451e;
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            .content{
+                width: 100%;
+                text-align: center;
+                max-height: 100%;
+                overflow: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
             .tit{
                 width: 212px;
                 height: 42px;
@@ -72,7 +82,6 @@
                 background: url('../assets/loveletter/process-bar-inset.png') no-repeat;
                 background-size: 100% 100%;
                 transform: translateZ(0);
-                transition: width .2s linear;
             }
             .cursor{
                 width: 35px;
@@ -83,7 +92,6 @@
                 left: 0;
                 transform: translateX(-50%);
                 position: absolute;
-                transition: left .2s linear;
             }
         }
     }

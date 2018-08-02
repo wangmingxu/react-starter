@@ -176,10 +176,9 @@ class RecordManage {
           this.throwError(ErrorType.UPLOAD_FAIL);
         },
       });
+    } else if (window.isApp) {
+      lz.uploadRecordVoice();
     }
-    // else if (window.isApp) {
-    //   lz.uploadRecordVoice();
-    // }
   }
   changeRecordStatus = (status) => {
     this.status = status;

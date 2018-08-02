@@ -2,9 +2,10 @@ import React from 'react';
 import '../styles/letter.less';
 import classNames from 'classnames';
 import Star from 'assets/loveletter/star.png';
-import { playBtnArr, starArr, letterText } from 'constant';
+import { playBtnArr, posterPlayBtnArr, starArr, letterText } from 'constant';
 import { Toast } from 'antd-mobile';
 import player from 'utils/audioPlayer';
+import last from 'lodash/last';
 
 class Letter extends React.Component {
   state = {
@@ -33,18 +34,21 @@ class Letter extends React.Component {
     // this.setState({ status: playStatus.PAUSE });
   }
   render() {
-    const { audioInfo } = this.props;
+    const { audioInfo, displayType, usefor } = this.props;
+    const avatar = displayType === 'dom' ? audioInfo.image : `//oauthbiz.lizhi.fm/flushImage?imgUrl=${audioInfo.image}`;
     return (
-      <div styleName={classNames('book', `theme${audioInfo.theme}`)}>
-        <img
-          src={audioInfo.image}
-          styleName="avatar"
-          alt="avatar"
-        />
+      <div styleName={classNames('book', `theme${audioInfo.theme}`)} data-display={displayType}>
+        <img src={avatar} styleName="avatar" alt="avatar" />
         <div styleName="nickName">{audioInfo.nickName}</div>
-        <img styleName="btn-play" src={playBtnArr[audioInfo.theme - 1]} alt="play" onClick={this.play} />
+        {
+          displayType === 'dom' ?
+            (<img styleName="btn-play" src={playBtnArr[audioInfo.theme - 1]} alt="play" onClick={this.play} />) :
+            (<img styleName="poster-btn-play" src={posterPlayBtnArr[audioInfo.theme - 1]} alt="play" />)
+        }
         <div styleName="card">
-          {'textId' in audioInfo ? <div dangerouslySetInnerHTML={{ __html: letterText[audioInfo.textId].text }} /> : null}
+          {['record', 'kol'].includes(usefor) ? (<div dangerouslySetInnerHTML={{ __html: letterText[audioInfo.textId].text }} />) :
+            (<div dangerouslySetInnerHTML={{ __html: last(letterText).text }} />)
+          }
           <div styleName="defeat">你的声音情书已经成功撩了<span styleName="num">{(`${audioInfo.num}`).padStart(4, '0')}</span>个人</div>
         </div>
         <div styleName="voice-index">

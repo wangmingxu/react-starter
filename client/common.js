@@ -4,7 +4,7 @@ import './styles/global.less';
 import FastClick from 'fastclick';
 import client from './utils/ua';
 import { wxConfig, appConfig } from './config';
-import { fundebugApiKey, baiduTongjiID } from './constant';
+import { fundebugApiKey, baiduTongjiID, wxidKey } from './constant';
 import fundebug from 'fundebug-javascript';
 import { axiosInstance } from 'utils/api';
 import promiseFinally from 'promise.prototype.finally';
@@ -39,10 +39,11 @@ axiosInstance.interceptors.request.use((config) => {
       [dataKey]: Object.assign(config[dataKey] || {}, { token: get(store.getState(), ['Global', 'token']) }),
     });
   } else if (window.isWX) {
-    const qs = new URLSearchParams(location.search);
-    const openId = qs.get('openid');
+    // const qs = new URLSearchParams(location.search);
+    // const openid = qs.get('openid');
+    const openid = localStorage.getItem(wxidKey);
     Object.assign(config, {
-      [dataKey]: Object.assign(config[dataKey] || {}, { openId }),
+      [dataKey]: Object.assign(config[dataKey] || {}, { openid }),
     });
   }
   return config;
@@ -51,8 +52,8 @@ axiosInstance.interceptors.request.use((config) => {
 window.shareData = {
   url: window.location.href.replace(location.hash, ''),
   link: window.location.href,
-  title: '声音情书',
-  desc: '快来测试一下',
+  title: '纸短情长，不如一声一书',
+  desc: '点击录制声音情书，一起甜蜜开撩吧！',
   'image-url': shareCover,
   imgUrl: shareCover,
 };

@@ -1,8 +1,8 @@
 {
-  "name": "single-dog",
+  "name": "loveletter",
   "version": "1.0.0",
   "versionToken": "base_cityfm_hangzhou_single_dog",
-  "description": "全国单身踢馆歌手大赛",
+  "description": "声音情书",
   "scripts": {
     "start": "npm run dev:ssr",
     "dev:ssr": "better-npm-run dev:ssr",
@@ -73,6 +73,7 @@
     "clipboard": "^2.0.1",
     "fastclick": "^1.0.6",
     "fundebug-javascript": "^1.1.2",
+    "html2canvas": "^1.0.0-alpha.12",
     "jshashes": "^1.0.7",
     "lib-flexible": "^0.3.2",
     "lodash": "^4.17.4",
@@ -93,7 +94,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "serialize-javascript": "^1.4.0",
-    "twemoji": "^11.0.0",
     "universal-cookie-express": "^2.1.0",
     "url-search-params-polyfill": "^4.0.1"
   },

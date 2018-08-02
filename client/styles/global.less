@@ -178,6 +178,12 @@
         border-radius: 10px;
         box-shadow: 10.5px 18.187px 49px 0px rgba(244, 232, 219, 0.39);
         padding: 50px 0 30px;
+        font-weight: bold;
+        .box{
+            height: 100%;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
         .activity-theme {
             text-align: center;
             font-size: 28px;
@@ -186,7 +192,7 @@
             margin-top: 60px;
             .item {
                 text-align: left;
-                font-size: 24px;
+                font-size: 20px;
                 line-height: 32px;
                 background: url('../assets/loveletter/detail-content-bg.png')
                     no-repeat;
@@ -201,8 +207,7 @@
                         no-repeat;
                     background-size: 100% auto;
                     width: 212px;
-                    height: 42px;
-                    line-height: 38px;
+                    line-height: 42px;
                     color: #fff;
                     font-size: 26px;
                     position: absolute;
@@ -268,6 +273,19 @@
                 color: #628585;
                 font-size: 28px;
             }
+        }
+    }
+    .upload-dialog{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+        font-size: 40px;
+        color: #fff;
+        .icon{
+            width: 563px;
+            margin-top: 20px;
         }
     }
     .openbrowser {
