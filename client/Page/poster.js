@@ -27,7 +27,9 @@ class Poster extends React.Component {
   loadData = async () => {
     try {
       const { data } = await api.loadAudioInfo({ id: this.audioId });
-      this.setState({ audioInfo: data });
+      await new Promise((resolve) => {
+        this.setState({ audioInfo: data }, resolve);
+      });
     } catch (error) {
       Toast.fail(error);
       return Promise.reject(error);
