@@ -50,8 +50,8 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 window.shareData = {
-  url: window.location.href.replace(location.hash, ''),
-  link: window.location.href,
+  url: window.location.href.replace(location.hash, '').replace(location.search,''),
+  link: window.location.href.replace(location.hash, '').replace(location.search,''),
   title: '纸短情长，不如一声一书',
   desc: '点击录制声音情书，一起甜蜜开撩吧！',
   'image-url': shareCover,
