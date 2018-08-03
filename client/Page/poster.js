@@ -50,6 +50,7 @@ class Poster extends React.Component {
       return imgData;
     } catch (error) {
       Toast.fail(error);
+      fundebug.notifyError(error);
       return Promise.reject(error);
     }
   }
@@ -61,8 +62,10 @@ class Poster extends React.Component {
       // lz.alt(rst);
       if (ret.status === 'success') {
         console.log('保存成功');
+      } else {
+        fundebug.notifyError(ret);
       }
-    });
+    }).catch(fundebug.notifyError);
     _hmt.push(['_trackEvent', '页面', '点击', '保存图片']);
   }, 1500)
   render() {

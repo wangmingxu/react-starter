@@ -54,6 +54,7 @@
     "wx": true,
     "lz": true,
     "_hmt": true,
-    "LizhiJSBridge": true
+    "LizhiJSBridge": true,
+    "fundebug": true
   }
 }
