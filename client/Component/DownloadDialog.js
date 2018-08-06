@@ -3,7 +3,7 @@ import { openWithAction, getDownloadUrl } from 'utils/openApp';
 import OpenBrowserGuide from 'Component/OpenBrowserGuide';
 import downloadIcon from 'assets/download_icon.png';
 import { axiosInstance } from 'utils/api';
-import { MD5 } from 'jshashes';
+import md5 from 'md5';
 import Clipboard from 'clipboard';
 
 const download = () => {
@@ -23,7 +23,7 @@ class DownloadDialog extends React.PureComponent {
     if (newProps.status) {
       const url = window.isPre ? 'https://commandpre.lizhi.fm/get_command_code' : 'https://command.lizhi.fm/get_command_code';
       const { action } = newProps;
-      const requestId = new MD5().hex(action.url || action.id);
+      const requestId = md5(action.url || action.id);
       const rst = await axiosInstance.get(url, {
         params: {
           requestId,
