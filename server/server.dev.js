@@ -10,8 +10,6 @@ require('source-map-support').install();
 require('@babel/register')({
   presets: [['@babel/preset-env', {
     modules: 'commonjs',
-  }], ['@babel/preset-stage-0', {
-    decoratorsLegacy: true,
   }]],
   plugins: [
     ['module-resolver', {

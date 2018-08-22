@@ -19,16 +19,17 @@
         "include": [],
         "exclude": []
       }
-    ],
-    ["@babel/preset-stage-0",{
-      "decoratorsLegacy": true
-    }]
+    ]
   ],
   "plugins": [
     /**react热更新*/
     "react-hot-loader/babel",
     /**转换jsx**/
-    "transform-react-jsx",
+    "@babel/plugin-transform-react-jsx",
+    /**支持装饰器语法*/
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    /**支持class-properties语法*/
+    "@babel/plugin-proposal-class-properties",
     [
       "react-css-modules",
       {
