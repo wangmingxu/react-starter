@@ -8,10 +8,9 @@ import routes from 'Route';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { CookiesProvider } from 'react-cookie';
-import { axiosInstance } from 'utils/api';
-import { initJWTInterceptor } from 'utils/jwtInterceptor';
-import { checkLogin } from 'utils/auth';
-import { collectErrMsg, toggleAuthStatus } from 'Action/Global';
+import { registerInterceptor, unregisterInterceptor } from 'utils/api';
+import { serverJWTInterceptor } from 'utils/JWTInterceptor';
+import { collectErrMsg, checkAuthStatus } from 'Action/Global';
 import { UseragentProvider, ClientDetect } from 'rc-useragent';
 
 const router = express.Router();
@@ -20,10 +19,6 @@ router.use(async (req, res) => {
   const store = req.store || configureStore();
   const { universalCookies, useragent } = req;
   const client = new ClientDetect(useragent.source);
-  const isLogin = await checkLogin(client, universalCookies);
-  store.dispatch(toggleAuthStatus(isLogin));
-  axiosInstance.defaults.baseURL = process.env.SERVER_URL;// 兼容客户端以相对路径进行请求的情况
-  const axiosRequestHook = initJWTInterceptor(axiosInstance, client, universalCookies);
 
   const currentRoute = matchRoutes(routes, req.originalUrl.replace(/\?((\w+)\=(\w+)\&?)+/g, ''));
   // console.log(currentRoute);
@@ -36,6 +31,8 @@ router.use(async (req, res) => {
   // console.log(promises);
 
   try {
+    await store.dispatch(checkAuthStatus(client, universalCookies));
+    req.axiosRequestHook = registerInterceptor(serverJWTInterceptor(client, universalCookies));
     await Promise.all(promises)
       .then(() => {
         const context = {};
@@ -71,7 +68,7 @@ router.use(async (req, res) => {
     store.dispatch(collectErrMsg(error));// 同步错误信息到客户端
     res.render('index', { root: null, store: serialize(store.getState()) });
   } finally {
-    axiosInstance.interceptors.request.eject(axiosRequestHook);
+    unregisterInterceptor(req.axiosRequestHook);
   }
 });
 

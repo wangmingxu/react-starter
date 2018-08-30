@@ -53,7 +53,7 @@ const chokidar = require('chokidar');
 
 const { RENDER_MODE } = process.env;
 
-process.env.SERVER_URL = `http://${utils.getIP()}:${dev.port}`;
+process.env.SERVER_URL = dev.SERVER_URL;
 
 const compiler = webpack(config);
 

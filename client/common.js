@@ -3,8 +3,8 @@ import './styles/global.less';
 import FastClick from 'fastclick';
 import { wxConfig, appConfig } from './config';
 import { fundebugApiKey, baiduTongjiID } from './constant';
-import { axiosInstance } from 'utils/api';
-import { initJWTInterceptor } from 'utils/jwtInterceptor';
+import { registerInterceptor } from 'utils/api';
+import { clientJWTInterceptor } from 'utils/JWTInterceptor';
 import shareCover from './assets/share_cover.jpg';
 import ClientDetect from 'rc-useragent/ClientDetect';
 
@@ -41,7 +41,7 @@ window.debug = location.search.includes('debug');
 window.isPre = location.host.includes('pre') || location.search.includes('pre');
 
 // 请求拦截器,获取token并添加到请求参数中
-initJWTInterceptor(axiosInstance);
+registerInterceptor(clientJWTInterceptor);
 
 window.shareData = {
   url: location.href.replace(location.hash, ''),
