@@ -4,7 +4,6 @@ import * as Global from 'Action/Global';
 import { bindActionCreators } from 'redux';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import { checkLogin, applyLogin } from 'utils/auth';
 
 /**
  *
@@ -19,12 +18,9 @@ const WithLogin = (forceLogin = true) => (Wrapper) => {
       super(props);
     }
     async componentDidMount() {
-      const status = await checkLogin();
-      if (status) {
-        this.props.toggleAuthStatus(true);
-      } else if (forceLogin) {
-        await applyLogin();
-        this.props.toggleAuthStatus(true);
+      const isLogin = await this.props.checkAuthStatus();
+      if (!isLogin && forceLogin) {
+        await this.props.login();
       }
     }
     render() {
