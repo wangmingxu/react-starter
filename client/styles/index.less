@@ -1,20 +1,43 @@
 .index-page {
     height: 100%;
+    overflow: auto;
+    position: relative;
     background-color: #2c49af;
+    .activity-detail{
+        font-size: 24px;
+        text-decoration: underline;
+        color: #fff;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        font-weight: bold;
+    }
+    .notice-row{
+        display: flex;
+        .rest-votes{
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 70px;
+            margin-right: 18px;
+        }
+    }
     .notice-bar {
+        flex: 1;
         font-size: 20px;
         background-color: transparent;
         font-weight: bold;
+        height: 70px;
+        line-height: 70px;
     }
     .user-card {
-        border-width: 1.56px;
-        border-color: rgb(0, 0, 0);
-        border-style: solid;
+        border: 2px solid black;
         border-radius: 12px;
         background-color: rgb(43, 3, 135);
-        width: 712.88px;
-        height: 512.88px;
-        margin: 0 auto;
+        width: 715px;
+        height: 505px;
+        margin: 0 auto 38px;
         padding: 30px 15px 0px;
         box-sizing: border-box;
         .user-info{
@@ -29,6 +52,16 @@
                 position: absolute;
                 top: 26px;
                 left: 474px;
+                font-size: 28px;
+                font-weight: bold;
+                text-align: center;
+                line-height: 56px;
+                box-sizing: border-box;
+                border-radius: 28px;
+                &:active{
+                    background: #2eabee;
+                    border: 2px solid black;
+                }
             }
             .avatar{
                 width: 140px;
@@ -48,6 +81,16 @@
                     background: url('../assets/campus-line/btn-login.png') no-repeat;
                     background-size: 100% auto;
                     margin-bottom: 15px;
+                    font-size: 24px;
+                    font-weight: bold;
+                    text-align: center;
+                    line-height: 45px;
+                    box-sizing: border-box;
+                    border-radius: 45/2px;
+                    &:active{
+                        background: #ff5680;
+                        border: 2px solid black;
+                    }
                 }
                 .rest-votes{
                     font-weight: bold;
@@ -71,6 +114,7 @@
                 font-weight: bold;
                 text-align: center;
                 position: relative;
+                margin-bottom: 15px;
                 &::before{
                     content: "";
                     display: block;
@@ -100,6 +144,48 @@
     }
     .laba {
         width: 31px;
+        height: 23px;
+    }
+    .tabs{
+        position: sticky;
+        top: 0px;
+        left: 35/2px;
+        z-index: 10;
+        margin: 0 auto 34px;
+        width: 715px;
+        // height: 73px;
+        // line-height: 79px;
+        // border: 2px solid rgb(47, 77, 187);
+        line-height: 73px;
+        box-sizing: border-box;
+        font-size: 28px;
+        color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background-color: #2b0387;
+        .item{
+            text-align: center;
+            flex: 1;
+            border-radius: 10px;
+            &.active{
+                position: relative;
+                background-image: linear-gradient( -11deg, rgb(152,139,227) 2%, rgb(112,124,231) 25%, rgb(71,108,234) 56%);
+                // &::after{
+                //     position: absolute;
+                //     display: block;
+                //     content: '高校热度榜';
+                //     left: 50%;
+                //     top: 50%;
+                //     transform: translate(-50%,-50%);
+                //     border-radius: 10px;
+                //     width: 100%;
+                //     height: 73px;
+                //     background-image: linear-gradient( -11deg, rgb(152,139,227) 2%, rgb(112,124,231) 25%, rgb(71,108,234) 56%);
+                // }
+            }
+        }
     }
 }
 .banner {

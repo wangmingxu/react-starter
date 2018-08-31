@@ -1,0 +1,127 @@
+@keyframes addvotes{
+    from{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    to{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+.community-item {
+    position: relative;
+    width: 100%;
+    background-color: rgb(43, 3, 135);
+    overflow: hidden;
+    height: 200px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    border-radius: 10px;
+    .cnt {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 715px;
+        height: 100%;
+        box-sizing: border-box;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        .rank {
+            margin-left: 35px;
+            margin-right: 17px;
+            line-height: 30px;
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            border-radius: 8px;
+            background-image: linear-gradient(
+                to top,
+                rgb(196, 138, 0) 0%,
+                rgb(255, 180, 0) 56%,
+                rgb(255, 211, 57) 99%
+            );
+        }
+        .avatar{
+            width: 110px;
+            height: 110px;
+            border-radius: 50% 50%;
+            border: 5px solid rgb(47, 77, 187);
+            margin-right: 15px;
+            box-sizing: border-box;
+        }
+        .info{
+            width: 475px;
+            .name{
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 12px;
+            }
+            .votes{
+                font-size: 22px;
+                margin-bottom: 12px;
+                .add{
+                    animation: addvotes 1s forwards;
+                    display: inline-block;
+                }
+            }
+            .operation{
+                display: flex;
+                justify-content: flex-end;
+                .btn{
+                    width: 117px;
+                    height: 45px;
+                    box-sizing: border-box;
+                    line-height: 45px;
+                    border-radius: 45/2px;
+                    text-align: center;
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-right: 40px;
+                    position: relative;
+                    overflow: hidden;
+                    &:last-child{
+                        margin-right: 0px;
+                    }
+                }
+                .btn-listen{
+                    background: url('../assets/campus-line/btn-listen.png') no-repeat;
+                    background-size: 100% auto;
+                    background-position: center;
+                    &:active{
+                        background: #2eabee;
+                        border: 2px solid black;
+                    }
+                }
+                .btn-vote{
+                    background: url('../assets/campus-line/btn-vote.png') no-repeat;
+                    background-size: 100% auto;
+                    background-position: center;
+                    &:active{
+                        background: #71cf64;
+                        border: 2px solid black;
+                    }
+                    // &::after{
+                    //     content: '贡献';
+                    //     display: block;
+                    //     position: absolute;
+                    //     width: 100%;
+                    //     text-align: center;
+                    //     color: #fff;
+                    //     left: 0;
+                    //     top: 0;
+                    // }
+                }
+                .btn-share{
+                    background: url('../assets/campus-line/btn-share.png') no-repeat;
+                    background-size: 100% auto;
+                    background-position: center;
+                    &:active{
+                        background: #e591b9;
+                        border: 2px solid black;
+                    }
+                }
+            }
+        }
+    }
+}
