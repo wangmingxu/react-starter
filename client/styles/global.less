@@ -71,7 +71,7 @@
     }
     .fade-enter.fade-enter-active {
         opacity: 1;
-        transition: all 1s ease-in;
+        transition: all .5s ease-in;
     }
     .fade-exit,
     .fade-leave {
@@ -80,7 +80,7 @@
     .fade-leave.fade-exit-active,
     .fade-leave.fade-leave-active {
         opacity: 0;
-        transition: all 1s ease-out;
+        transition: all .5s ease-out;
     }
     .noselect {
         -webkit-touch-callout: none; /* iOS Safari */
@@ -98,6 +98,7 @@
         background-color: #fff;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
+        background: #2c49af;
     }
     .lz-logo {
         position: absolute;
@@ -105,5 +106,64 @@
         top: 12px;
         width: 118px;
         height: 43px;
+    }
+    .routerWrapper{
+        .download-dialog{
+            width: 620px;
+            height: 390px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background: rgb(43, 3, 135);
+            .download-icon{
+                width: 108px;
+                margin: 30px auto 20px;
+                display: block;
+            }
+            .download-tip{
+                color: #fff;
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 53px;
+            }
+            .operation{
+                display: flex;
+                justify-content: center;
+            }
+            .btn{
+                border: 1px solid black;
+                border-radius: 32px;
+                width: 235px;
+                line-height: 63px;
+                font-size: 28px;
+                color: #fff;
+                text-align: center;
+                font-weight: bold;
+                &.download{
+                    background-color: #e591b9;
+                    margin-right: 65px;
+                    box-shadow: -9px -9px 0 inset #b97595;
+                }
+                &.open{
+                    background-color: #2eabee;
+                    box-shadow: -9px -9px 0 inset #206cc0;
+                }
+            }
+        }
+    }
+    .banner {
+        width: 100%;
+        height: 490px;
+        background: url('../assets/campus-line/banner.png') no-repeat;
+        background-size: 100% auto;
+        position: relative;
+    }
+    .activity-detail{
+        font-size: 24px;
+        text-decoration: underline;
+        color: #fff;
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        font-weight: bold;
     }
 }

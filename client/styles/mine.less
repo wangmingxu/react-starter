@@ -1,0 +1,42 @@
+@import './mixin.less';
+
+.page-mine{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .panl{
+        #panl-mixin.panl();
+        flex: 1;
+        margin: 25px auto;
+        .panl-title {
+            #panl-mixin.panl-title();
+            .avatar-wrapper {
+                #panl-mixin.avatar-wrapper();
+            }
+            .nickname {
+                #panl-mixin.nickname();
+            }
+            .avatar {
+                #panl-mixin.avatar();
+            }
+        }
+        .panl-content{
+            #panl-mixin.panl-content();
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            .item{
+                border: none;
+                margin: 0px;
+                height: 160px;
+            }
+            .empty{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                color: #fff;
+            }
+        }
+    }
+}

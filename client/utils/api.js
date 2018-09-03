@@ -33,8 +33,19 @@ function apiConfig(rMap) {
 }
 
 const api = apiConfig({
-  getCity: 'GET /hangzhou/singleDog/getCity',
-  listLuckyDoy: 'POST /activity/listLuckyDoy',
+  addAudio: 'GET /newvoice/addAudio', // 发布节目 token 用户token   title节目标题   audio 音频地址   mediaId 音频id（uploadid）  duration  时长  sId 学校id
+  allIn: 'GET /newvoice/allIn', // 给节目投入所有贡献值 token 用户token   id 节目id
+  allInSchool: 'GET /newvoice/allInSchool', // 给学校投入所有贡献值 token 用户token   sId 学校id
+  vote: 'GET /newvoice/vote', // 给节目投入10贡献值 token 用户token   id 节目id
+  voteSchool: 'GET /newvoice/voteSchool', // 给学校投入10贡献值 token 用户token   sId 学校id
+  getLoginVote: 'GET /newvoice/getLoginVote', // 领取每天登陆的贡献值 token 用户token
+  getShareVote: 'GET /newvoice/getShareVote', // 领取每天分享的贡献值 token 用户token
+  listAllAudio: 'GET /newvoice/listAllAudio', // 所有节目榜单 page 页数  pageSize 每页大小（可不传，默认10）  nickName 查询的昵称（可不传）
+  listMyAudio: 'GET /newvoice/listMyAudio', // 列出个人的节目列表 page 页数  pageSize 每页大小（可不传，默认10）  token 用户token
+  listAllSchool: 'GET /newvoice/listAllSchool', // 列出所有的学校
+  listSchool: 'GET /newvoice/listSchool', // 列出学校榜单 page 页数  pageSize 每页大小（可不传，默认10）  nickName 查询的学校名（可不传）
+  info: 'GET /newvoice/info', // 音频节目信息 id 节目id
+  mine: 'GET /newvoice/mine', // 首页的个人信息（贡献值的记录，最近贡献的学校等) token 用户token
   trans: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
 });
 

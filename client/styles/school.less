@@ -1,0 +1,64 @@
+@import './mixin.less';
+.page-school{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .btn-back{
+       padding-left: 30px;
+       background: url('../assets/campus-line/icon-arrow-left.png') no-repeat;
+       background-size: 15px 20px;
+       background-position: 10px center;
+       color: #fff;
+       position: absolute;
+       top: 25px;
+       left: 10px; 
+    }
+    .scholl-name{
+          border: 2px solid rgb(36, 68, 164);
+          border-right: none;
+          position: absolute;
+          bottom: 0px;
+          right: 0px;
+          border-radius: 28px 0 0 28px;
+          background-color: rgb(236, 140, 176);   
+          font-size: 30px;
+          font-weight: bold;
+          padding: 0 25px;
+          line-height: 50px;
+          color: #fff;                  
+    }
+    .notice-bar{
+        #notice-row-mixin.container();
+        .cl-notice {
+            #notice-row-mixin.cl-notice();
+        }    
+        .rest-votes{
+            #notice-row-mixin.rest-votes();
+        }
+        .laba {
+            #notice-row-mixin.laba();
+        }
+    }
+    .search-box{
+        .search-box-mixin();
+        margin: 0px auto 20px;
+    }
+    .card{
+        flex: 1;
+        margin: 0 auto 25px;
+        width: 715px;
+        border-radius: 12px;
+        border: 2px solid black;
+        box-sizing: border-box;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        .item{
+            border: none;
+            margin: 0px;
+            height: 160px;
+        }
+    }
+    .btn-join{
+        .ft-btn-mixin();
+    }
+}

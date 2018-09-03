@@ -1,9 +1,10 @@
-@keyframes addvotes{
-    from{
+@import './mixin.less';
+@keyframes addvotes {
+    from {
         opacity: 1;
         transform: translateX(0px);
     }
-    to{
+    to {
         opacity: 0;
         transform: translateX(100%);
     }
@@ -17,6 +18,31 @@
     border: 2px solid black;
     box-sizing: border-box;
     border-radius: 10px;
+    margin-bottom: 15px;
+    &:last-child {
+        margin-bottom: 0px;
+    }
+    &:nth-child(1) {
+        .rank{
+            background-image: linear-gradient(
+                to top,
+                rgb(196, 138, 0) 0%,
+                rgb(255, 180, 0) 56%,
+                rgb(255, 211, 57) 99%
+            );
+        }
+    }
+    &:nth-child(2) {
+        .rank{
+            background-image: linear-gradient( to top, rgb(173,173,173) 0%, rgb(219,219,219) 73%);
+
+        }
+    }
+    &:nth-child(3) {
+        .rank{
+            background-image: linear-gradient( to top, rgb(173,173,173) 0%, rgb(160,109,109) 0%, rgb(210,161,159) 57%, rgb(243,188,186) 98%);
+        }
+    }
     .cnt {
         position: absolute;
         left: 50%;
@@ -35,14 +61,8 @@
             width: 30px;
             text-align: center;
             border-radius: 8px;
-            background-image: linear-gradient(
-                to top,
-                rgb(196, 138, 0) 0%,
-                rgb(255, 180, 0) 56%,
-                rgb(255, 211, 57) 99%
-            );
         }
-        .avatar{
+        .avatar {
             width: 110px;
             height: 110px;
             border-radius: 50% 50%;
@@ -50,73 +70,57 @@
             margin-right: 15px;
             box-sizing: border-box;
         }
-        .info{
+        .info {
             width: 475px;
-            .name{
+            .name {
                 font-size: 24px;
                 font-weight: bold;
                 margin-bottom: 12px;
             }
-            .votes{
+            .votes {
                 font-size: 22px;
                 margin-bottom: 12px;
-                .add{
+                .add {
                     animation: addvotes 1s forwards;
                     display: inline-block;
                 }
             }
-            .operation{
+            .operation {
                 display: flex;
                 justify-content: flex-end;
-                .btn{
-                    width: 117px;
-                    height: 45px;
-                    box-sizing: border-box;
-                    line-height: 45px;
-                    border-radius: 45/2px;
-                    text-align: center;
-                    font-size: 24px;
-                    font-weight: bold;
+                .btn {
+                    .btn-mixin();
                     margin-right: 40px;
-                    position: relative;
-                    overflow: hidden;
-                    &:last-child{
+                    &:last-child {
                         margin-right: 0px;
                     }
                 }
-                .btn-listen{
-                    background: url('../assets/campus-line/btn-listen.png') no-repeat;
+                .btn-listen {
+                    background: url('../assets/campus-line/btn-listen.png')
+                        no-repeat;
                     background-size: 100% auto;
                     background-position: center;
-                    &:active{
+                    &:active {
                         background: #2eabee;
                         border: 2px solid black;
                     }
                 }
-                .btn-vote{
-                    background: url('../assets/campus-line/btn-vote.png') no-repeat;
+                .btn-vote {
+                    background: url('../assets/campus-line/btn-vote.png')
+                        no-repeat;
                     background-size: 100% auto;
                     background-position: center;
-                    &:active{
+                    &:active {
                         background: #71cf64;
                         border: 2px solid black;
                     }
-                    // &::after{
-                    //     content: '贡献';
-                    //     display: block;
-                    //     position: absolute;
-                    //     width: 100%;
-                    //     text-align: center;
-                    //     color: #fff;
-                    //     left: 0;
-                    //     top: 0;
-                    // }
                 }
-                .btn-share{
-                    background: url('../assets/campus-line/btn-share.png') no-repeat;
+                .btn-share {
+                    background: url('../assets/campus-line/btn-share.png')
+                        no-repeat;
                     background-size: 100% auto;
                     background-position: center;
-                    &:active{
+                    &:active {
                         background: #e591b9;
                         border: 2px solid black;
                     }

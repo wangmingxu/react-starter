@@ -1,37 +1,67 @@
 import React from 'react';
-import api from 'utils/api';
+// import api from 'utils/api';
 import { connect } from 'react-redux';
-import * as demoAction from 'Action/Demo';
+import { bindActionCreators } from 'redux';
 import '../styles/index.less';
-import PropTypes from 'prop-types';
 import { NoticeBar, Flex, ActivityIndicator } from 'antd-mobile';
-import laba from 'assets/campus-line/laba.png';
 import Community from 'Component/Community';
-import Logo from 'Component/Logo';
 import InfiniteScroll from 'react-infinite-scroller';
+import DownloadDialog from 'Component/DownloadDialog';
+import { withUserAgent } from 'rc-useragent';
+import Banner from 'Component/Banner';
+import classNames from 'classnames';
+import * as mineActions from 'Action/Mine';
 
 @connect(
-  state => ({ position: state.demo.position }),
-  dispatch => ({ dispatch }),
+  state => ({ mine: state.Mine }),
+  dispatch => bindActionCreators(mineActions, dispatch),
 )
+@withUserAgent
 class Index extends React.Component {
-  static loadData = async (dispatch) => {
-    const { data: position } = await api.getCity({ test: 1 });
-    dispatch(demoAction.setPosition(position));
-  };
-  static propTypes = {
-    position: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      downloadDialog: {
+        status: false,
+        action: {},
+      },
+      tab: 1,
+    };
+  }
   componentDidMount() {
-    this.constructor.loadData(this.props.dispatch);
+    this.props.loadMineInfo();
   }
   loadMore = (page) => {
     console.log(page);
   };
+  closeDownloadDl = () => {
+    this.setState({ downloadDialog: { status: false } });
+  }
+  gotoRecord = () => {
+    if (this.props.ua.isWeiXin) {
+      this.setState({
+        downloadDialog: {
+          status: true,
+          action: {},
+        },
+      });
+    } else {
+      this.props.history.push('/record');
+    }
+  }
+  fixIpt = ({ target }) => {
+    setTimeout(() => {
+      target.scrollIntoView();
+    }, 500);
+  }
+  changeTab = (tab) => {
+    this.setState({ tab });
+  }
   render() {
+    const { downloadDialog, tab } = this.state;
     return (
       <div styleName="index-page">
+        <DownloadDialog {...downloadDialog} onClose={this.closeDownloadDl} />
         <div styleName="scroller">
           <InfiniteScroll
             pageStart={0}
@@ -45,14 +75,12 @@ class Index extends React.Component {
               </Flex>
             }
           >
-            <Logo />
-            <div styleName="activity-detail">活动详情</div>
-            <div styleName="banner" />
-            <div styleName="notice-row">
+            <Banner logo detail />
+            <div styleName="notice-bar">
               <NoticeBar
-                icon={<img src={laba} alt="laba" styleName="laba" />}
+                icon={<div styleName="laba" />}
                 marqueeProps={{ loop: true, style: { color: '#80f2fa' } }}
-                styleName="notice-bar"
+                styleName="cl-notice"
               >
                 为你社团打CALL，寻找最美新声
               </NoticeBar>
@@ -77,16 +105,36 @@ class Index extends React.Component {
               </div>
               <div styleName="my-community">
                 <div styleName="title">我支持的社团</div>
-                <Community style={{ backgroundColor: '#3c04bd' }} />
+                <div><Community style={{ backgroundColor: '#3c04bd' }} /></div>
               </div>
             </div>
             <div styleName="tabs">
-              <div styleName="item active">高校热度榜</div>
-              <div styleName="item">个人新声榜</div>
+              <div
+                styleName={classNames('item', {
+                  active: tab === 1,
+                })}
+                onClick={() => {
+                  this.changeTab(1);
+                }}
+              >高校热度榜</div>
+              <div
+                styleName={classNames('item', {
+                  active: tab === 2,
+                })}
+                onClick={() => {
+                  this.changeTab(2);
+                }}
+              >个人新声榜</div>
+            </div>
+            <input styleName="search-box" placeholder="搜索你喜爱的声音，为它打call吧" onFocus={this.fixIpt} />
+            <div styleName="list">
+              {
+                new Array(10).fill({}).map((el, i) => <Community key={i} />)
+              }
             </div>
           </InfiniteScroll>
         </div>
-        <div styleName="btn-join">参与上传</div>
+        {tab === 2 ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
       </div>
     );
   }

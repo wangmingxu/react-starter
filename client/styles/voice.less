@@ -1,0 +1,96 @@
+@import './mixin.less';
+.voice-page {
+    height: 100%;
+    position: relative;
+    .panl {
+        #panl-mixin.panl();
+        margin: 0;
+        height: 585px;
+        position: absolute;
+        top: 505/1206*100%;
+        left: 50%;
+        transform: translateX(-50%);
+        [data-lizhi='false'][data-platform='IPhone'] &{
+            top: 505px;
+            transform-origin: 50% 0;
+            transform: translateX(-50%) scale(.92);
+        }
+        .panl-title {
+            #panl-mixin.panl-title();
+            .avatar-wrapper {
+                #panl-mixin.avatar-wrapper();
+            }
+            .nickname {
+                #panl-mixin.nickname();
+            }
+            .avatar {
+                #panl-mixin.avatar();
+            }
+            .btn-control {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background: url(../assets/play.svg) no-repeat;
+                background-size: 100% auto;
+                background-position: center;
+                width: 150px;
+                height: 150px;
+                &.play {
+                    background-image: url('../assets/play.svg');
+                }
+                &.pause {
+                    background-image: url('../assets/pause.svg');
+                    background-size: 80px auto;
+                }
+            }
+        }
+        .panl-content {
+            #panl-mixin.panl-content();
+            padding: 30px 60px 0;
+            font-size: 28px;
+            color: #fff;
+            .row {
+                margin-bottom: 20px;
+                display: flex;
+                &:nth-last-child(2) {
+                    margin-bottom: 35px;
+                }
+                .cl1 {
+                    flex: 1.5;
+                }
+                .cl2 {
+                    flex: 1;
+                }
+            }
+            .btn {
+                .btn-mixin(204px,69px,34px);
+            }
+            .btn-vote {
+                background: url('../assets/campus-line/btn-vote-lg.png')
+                    no-repeat;
+                background-size: 100% auto;
+                &:active{
+                    background: #71cf64;
+                    border: 2px solid black;
+                }
+            }
+            .btn-share {
+                background: url('../assets/campus-line/btn-share-lg.png')
+                    no-repeat;
+                background-size: 100% auto;
+                &:active{
+                    background: #e591b9;
+                    border: 2px solid black;
+                }
+            }
+        }
+    }
+    .btn-back {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        .ft-btn-mixin();
+    }
+}

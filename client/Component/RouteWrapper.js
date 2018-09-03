@@ -22,11 +22,10 @@ class RouteWrapper extends React.Component {
     }
   }
   render() {
-    const { location, history } = this.props;
-    const animateCls = history.action === 'PUSH' ? 'left' : 'right';
+    const { location } = this.props;
     return (
       <ReactCSSTransitionGroup
-        transitionName={animateCls}
+        transitionName="fade"
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
         component={React.Fragment}

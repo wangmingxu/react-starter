@@ -1,0 +1,39 @@
+.vote-dialog{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 620px;
+    height: 370px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: #2b0387;
+    padding-top: 60px;
+    color: #fff;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    .tip{
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 55px;
+    } 
+    .btn{
+        text-align: center;
+        width: 307px;
+        line-height: 73px;
+        height: 73px;
+        background: url('../assets/campus-line/btn-vote-blue.png') no-repeat;
+        background-size: 100% auto;
+        margin: 0 auto 36px;
+        font-size: 32px;
+        font-weight: bold;
+        border-radius: 73/2px;
+        box-sizing: border-box;
+        &:last-child{
+            margin-bottom: 0px;
+        }
+        &:active{
+            background: #2eabee;
+            border: 2px solid black;
+        }
+    }
+}

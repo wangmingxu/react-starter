@@ -1,0 +1,111 @@
+#panl-mixin() {
+    .panl {
+        width: 715px;
+        height: 600px;
+        background: rgb(43, 3, 135);
+        border: 2px solid black;
+        border-radius: 10px;
+        margin: 0px auto;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+    .panl-title {
+        height: 235px;
+        background: #391f9d;
+        padding-top: 10px;
+        box-sizing: border-box;
+    }
+    .avatar-wrapper {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid #4778d2;
+        margin: 0px auto 15px;
+        display: block;
+        position: relative;
+    }
+    .nickname {
+        text-align: center;
+        font-size: 28px;
+        color: #fff;
+    }
+    .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    .panl-content {
+        flex: 1;
+        box-sizing: border-box;
+    }
+}
+#notice-row-mixin() {
+    .container{
+        display: flex;  
+    }
+    .cl-notice {
+        flex: 1;
+        font-size: 22px;
+        background-color: transparent;
+        font-weight: bold;
+        height: 70px;
+        line-height: 70px;
+    }
+    .rest-votes{
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+        line-height: 70px;
+        margin-right: 18px;
+    }
+    .laba{
+        width: 31px;
+        height: 23px;
+        background: url('../assets/campus-line/laba.png') no-repeat;
+        background-size: 100% auto;
+    }
+}
+.center-container-mixin() {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-box-mixin() {
+    display: block;
+    width: 688px;
+    height: 60px;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding-left: 35px;
+    background: url('../assets/campus-line/icon-search.png') no-repeat;
+    background-size: 33px 30px;
+    background-position: 620px center;
+    background-color: #fff;
+}
+.btn-mixin(@width: 117px; @height: 45px; @fontSize: 24px) {
+    width: @width;
+    height: @height;
+    box-sizing: border-box;
+    line-height: @height;
+    border-radius: @height / 2px;
+    text-align: center;
+    font-size: @fontSize;
+    font-weight: bold;
+}
+.ft-btn-mixin(@height:96px) {
+    font-size: 36px;
+    line-height: @height;
+    text-align: center;
+    color: #fff;
+    background-image: linear-gradient(
+        82deg,
+        rgb(152, 139, 227) 2%,
+        rgb(112, 124, 231) 25%,
+        rgb(71, 108, 234) 56%,
+        rgb(71, 126, 199) 97%
+    );
+}

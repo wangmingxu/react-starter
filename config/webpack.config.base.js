@@ -30,6 +30,8 @@ const baseConfig = {
     ], // 当requrie的模块找不到时，添加这些后缀
     alias: {
       '@': common.clientPath,
+      '@lz-component': '@lizhife/cityfm-tools/dist/Component',
+      '@lz-utils': '@lizhife/cityfm-tools/dist/utils',
     },
   },
   module: {
@@ -49,7 +51,7 @@ const baseConfig = {
       },
       {
         test: /\.(css|less)$/,
-        include: /node_modules/,
+        include: /(node_modules|lizhi)/,
         use: [
           MiniCssExtractPlugin.loader,
           {

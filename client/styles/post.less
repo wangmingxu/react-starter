@@ -1,0 +1,51 @@
+@import './mixin.less';
+.page-post{
+    height: 100%;
+    min-height: 1106px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    .main{
+        .center-container-mixin();
+    }
+    .card{
+        border: 2px solid black;
+        border-radius: 12px;
+        background-color: rgb(43, 3, 135);
+        width: 715px;
+        box-sizing: border-box;
+        height: 525px;
+        // margin: 45px auto 0px;
+        color: #fff;
+        padding: 45px 30px 0px;
+        .feild{
+            margin-bottom: 40px;
+            .lab{
+                font-size: 28px;
+                text-indent: 15px;
+                margin-bottom: 10px;
+            }
+            .ipt{
+                background-color: #3c04bd;
+                border: 2px solid black;
+                border-radius: 30px;
+                height: 60px;
+                line-height: 56px;
+                width: 625px;
+                box-sizing: border-box;
+                color: #fff;
+                padding-left: 35px;
+                &.school{
+                    background-image: url('../assets/campus-line/icon-arrow.png');
+                    background-size: 13px 23px;
+                    background-repeat: no-repeat;
+                    background-position: 582px center;
+                }
+            }
+        }
+    }
+    .btn-submit {
+        .ft-btn-mixin();
+    }
+}

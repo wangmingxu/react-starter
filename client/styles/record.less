@@ -1,0 +1,87 @@
+@import './mixin.less';
+
+.page-record{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .main{
+        .center-container-mixin();
+    }
+    .panl{
+        #panl-mixin.panl();
+        .panl-title{
+            #panl-mixin.panl-title();
+            .avatar-wrapper{
+                #panl-mixin.avatar-wrapper();
+            }
+            .nickname{
+                #panl-mixin.nickname();
+            }
+            .avatar {
+                #panl-mixin.avatar();
+            }
+        }
+        .panl-content{
+            #panl-mixin.panl-content();
+            background: url('../assets/campus-line/disk.png') no-repeat center;
+            position: relative;
+            color: #fff;
+            .melody{
+                width: 210px;
+                height: 120px;
+                background: url('../assets/campus-line/melody.png') no-repeat center;
+                position: absolute;
+                top: 116px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .status{
+                position: absolute;
+                top: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 22px;
+            }
+            .time{
+                position: absolute;
+                top: 50px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 34px;
+            }
+            .text{
+                font-size: 24px;
+                text-align: center;
+                position: absolute;
+                top: 250px;
+                left: 50%;
+                transform: translateX(-50%);
+                .tit{
+                    color: #2bc4db;
+                }
+            }
+        }
+    }
+    .btn-start,.btn-end{
+        .ft-btn-mixin(88px);
+        &.disable{
+            color: rgba(255, 255, 255, 0.433);
+        }
+    }
+    .ft{
+        display: flex;
+        .btn-remake,.btn-finish{
+            flex: 1;
+            box-sizing: border-box;
+            background: #3c04bd;
+            font-size: 34px;
+            line-height: 88px;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+        }
+        .btn-remake{
+            border-right: 1px solid #fff;
+        }
+    }
+}

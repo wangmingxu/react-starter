@@ -1,7 +1,7 @@
 import Global from './Global';
-import demo from './Demo'; // 临时demo
+import Mine from './Mine'; // 临时demo
 
 export default {
   Global,
-  demo, // 临时demo
+  Mine,
 };
