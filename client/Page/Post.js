@@ -2,7 +2,16 @@ import React from 'react';
 import SchoolSelector from 'Component/SchoolSelector';
 import Banner from 'Component/Banner';
 import '../styles/post.less';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as PostActions from 'Action/Post';
+import api from 'utils/api';
+import { Toast } from 'antd-mobile';
 
+@connect(
+  state => ({ post: state.Post }),
+  dispatch => bindActionCreators(PostActions, dispatch),
+)
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -25,10 +34,21 @@ class Post extends React.Component {
   handleSchoolChange = (school) => {
     this.setState({ school, selectingSchool: false });
   }
-  submit = () => {
-    console.log(this.schoolId);
-    console.log(this.title);
-    console.log(this.phone);
+  submit = async () => {
+    const { post, history } = this.props;
+    try {
+      const { data: audioId } = await api.addAudio({
+        ...post,
+        title: this.title,
+        sId: this.schoolId,
+        link: this.phone,
+      }, { needAuth: true });
+      Toast.info('提交成功', 1.5);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      history.push(`/voice/${audioId}`);
+    } catch (error) {
+      Toast.info(error);
+    }
   }
   showSchoolSelect=() => {
     this.setState({ selectingSchool: true });
@@ -50,6 +70,7 @@ class Post extends React.Component {
     const {
       selectingSchool, school, phone, title,
     } = this.state;
+    console.log(this.props.post);
     return (
       <React.Fragment>
         {selectingSchool ? <SchoolSelector onSelect={this.handleSchoolChange} /> : null}

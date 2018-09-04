@@ -2,13 +2,14 @@ import React from 'react';
 import Banner from 'Component/Banner';
 import Community from 'Component/Community';
 import '../styles/mine.less';
+import api from 'utils/api';
 
 class Mine extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-
+  async componentDidMount() {
+    await api.listMyAudio({}, { needAuth: true });
   }
   render() {
     return (

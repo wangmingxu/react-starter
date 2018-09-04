@@ -6,6 +6,7 @@
     flex-direction: column;
     .main{
         .center-container-mixin();
+        transform: scale(.95);
     }
     .panl{
         #panl-mixin.panl();
@@ -19,6 +20,24 @@
             }
             .avatar {
                 #panl-mixin.avatar();
+            }
+            .btn-control {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-repeat: no-repeat;
+                background-size: 100% auto;
+                background-position: center;
+                width: 150px;
+                height: 150px;
+                &.play {
+                    background-image: url('../assets/play.svg');
+                }
+                &.pause {
+                    background-image: url('../assets/pause.svg');
+                    background-size: 80px auto;
+                }
             }
         }
         .panl-content{
@@ -83,7 +102,7 @@
             color: #fff;
         }
         .btn-remake{
-            border-right: 1px solid #fff;
+            border-right: 2px solid #815dd4;
         }
     }
 }

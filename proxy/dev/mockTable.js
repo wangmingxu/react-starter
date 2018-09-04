@@ -11,12 +11,16 @@ function fail(data, msg = 'error', status = 1) {
 }
 
 module.exports = {
-  '/mocksucc': (req, res) => {
-    res.json(succ({
-      id: 10086,
-      name: 'Hello World',
-    }));
-  },
+  // '/newvoice/mine': (req, res) => {
+  //   res.json(succ({
+  //     school: null,
+  //     nickName: 'Lhahahahah?124',
+  //     image: 'null2017/04/13/2595960757229352962.jpg',
+  //     hasUseVotes: 0,
+  //     todayVotes: 0,
+  //     myVotes: 0,
+  //   }));
+  // },
   '/mockfail': (req, res) => {
     res.json(fail({
       id: 957,

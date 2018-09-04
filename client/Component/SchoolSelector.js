@@ -2,6 +2,7 @@ import React from 'react';
 import fuzzy from 'fuzzy';
 import debounce from 'lodash/debounce';
 import '../styles/school-selector.less';
+import api from 'utils/api';
 
 class SchoolSelector extends React.Component {
   constructor(props) {
@@ -19,24 +20,8 @@ class SchoolSelector extends React.Component {
     return this.state.list.map(item => item.schoolName);
   }
   loadList = async () => {
-    await new Promise((resolve) => {
-      this.setState({
-        list: [
-          {
-            id: 0,
-            schoolName: '四川大学',
-          },
-          {
-            id: 1,
-            schoolName: '广州技术师范学院',
-          },
-          {
-            id: 2,
-            schoolName: '广州大学',
-          },
-        ],
-      }, resolve);
-    });
+    const { data } = await api.listAllSchool();
+    this.setState({ list: data });
   };
   search = debounce((val) => {
     const result = fuzzy.filter(val, this.schoolList).map(el => this.state.list[el.index]);

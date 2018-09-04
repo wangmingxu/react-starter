@@ -1,5 +1,5 @@
 import React from 'react';
-// import api from 'utils/api';
+import api from 'utils/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../styles/index.less';
@@ -12,6 +12,7 @@ import Banner from 'Component/Banner';
 import classNames from 'classnames';
 import * as mineActions from 'Action/Mine';
 import { WithLoginBtn } from 'Hoc/WithLogin';
+import dayjs from 'dayjs';
 
 const TabsMap = {
   SCHOOL_RANK: 1,
@@ -30,8 +31,15 @@ class Index extends React.Component {
       tab: TabsMap.SCHOOL_RANK,
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
+    await this.getDayVote();
     this.props.loadMineInfo();
+  }
+  getDayVote = async () => {
+    const key = `School_${dayjs().format('YYYY_MM_DD')}`;
+    if (localStorage.getItem(key)) return;
+    await api.getLoginVote({}, { needAuth: true });
+    localStorage.setItem(key, true);
   }
   loadMore = (page) => {
     console.log(page);

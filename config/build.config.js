@@ -32,7 +32,7 @@ module.exports = {
   },
   dev: {
     port: 8080,
-    SERVER_URL: 'http://localhost:8080',
+    SERVER_URL: 'https://city.lizhi.fm',
     autoOpenBrowser: false,
     assetsSubDirectory: 'client',
     assetsPublicPath: '/',

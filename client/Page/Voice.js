@@ -3,16 +3,19 @@ import Banner from 'Component/Banner';
 import '../styles/voice.less';
 import Player, { AudioStatus, EventMap } from 'Component/Player';
 import VoteDialog from 'Component/VoteDialog';
+import api from 'utils/api';
 
 class Voice extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       status: AudioStatus.WAIT_PLAY,
+      voiceInfo: {},
     };
     this.player = Player.getInstance();
   }
   async componentDidMount() {
+    await this.loadVoiceInfo();
     this.player.on(EventMap.STATUS_CHANGE, this.handleStatus);
     await this.player.setAudioSrc('http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3', false);
     // setTimeout(() => {
@@ -21,6 +24,14 @@ class Voice extends React.Component {
   }
   componentWillUnmount() {
     this.player.destroy();
+  }
+  get voiceId() {
+    const { match: { params } } = this.props;
+    return params.id;
+  }
+  loadVoiceInfo = async () => {
+    const { data } = await api.audioInfo({ id: this.voiceId });
+    this.setState({ voiceInfo: data });
   }
   play = () => {
     this.player.play();
@@ -32,7 +43,7 @@ class Voice extends React.Component {
     this.setState({ status });
   }
   render() {
-    const { status } = this.state;
+    const { status, voiceInfo } = this.state;
     return (
       <div styleName="voice-page">
         <Banner logo detail />

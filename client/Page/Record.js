@@ -1,19 +1,29 @@
 import React from 'react';
 import Banner from 'Component/Banner';
-import RecordManage, { ErrorType, RecordStatus } from '@lz-component/RecordManage';
+import RecordManage, { ErrorType, RecordStatus, ReplayStatus } from '@lz-component/RecordManage';
 import { Toast } from 'antd-mobile';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import '../styles/record.less';
+import api from 'utils/api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as PostActions from 'Action/Post';
 
+@connect(
+  state => ({ post: state.Post }),
+  dispatch => bindActionCreators(PostActions, dispatch),
+)
 class Record extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       status: RecordStatus.WAITING_RECORD,
+      replayStatus: ReplayStatus.WAIT_PLAY,
       currentTime: 0,
     };
     this.recordManager = new RecordManage({
+      needPreAuth: false,
       isShowWXProgressTips: 0,
       lzRecordType: 2,
       onRecordStatusChange: this.handleStatusChange,
@@ -21,6 +31,7 @@ class Record extends React.PureComponent {
       onRecordTimeChange: this.handleTimeChange,
       onUploadStart: this.handleUploadStart,
       onUploadFinish: this.handleUploadFinish,
+      onReplayStatusChange: this.handleReplayStatusChange,
     });
   }
   componentDidMount() {
@@ -50,6 +61,9 @@ class Record extends React.PureComponent {
   handleStatusChange = (status) => {
     this.setState({ status });
   }
+  handleReplayStatusChange = (status) => {
+    this.setState({ replayStatus: status });
+  }
   handleRecordError = (type) => {
     let errMsg;
     switch (type) {
@@ -75,14 +89,46 @@ class Record extends React.PureComponent {
     Toast.info(errMsg, 1.5);
   }
   handleUploadStart = () => {
-    Toast.info('正在上传录音...', 0);
+    Toast.loading('正在上传录音...', 0);
   }
-  handleUploadFinish = (id) => {
-    console.log(id);
-    Toast.hide();
+  handleUploadFinish = async (id) => {
+    try {
+      // const { highBand } = await this.transAudio(id);
+      this.props.setPost({
+        // audio: highBand,
+        audio: 'http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3',
+        mediaId: id,
+        duration: this.recordManager.duration * 1000,
+      });
+      this.props.history.push('/post');
+    } catch (error) {
+      window.alert(error);
+    } finally {
+      Toast.hide();
+    }
+  }
+  transAudio = async (id) => {
+    try {
+      const res = await api.transApp({ upload_id: id });
+      if (res.status === 0) {
+        return res.data;
+      } else if (res.status === 4) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const data = await this.transAudio(id);
+        return data;
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  startReplay = () => {
+    this.recordManager.startReplay();
+  }
+  stopReplay = () => {
+    this.recordManager.stopReplay();
   }
   render() {
-    const { status, currentTime } = this.state;
+    const { status, currentTime, replayStatus } = this.state;
     const time = dayjs(currentTime).format('mm:ss');
     return (
       <div styleName="page-record">
@@ -96,6 +142,12 @@ class Record extends React.PureComponent {
                   src="http://wx.qlogo.cn/mmopen/fnOljJRc0roloB27t9a8Q1LaUNMxeYocs9lYDRaeG5JCeDvBVMVCLu6qZP76ibyuvB3TLGicqJpye8ZicTicr2YXKXficXXt3ejka/0"
                   alt="avatar"
                 />
+                {status === RecordStatus.RECORD_FINISH ?
+                  <React.Fragment>
+                    {(replayStatus === ReplayStatus.PLAYING ? <div styleName="btn-control pause" onClick={this.stopReplay} /> : <div styleName="btn-control play" onClick={this.startReplay} />)}
+                  </React.Fragment> :
+                  null
+                }
               </div>
               <div styleName="nickname">1橘子哥哥1</div>
             </div>

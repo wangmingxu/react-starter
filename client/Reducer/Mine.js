@@ -1,16 +1,12 @@
-const initState = {
-  position: '布吉岛',
-};
+const initState = {};
 
-const demo = (state = initState, action) => {
+const Mine = (state = initState, action) => {
   switch (action.type) {
-  case 'setPosition':
-    return {
-      position: action.position,
-    };
+  case 'setMineInfo':
+    return action.info;
   default:
     return state;
   }
 };
 
-export default demo;
+export default Mine;
