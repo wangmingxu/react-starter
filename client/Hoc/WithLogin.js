@@ -33,5 +33,22 @@ const WithLogin = (forceLogin = true) => (Wrapper) => {
     dispatch => bindActionCreators(Global, dispatch),
   )(WithLoginComponent);
 };
+@connect(
+  state => ({ isLogin: get(state, ['Global', 'isLogin']) }),
+  dispatch => bindActionCreators(Global, dispatch),
+)
+export class WithLoginBtn extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { isLogin, login } = this.props;
+    return (<React.Fragment>
+      {
+        isLogin ? this.props.render() : React.cloneElement(this.props.render(), { onClick: login })
+      }
+    </React.Fragment>);
+  }
+}
 
 export default WithLogin;

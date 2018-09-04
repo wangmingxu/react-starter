@@ -6,14 +6,20 @@ import '../styles/index.less';
 import { NoticeBar, Flex, ActivityIndicator } from 'antd-mobile';
 import Community from 'Component/Community';
 import InfiniteScroll from 'react-infinite-scroller';
-import DownloadDialog from 'Component/DownloadDialog';
+import { showDownloadDialog } from 'Component/DownloadDialog';
 import { withUserAgent } from 'rc-useragent';
 import Banner from 'Component/Banner';
 import classNames from 'classnames';
 import * as mineActions from 'Action/Mine';
+import { WithLoginBtn } from 'Hoc/WithLogin';
+
+const TabsMap = {
+  SCHOOL_RANK: 1,
+  PERSONAL_RANK: 2,
+};
 
 @connect(
-  state => ({ mine: state.Mine }),
+  state => ({ mine: state.Mine, isLogin: state.Global.isLogin }),
   dispatch => bindActionCreators(mineActions, dispatch),
 )
 @withUserAgent
@@ -21,11 +27,7 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      downloadDialog: {
-        status: false,
-        action: {},
-      },
-      tab: 1,
+      tab: TabsMap.SCHOOL_RANK,
     };
   }
   componentDidMount() {
@@ -34,19 +36,11 @@ class Index extends React.Component {
   loadMore = (page) => {
     console.log(page);
   };
-  closeDownloadDl = () => {
-    this.setState({ downloadDialog: { status: false } });
-  }
   gotoRecord = () => {
-    if (this.props.ua.isWeiXin) {
-      this.setState({
-        downloadDialog: {
-          status: true,
-          action: {},
-        },
-      });
-    } else {
+    if (this.props.ua.isLizhiFM) {
       this.props.history.push('/record');
+    } else {
+      showDownloadDialog({ action: 7, url: location.href });
     }
   }
   fixIpt = ({ target }) => {
@@ -58,10 +52,9 @@ class Index extends React.Component {
     this.setState({ tab });
   }
   render() {
-    const { downloadDialog, tab } = this.state;
+    const { tab } = this.state;
     return (
       <div styleName="index-page">
-        <DownloadDialog {...downloadDialog} onClose={this.closeDownloadDl} />
         <div styleName="scroller">
           <InfiniteScroll
             pageStart={0}
@@ -94,7 +87,9 @@ class Index extends React.Component {
                   styleName="avatar"
                 />
                 <div styleName="stat">
-                  <div styleName="btn-login">登录</div>
+                  <WithLoginBtn render={() =>
+                    <div styleName="btn-login">登录</div>}
+                  />
                   <div styleName="btn-my_voice">我的新声</div>
                   <div styleName="rest-votes">剩余贡献值：10</div>
                   <div styleName="history-votes">
@@ -111,18 +106,18 @@ class Index extends React.Component {
             <div styleName="tabs">
               <div
                 styleName={classNames('item', {
-                  active: tab === 1,
+                  active: tab === TabsMap.SCHOOL_RANK,
                 })}
                 onClick={() => {
-                  this.changeTab(1);
+                  this.changeTab(TabsMap.SCHOOL_RANK);
                 }}
               >高校热度榜</div>
               <div
                 styleName={classNames('item', {
-                  active: tab === 2,
+                  active: tab === TabsMap.PERSONAL_RANK,
                 })}
                 onClick={() => {
-                  this.changeTab(2);
+                  this.changeTab(TabsMap.PERSONAL_RANK);
                 }}
               >个人新声榜</div>
             </div>
@@ -134,7 +129,7 @@ class Index extends React.Component {
             </div>
           </InfiniteScroll>
         </div>
-        {tab === 2 ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
+        {tab === TabsMap.PERSONAL_RANK ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
       </div>
     );
   }

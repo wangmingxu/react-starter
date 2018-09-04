@@ -1,8 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import DownloadDialog from '@lz-component/DownloadDialog';
 import downloadIcon from 'assets/download-icon.png';
 
-export default class extends DownloadDialog {
+export default class DL extends DownloadDialog {
   constructor(props) {
     super(props);
   }
@@ -30,3 +31,40 @@ export default class extends DownloadDialog {
     ) : null;
   }
 }
+
+export function showDownloadDialog(action) {
+  const div = document.createElement('div');
+  div.classList.add('dl');
+  document.body.appendChild(div);
+
+  function close() {
+    ReactDOM.unmountComponentAtNode(div);
+    if (div && div.parentNode) {
+      div.parentNode.removeChild(div);
+    }
+  }
+
+  ReactDOM.render(<DL status onClose={close} action={action} />, div);
+
+  return {
+    close,
+  };
+}
+
+export class DownloadBtn extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  download = () => {
+    const { action } = this.props;
+    showDownloadDialog(action);
+  }
+  render() {
+    return (
+      <React.Fragment>
+        {React.cloneElement(this.props.render(), { onClick: this.download })}
+      </React.Fragment>
+    );
+  }
+}
+

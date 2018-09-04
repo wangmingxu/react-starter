@@ -2,6 +2,8 @@ import React from 'react';
 import { showShareOverlay } from '@lz-component/ShareOverlay';
 import '../styles/community.less';
 import { withUserAgent } from 'rc-useragent';
+import { WithLoginBtn } from 'Hoc/WithLogin';
+import { showDownloadDialog } from 'Component/DownloadDialog';
 
 @withUserAgent
 class Community extends React.Component {
@@ -22,8 +24,14 @@ class Community extends React.Component {
       showShareOverlay();
     }
   }
+  downloadApp = () => {
+    showDownloadDialog({
+      type: 7,
+      url: location.href,
+    });
+  }
   render() {
-    const { style, className } = this.props;
+    const { style, className, ua } = this.props;
     return (<div styleName="community-item" style={style} className={className}>
       <div styleName="cnt">
         <div styleName="rank">1</div>
@@ -32,7 +40,10 @@ class Community extends React.Component {
           <div styleName="name">四川广州大学广播台</div>
           <div styleName="votes">新声值：53244<span styleName="add">+1</span></div>
           <div styleName="operation">
-            <div styleName="btn btn-vote">贡献</div>
+            {ua.isLizhiFM ?
+              <WithLoginBtn render={() => <div styleName="btn btn-vote">贡献</div>} /> :
+              <div styleName="btn btn-vote" onClick={this.downloadApp}>贡献</div>
+            }
             <div styleName="btn btn-listen">听新声</div>
             <div styleName="btn btn-share" onClick={this.share}>转发</div>
           </div>

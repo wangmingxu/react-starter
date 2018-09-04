@@ -15,6 +15,7 @@ class Record extends React.PureComponent {
     };
     this.recordManager = new RecordManage({
       isShowWXProgressTips: 0,
+      lzRecordType: 2,
       onRecordStatusChange: this.handleStatusChange,
       onError: this.handleRecordError,
       onRecordTimeChange: this.handleTimeChange,

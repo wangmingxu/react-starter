@@ -25,6 +25,10 @@ class Player {
       }
       return Player.instance;
     }
+    static destroyInstance() {
+      Player.instance.destroy();
+      Player.instance = null;
+    }
     _audioStatus = AudioStatus.WAIT_PLAY;
     get audioStatus() {
       return this._audioStatus;
