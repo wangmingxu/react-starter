@@ -21,6 +21,39 @@ module.exports = {
   //     myVotes: 0,
   //   }));
   // },
+  // '/newvoice/info': (req, res) => {
+  //   res.json(succ({
+  //     createTime: 1536122229264,
+  //     schoolName: '电子科技大学成都学院',
+  //     audio: 'http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3',
+  //     vote: 0,
+  //     assnName: '电子科技大学成都学院广播台',
+  //     schoolRank: 1,
+  //     votes: 0,
+  //     image: 'null2017/04/13/2595960757229352962.jpg',
+  //     sId: 35,
+  //     id: 3,
+  //     rank: 1,
+  //     duration: 5950,
+  //     school: {
+  //       id: 35, bank: '17549128', schoolName: '电子科技大学成都学院', assnName: '电子科技大学成都学院广播台', image: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/cd8.jpg', createTime: null, status: null, vote: 0,
+  //     },
+  //     nickName: 'Lhahahahah?124',
+  //     schoolImage: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/cd8.jpg',
+  //   }));
+  // },
+  // '/newvoice/listMyAudio': (req, res) => {
+  //   res.json(succ({
+  //     pageIndex: 1,
+  //     pageSize: 20,
+  //     total: 1,
+  //     list: [{
+  //       id: 3, createTime: 1536122229264, duration: 5950, schoolName: '电子科技大学成都学院', audio: 'http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3', nickName: 'Lhahahahah?124', assnName: '电子科技大学成都学院广播台', vote: 0, schoolImage: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/cd8.jpg', image: 'null2017/04/13/2595960757229352962.jpg', sId: 35,
+  //     }],
+  //     totalPage: 1,
+  //     queryAll: false,
+  //   }));
+  // },
   '/mockfail': (req, res) => {
     res.json(fail({
       id: 957,

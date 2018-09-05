@@ -1,3 +1,4 @@
 config/.gulp
 npm-debug.log
 dist
+node_modules

@@ -2,9 +2,19 @@ import React from 'react';
 import Banner from 'Component/Banner';
 import '../styles/voice.less';
 import Player, { AudioStatus, EventMap } from 'Component/Player';
-import VoteDialog from 'Component/VoteDialog';
+import { showVoteDialog } from 'Component/VoteDialog';
 import api from 'utils/api';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as mineActions from 'Action/Mine';
+import { showShareOverlay } from '@lz-component/ShareOverlay';
+import { withUserAgent } from 'rc-useragent';
 
+@connect(
+  state => ({ mine: state.Mine }),
+  dispatch => bindActionCreators(mineActions, dispatch),
+)
+@withUserAgent
 class Voice extends React.Component {
   constructor(props) {
     super(props);
@@ -42,40 +52,73 @@ class Voice extends React.Component {
   handleStatus = (status) => {
     this.setState({ status });
   }
+  vote = async () => {
+    await new Promise((resolve) => {
+      showVoteDialog({
+        restVote: this.props.mine.myVotes,
+        onVoteSuccess: resolve,
+      });
+    });
+    this.loadVoiceInfo();
+    this.props.loadMineInfo();
+  }
+  share = async () => {
+    const { ua } = this.props;
+    if (ua.isLizhiFM) {
+      lz.shareUrl({
+        url: location.href,
+        title: window.shareData.title,
+        desc: window.shareData.desc, // 分享的描述
+        'image-url': window.shareData.imgUrl, // 分享的图片
+      });
+      await new Promise((resolve, reject) => {
+        lz.on('shareFinish', (ret) => {
+          if (ret.statusCode === 0) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      });
+      await api.getShareVote({}, { needAuth: true });
+      this.props.loadMineInfo();
+    } else {
+      showShareOverlay();
+    }
+  }
   render() {
     const { status, voiceInfo } = this.state;
     return (
       <div styleName="voice-page">
         <Banner logo detail />
-        {/* <VoteDialog /> */}
         <div styleName="panl">
           <div styleName="panl-title">
             <div styleName="avatar-wrapper">
               <img
                 styleName="avatar"
-                src="http://wx.qlogo.cn/mmopen/fnOljJRc0roloB27t9a8Q1LaUNMxeYocs9lYDRaeG5JCeDvBVMVCLu6qZP76ibyuvB3TLGicqJpye8ZicTicr2YXKXficXXt3ejka/0"
+                src={voiceInfo.image}
                 alt="avatar"
               />
               {status === AudioStatus.PLAYING ? <div styleName="btn-control pause" onClick={this.pause} /> : <div styleName="btn-control play" onClick={this.play} />}
             </div>
-            <div styleName="nickname">橘子哥哥</div>
+            <div styleName="nickname">{voiceInfo.nickName}</div>
           </div>
           <div styleName="panl-content">
-            <div styleName="row">开学第一天，军训真热</div>
+            <div styleName="row">{voiceInfo.title}</div>
             <div styleName="row">
-              <div styleName="cl1">四川大学</div>
-              <div styleName="cl2">总榜排名：20</div>
+              <div styleName="cl1">{voiceInfo.schoolName}</div>
+              <div styleName="cl2">总榜排名：{voiceInfo.rank}</div>
             </div>
             <div styleName="row">
-              <div styleName="cl1">新声值：53244</div>
-              <div styleName="cl2">同校排名：5</div>
+              <div styleName="cl1">新声值：{voiceInfo.votes}</div>
+              <div styleName="cl2">同校排名：{voiceInfo.schoolRank}</div>
             </div>
             <div styleName="row">
               <div styleName="cl1">
-                <div styleName="btn btn-vote">贡献</div>
+                <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>
               </div>
               <div styleName="cl2">
-                <div styleName="btn btn-share">转发</div>
+                <div styleName="btn btn-share" onClick={this.share}>转发</div>
               </div>
             </div>
           </div>

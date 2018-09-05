@@ -43,7 +43,7 @@ class Post extends React.Component {
         sId: this.schoolId,
         link: this.phone,
       }, { needAuth: true });
-      Toast.info('提交成功', 1.5);
+      Toast.info('发布成功', 1.5);
       await new Promise(resolve => setTimeout(resolve, 1500));
       history.push(`/voice/${audioId}`);
     } catch (error) {
@@ -88,7 +88,7 @@ class Post extends React.Component {
               </div>
               <div styleName="feild">
                 <div styleName="lab">手机号(必填)</div>
-                <input styleName="ipt" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} />
+                <input styleName="ipt" type="tel" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} />
               </div>
             </div></div>
           <div styleName="btn-submit" onClick={this.submit}>提交</div>

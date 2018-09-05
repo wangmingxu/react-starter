@@ -82,7 +82,7 @@ export function appConfig() {
       'shareImage',
       'saveImage',
     ],
-    eventList: ['verifySignFinish', 'user:login', 'recordStateChange'],
+    eventList: ['verifySignFinish', 'user:login', 'recordStateChange', 'shareFinish'],
   });
   // lz.on('sign', (r) => {
   //   if (r.status === 'success') {

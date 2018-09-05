@@ -48,6 +48,7 @@
                 line-height: 56px;
                 box-sizing: border-box;
                 border-radius: 28px;
+                color: #fff;
                 &:active{
                     background: #2eabee;
                     border: 2px solid black;
@@ -65,6 +66,10 @@
                 flex: 1;
                 font-size: 24px;
                 color: #fff;
+                .nickName{
+                    line-height: 45px;
+                    font-weight: bold;
+                }
                 .btn-login{
                     width: 117px;
                     height: 45px;
@@ -130,6 +135,11 @@
                     transform: translateY(-50%) rotateZ(180deg);
                 }
             }
+            .empty{
+                text-align: center;
+                margin-top: 60px;
+                color: #fff;
+            }
         }
     }
     .tabs{
@@ -167,9 +177,17 @@
     }
     .list{
         width: 715px;
+        padding-bottom: 15px;
+        box-sizing: border-box;
         margin: 0 auto;
+        &.hasFooter{
+            padding-bottom: 96+15px;
+        }
     }
     .btn-join{
         .ft-btn-mixin();
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
     }
 }

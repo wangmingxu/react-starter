@@ -3,15 +3,27 @@ import Banner from 'Component/Banner';
 import Community from 'Component/Community';
 import '../styles/mine.less';
 import api from 'utils/api';
+import { connect } from 'react-redux';
+import { ProgramType } from 'constant';
 
+@connect(
+  state => ({ mine: state.Mine }),
+  dispatch => ({ dispatch }),
+)
 class Mine extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      myAudioList: [],
+    };
   }
   async componentDidMount() {
-    await api.listMyAudio({}, { needAuth: true });
+    const { data: { list } } = await api.listMyAudio({ page: 1, pageSize: 50 }, { needAuth: true });
+    this.setState({ myAudioList: list });
   }
   render() {
+    const { mine } = this.props;
+    const { myAudioList } = this.state;
     return (
       <div styleName="page-mine">
         <Banner logo detail />
@@ -20,17 +32,18 @@ class Mine extends React.Component {
             <div styleName="avatar-wrapper">
               <img
                 styleName="avatar"
-                src="http://wx.qlogo.cn/mmopen/fnOljJRc0roloB27t9a8Q1LaUNMxeYocs9lYDRaeG5JCeDvBVMVCLu6qZP76ibyuvB3TLGicqJpye8ZicTicr2YXKXficXXt3ejka/0"
+                src={mine.image}
                 alt="avatar"
               />
             </div>
-            <div styleName="nickname">橘子哥哥1</div>
+            <div styleName="nickname">{mine.nickName}</div>
           </div>
           <div styleName="panl-content">
-            {new Array(10).fill({}).map((el, i) => (
-              <Community key={i} styleName="item" />
-            ))}
-            {/* <div styleName="empty">还没有上传新的声音</div> */}
+            {
+              myAudioList.length > 0 ? myAudioList.map(item => (
+                <Community key={item.id} styleName="item" data={item} type={ProgramType.PERSONAL} />
+              )) : <div styleName="empty">还没有上传新的声音</div>
+            }
           </div>
         </div>
       </div>

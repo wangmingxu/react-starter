@@ -9,9 +9,10 @@ import api from 'utils/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
+import { recordText } from 'constant';
 
 @connect(
-  state => ({ post: state.Post }),
+  state => ({ post: state.Post, mine: state.Mine }),
   dispatch => bindActionCreators(PostActions, dispatch),
 )
 class Record extends React.PureComponent {
@@ -93,10 +94,10 @@ class Record extends React.PureComponent {
   }
   handleUploadFinish = async (id) => {
     try {
-      // const { highBand } = await this.transAudio(id);
+      const { highBand } = await this.transAudio(id);
       this.props.setPost({
-        // audio: highBand,
-        audio: 'http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3',
+        audio: highBand,
+        // audio: 'http://cdn5.lizhi.fm/audio/2018/02/15/2653140969335672326_hd.mp3',
         mediaId: id,
         duration: this.recordManager.duration * 1000,
       });
@@ -129,6 +130,7 @@ class Record extends React.PureComponent {
   }
   render() {
     const { status, currentTime, replayStatus } = this.state;
+    const { mine } = this.props;
     const time = dayjs(currentTime).format('mm:ss');
     return (
       <div styleName="page-record">
@@ -139,7 +141,7 @@ class Record extends React.PureComponent {
               <div styleName="avatar-wrapper">
                 <img
                   styleName="avatar"
-                  src="http://wx.qlogo.cn/mmopen/fnOljJRc0roloB27t9a8Q1LaUNMxeYocs9lYDRaeG5JCeDvBVMVCLu6qZP76ibyuvB3TLGicqJpye8ZicTicr2YXKXficXXt3ejka/0"
+                  src={mine.image}
                   alt="avatar"
                 />
                 {status === RecordStatus.RECORD_FINISH ?
@@ -157,7 +159,7 @@ class Record extends React.PureComponent {
               <div styleName="melody" />
               <div styleName="text">
                 <div styleName="tit">录制内容建议</div>
-              说下你的入学感想吧<br />说下你的大学生活感想吧
+                {recordText}
               </div>
             </div>
           </div>
