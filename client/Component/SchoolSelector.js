@@ -21,7 +21,7 @@ class SchoolSelector extends React.Component {
   }
   loadList = async () => {
     const { data } = await api.listAllSchool();
-    const sortList = data.sort((a, b) => a.localeCompare(b, 'zh'));
+    const sortList = data.sort((a, b) => a.schoolName.localeCompare(b.schoolName, 'zh'));
     this.setState({ list: sortList });
   };
   search = debounce((val) => {
