@@ -21,7 +21,8 @@ class SchoolSelector extends React.Component {
   }
   loadList = async () => {
     const { data } = await api.listAllSchool();
-    this.setState({ list: data });
+    const sortList = data.sort((a, b) => a.localeCompare(b, 'zh'));
+    this.setState({ list: sortList });
   };
   search = debounce((val) => {
     const result = fuzzy.filter(val, this.schoolList).map(el => this.state.list[el.index]);

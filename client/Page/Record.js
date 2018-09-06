@@ -151,7 +151,7 @@ class Record extends React.PureComponent {
                   null
                 }
               </div>
-              <div styleName="nickname">1橘子哥哥1</div>
+              <div styleName="nickname">{mine.nickName}</div>
             </div>
             <div styleName="panl-content">
               {status === RecordStatus.RECORD_START ? <div styleName="status">正在录音</div> : null}

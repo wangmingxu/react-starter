@@ -89,10 +89,9 @@ class Player {
     }
     async setAudioSrc(src, autoplay = true) {
       const oldSrc = this.audioRef.src;
-      if (oldSrc === src) return;
       this.audioRef.src = src;
       this.audioStatus = AudioStatus.WAIT_PLAY;
-      if (oldSrc) {
+      if (oldSrc && oldSrc !== src) {
         try {
           await this.audioRef.load();
         } catch (error) {

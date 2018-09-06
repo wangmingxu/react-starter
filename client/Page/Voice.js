@@ -12,7 +12,7 @@ import { showShareOverlay } from '@lz-component/ShareOverlay';
 import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { showDownloadDialog } from 'Component/DownloadDialog';
-import { getPersonShareData } from 'constant';
+import { getPersonShareData, ProgramType } from 'constant';
 
 @connect(
   state => ({ mine: state.Mine }),
@@ -59,6 +59,8 @@ class Voice extends React.Component {
   vote = async () => {
     await new Promise((resolve, reject) => {
       showVoteDialog({
+        id: this.voiceId,
+        type: ProgramType.PERSONAL,
         restVote: this.props.mine.myVotes,
         onVoteSuccess: resolve,
         onCancel: reject,
@@ -68,9 +70,9 @@ class Voice extends React.Component {
     this.props.loadMineInfo();
   }
   share = async () => {
-    const { ua, data } = this.props;
+    const { ua } = this.props;
     if (ua.isLizhiFM) {
-      const shareData = getPersonShareData(data.id);
+      const shareData = getPersonShareData(this.voiceId);
       lz.shareUrl(shareData);
       await new Promise((resolve, reject) => {
         lz.on('shareFinish', (ret) => {

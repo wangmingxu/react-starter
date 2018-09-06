@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import api from 'utils/api';
 import { ProgramType } from 'constant';
 import { Toast } from 'antd-mobile';
+import { stopPropagation } from 'utils/domHelper';
 
 class VoteDialog extends React.Component {
   constructor(props) {
@@ -19,9 +20,9 @@ class VoteDialog extends React.Component {
     } else {
       await api.vote({ id }, { needAuth: true });
     }
-    onClose();
     Toast.info('投票成功', 1);
     onVoteSuccess(10);
+    onClose();
   }
   voteAll = async () => {
     const {
@@ -32,9 +33,9 @@ class VoteDialog extends React.Component {
     } else {
       await api.allIn({ id }, { needAuth: true });
     }
-    onClose();
     Toast.info('投票成功', 1);
     onVoteSuccess(restVote);
+    onClose();
   }
   cancel = () => {
     this.props.onClose();
@@ -45,8 +46,8 @@ class VoteDialog extends React.Component {
     return status ? (<div className="mask" onClick={this.cancel}>
       <div styleName="vote-dialog">
         <div styleName="tip">你当前有{restVote}贡献值，请选择贡献票数</div>
-        <div styleName="btn" onClick={this.vote}>贡献10票</div>
-        <div styleName="btn" onClick={this.voteAll}>贡献全部</div>
+        <div styleName="btn" onClick={stopPropagation(this.vote)}>贡献10票</div>
+        <div styleName="btn" onClick={stopPropagation(this.voteAll)}>贡献全部</div>
       </div>
     </div>) : null;
   }
@@ -56,7 +57,7 @@ export default VoteDialog;
 
 export const showVoteDialog = (props) => {
   if (props.restVote === 0) {
-    Toast.info('你今天的投票次数已用完', 1.5);
+    Toast.info('当前无贡献值，赶快发布声音或转发获取贡献值吧', 1.5);
   } else {
     const div = document.createElement('div');
     document.body.appendChild(div);

@@ -140,8 +140,8 @@ class Index extends React.Component {
                   <Link styleName="btn-my_voice" to="/mine">我的新声</Link>
                   <div styleName="rest-votes">剩余贡献值：{isLogin ? mine.myVotes : 0}</div>
                   <div styleName="history-votes">
-                    <div styleName="today">今日贡献：{isLogin ? mine.hasUseVotes : 0}</div>
-                    <div styleName="total">总贡献值：{isLogin ? mine.todayVotes : 0}</div>
+                    <div styleName="today">今日贡献：{isLogin ? mine.todayVotes : 0}</div>
+                    <div styleName="total">总贡献值：{isLogin ? mine.hasUseVotes : 0}</div>
                   </div>
                 </div>
               </div>
@@ -188,6 +188,7 @@ class Index extends React.Component {
                   type={tab}
                   data={item}
                   rank={i + 1}
+                  onVote={this.addProgramVotes}
                   onClick={() => {
                     tab === ProgramType.PERSONAL && this.gotoVoicePage(item.id);
                   }}

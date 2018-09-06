@@ -100,6 +100,7 @@
         .info {
             flex: 1;
             margin-right: 35px;
+            overflow: hidden;
             .name {
                 font-size: 24px;
                 font-weight: bold;
@@ -115,6 +116,9 @@
             .title{
                 color: #c4c0d7;
                 min-height: 30px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
             .votes {
                 .add {
@@ -136,6 +140,9 @@
                     color: #c4c0d7;
                     font-size: 22px;
                     line-height: 45px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
                 }
                 .btn {
                     .btn-mixin();

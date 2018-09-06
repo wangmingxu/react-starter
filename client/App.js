@@ -23,10 +23,10 @@ class App extends React.Component {
     }
   }
   getDayVote = async () => {
-    const key = `School_${dayjs().format('YYYY_MM_DD')}`;
-    if (localStorage.getItem(key)) return;
-    await api.getLoginVote({}, { needAuth: true, timeout: 5000 });
-    localStorage.setItem(key, true);
+    // const key = `School_${dayjs().format('YYYY_MM_DD')}`;
+    // if (localStorage.getItem(key)) return;
+    await api.getLoginVote({}, { needAuth: true, timeout: 3000 });
+    // localStorage.setItem(key, true);
   }
   render() {
     const { ready } = this.state;

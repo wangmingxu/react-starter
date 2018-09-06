@@ -72,7 +72,7 @@ class School extends React.Component {
           >
             {noticeText}
           </NoticeBar>
-          {ua.isLizhiFM && isLogin ? <div styleName="rest-votes">剩余贡献值：{mine.myVotes}</div>:null}
+          {ua.isLizhiFM && isLogin ? <div styleName="rest-votes">剩余贡献值：{mine.myVotes}</div> : null}
         </div>
         <input
           styleName="search-box"

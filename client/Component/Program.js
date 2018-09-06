@@ -103,7 +103,8 @@ class Program extends React.PureComponent {
   vote = async () => {
     const votes = await new Promise((resolve, reject) => {
       showVoteDialog({
-        id: this.props.id,
+        id: this.props.data.id,
+        type: this.props.type,
         restVote: this.props.mine.myVotes,
         onVoteSuccess: resolve,
         onCancel: reject,
@@ -122,8 +123,17 @@ class Program extends React.PureComponent {
       <div styleName="cnt">
         {rank ? <div styleName="rank_wrap"><div styleName="rank">{rank}</div></div> : null}
         <div styleName="avatar-wrapper">
-          <img styleName="avatar" alt="avatar" src={data.image} onClick={stopPropagation(this.play)} />
-          {playStatus === AudioStatus.PLAYING && playId === data.id ? <div styleName="btn-control pause" onClick={stopPropagation(this.pause)} /> : <div styleName="btn-control play" onClick={stopPropagation(this.play)} />}
+          <img
+            styleName="avatar"
+            alt="avatar"
+            src={data.image}
+            onClick={() => {
+              type === ProgramType.SCHOOL && this.openGroupPage();
+            }}
+          />
+          {type === ProgramType.SCHOOL ? null : <React.Fragment>
+            {playStatus === AudioStatus.PLAYING && playId === data.id ? <div styleName="btn-control pause" onClick={stopPropagation(this.pause)} /> : <div styleName="btn-control play" onClick={stopPropagation(this.play)} />}
+          </React.Fragment>}
         </div>
         <div styleName="info">
           <div styleName="name">{isSchool ? <span onClick={this.openGroupPage}>{data.assnName}</span> : <span>{data.nickName}</span>}

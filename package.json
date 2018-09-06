@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
+    "@lizhife/cityfm-tools": "^1.0.4",
     "antd-mobile": "^2.0.0",
     "axios": "^0.17.0",
     "classnames": "^2.2.5",
