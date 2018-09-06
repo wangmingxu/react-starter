@@ -11,30 +11,38 @@ class VoteDialog extends React.Component {
     this.state = {};
   }
   vote = async () => {
-    const { type, id, onVoteSuccess } = this.props;
+    const {
+      type, id, onVoteSuccess, onClose,
+    } = this.props;
     if (type === ProgramType.SCHOOL) {
       await api.voteSchool({ sId: id }, { needAuth: true });
     } else {
       await api.vote({ id }, { needAuth: true });
     }
+    onClose();
     Toast.info('投票成功', 1);
     onVoteSuccess(10);
   }
   voteAll = async () => {
     const {
-      type, id, onVoteSuccess, restVote,
+      type, id, onVoteSuccess, restVote, onClose,
     } = this.props;
     if (type === ProgramType.SCHOOL) {
       await api.allInSchool({ sId: id }, { needAuth: true });
     } else {
       await api.allIn({ id }, { needAuth: true });
     }
-    Toast.info('投票成功', 1.5);
+    onClose();
+    Toast.info('投票成功', 1);
     onVoteSuccess(restVote);
   }
+  cancel = () => {
+    this.props.onClose();
+    this.props.onCancel();
+  }
   render() {
-    const { restVote, status, onClose } = this.props;
-    return status ? (<div className="mask" onClick={onClose}>
+    const { restVote, status } = this.props;
+    return status ? (<div className="mask" onClick={this.cancel}>
       <div styleName="vote-dialog">
         <div styleName="tip">你当前有{restVote}贡献值，请选择贡献票数</div>
         <div styleName="btn" onClick={this.vote}>贡献10票</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from 'Component/Banner';
-import Community from 'Component/Community';
+import Program from 'Component/Program';
 import '../styles/mine.less';
 import api from 'utils/api';
 import { connect } from 'react-redux';
@@ -41,7 +41,7 @@ class Mine extends React.Component {
           <div styleName="panl-content">
             {
               myAudioList.length > 0 ? myAudioList.map(item => (
-                <Community key={item.id} styleName="item" data={item} type={ProgramType.PERSONAL} />
+                <Program key={item.id} styleName="item" data={item} type={ProgramType.PERSONAL} />
               )) : <div styleName="empty">还没有上传新的声音</div>
             }
           </div>

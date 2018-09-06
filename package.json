@@ -1,8 +1,8 @@
 {
   "name": "campus-line",
   "version": "1.0.0",
-  "versionToken": "base_cityfm_campus_line",
-  "description": "全国单身踢馆歌手大赛",
+  "versionToken": "city_new_voice",
+  "description": "高校新声榜",
   "scripts": {
     "start": "npm run dev:ssr",
     "dev:ssr": "better-npm-run dev:ssr",

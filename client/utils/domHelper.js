@@ -1,4 +1,4 @@
 export const stopPropagation = cb => (e) => {
-  e.stopPropagation();
+  e && e.stopPropagation();
   cb();
 };

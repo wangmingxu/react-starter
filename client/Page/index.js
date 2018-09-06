@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../styles/index.less';
 import { NoticeBar, Flex, ActivityIndicator } from 'antd-mobile';
-import Community from 'Component/Community';
+import Program from 'Component/Program';
 import InfiniteScroll from 'react-infinite-scroller';
 import { showDownloadDialog } from 'Component/DownloadDialog';
 import { withUserAgent } from 'rc-useragent';
@@ -80,6 +80,22 @@ class Index extends React.Component {
   gotoVoicePage = (id) => {
     this.props.history.push(`/voice/${id}`);
   }
+  addProgramVotes = (id, votes) => {
+    const { schoolRank, personalRank } = this.props;
+    if (this.state.tab === ProgramType.PERSONAL) {
+      this.props.setPersonalRank({
+        ...personalRank,
+        list: personalRank.list.map(item =>
+          (id === item.id ? { ...item, vote: item.vote + votes } : item)),
+      });
+    } else {
+      this.props.setSchoolRank({
+        ...schoolRank,
+        list: schoolRank.list.map(item =>
+          (id === item.id ? { ...item, vote: item.vote + votes } : item)),
+      });
+    }
+  }
   render() {
     const { tab } = this.state;
     const {
@@ -132,7 +148,7 @@ class Index extends React.Component {
               <div styleName="my-community">
                 <div styleName="title">我支持的社团</div>
                 <div>
-                  {mine.school ? <Community style={{ backgroundColor: '#3c04bd' }} type={tab} data={mine.school} rank={1} /> : <div styleName="empty">还没有贡献的社团</div>}
+                  {mine.school ? <Program style={{ backgroundColor: '#3c04bd' }} type={ProgramType.SCHOOL} data={mine.school} rank={1} onVote={this.addProgramVotes} /> : <div styleName="empty">还没有贡献的社团</div>}
                 </div>
               </div>
             </div>) : null}
@@ -167,8 +183,8 @@ class Index extends React.Component {
             })}
             >
               {
-                list.map((item, i) => (<Community
-                  key={i}
+                list.map((item, i) => (<Program
+                  key={item.id}
                   type={tab}
                   data={item}
                   rank={i + 1}

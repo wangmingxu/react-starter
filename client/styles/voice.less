@@ -2,19 +2,27 @@
 .voice-page {
     height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    .main{
+        .center-container-mixin();
+        padding: 10px 0;
+    }
     .panl {
         #panl-mixin.panl();
-        margin: 0;
-        height: 585px;
-        position: absolute;
-        top: 505/1206*100%;
-        left: 50%;
-        transform: translateX(-50%);
-        [data-lizhi='false'][data-platform='IPhone'] &{
-            top: 505px;
-            transform-origin: 50% 0;
-            transform: translateX(-50%) scale(.92);
-        }
+        margin: 0 auto;
+        // height: 585px;
+        height: 100%;
+        max-height: 600px;
+        // position: absolute;
+        // top: 505/1206*100%;
+        // left: 50%;
+        // transform: translateX(-50%);
+        // [data-lizhi='false'][data-platform='IPhone'] &{
+        //     top: 505px;
+        //     transform-origin: 50% 0;
+        //     transform: translateX(-50%) scale(.92);
+        // }
         .panl-title {
             #panl-mixin.panl-title();
             .avatar-wrapper {
@@ -47,14 +55,22 @@
         }
         .panl-content {
             #panl-mixin.panl-content();
-            padding: 30px 60px 0;
+            padding: 0 60px;
             font-size: 28px;
             color: #fff;
+            display: flex;
+            align-items: center;
+            .center{
+                width: 100%;
+            }
             .row {
                 margin-bottom: 20px;
                 display: flex;
-                &:nth-last-child(2) {
-                    margin-bottom: 35px;
+                // &:nth-last-child(2) {
+                //     margin-bottom: 35px;
+                // }
+                &:last-child{
+                    margin-bottom: 0px;
                 }
                 .cl1 {
                     flex: 1.5;
@@ -87,10 +103,10 @@
         }
     }
     .btn-back {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
+        // position: absolute;
+        // left: 0;
+        // bottom: 0;
+        // width: 100%;
         .ft-btn-mixin();
     }
 }

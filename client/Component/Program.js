@@ -1,11 +1,11 @@
 import React from 'react';
 import { showShareOverlay } from '@lz-component/ShareOverlay';
-import '../styles/community.less';
+import '../styles/program.less';
 import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { showDownloadDialog } from 'Component/DownloadDialog';
 import { Link } from 'react-router-dom';
-import { ProgramType } from 'constant';
+import { ProgramType, getPersonShareData, getSchoolShareData } from 'constant';
 import classNames from 'classnames';
 import * as mineActions from 'Action/Mine';
 import { showVoteDialog } from 'Component/VoteDialog';
@@ -13,26 +13,72 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { stopPropagation } from 'utils/domHelper';
 import api from 'utils/api';
+import Player, { EventMap, AudioStatus } from 'Component/Player';
 
 @connect(
   state => ({ mine: state.Mine }),
   dispatch => bindActionCreators(mineActions, dispatch),
 )
 @withUserAgent
-class Community extends React.Component {
+class Program extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      playStatus: AudioStatus.WAIT_PLAY,
+      playId: -1,
+    };
+    this.player = null;
+  }
+  componentDidMount() {
+    this.player = Player.getInstance();
+    this.player.on(EventMap.STATUS_CHANGE, this.handlePlayerStatus);
+    this.player.on('playIdChange', this.handlePlayIdChange);
+  }
+  componentWillUnmount() {
+    this.player.off(EventMap.STATUS_CHANGE, this.handlePlayerStatus);
+    this.player.off('playIdChange', this.handlePlayIdChange);
+    if (this.state.playId === this.props.data.id) this.player.pause();
+    this.player = null;
+  }
+  handlePlayerStatus=(status) => {
+    this.setState({ playStatus: status });
+  }
+  handlePlayIdChange = (id) => {
+    this.setState({ playId: id });
+  }
+  play = () => {
+    const { data, type } = this.props;
+    if (type === ProgramType.PERSONAL) {
+      this.player.setAudioSrc(data.audio);
+      this.player.emit('playIdChange', data.id);
+    } else {
+      this.openGroupPage();
+    }
+  }
+  openGroupPage = () => {
+    const action = {
+      type: 3,
+      id: '17878651029830272',
+      extraData: {
+        userId: '5095360', // 主播 id
+      },
+    };
+    if (this.props.ua.isLizhiFM) {
+      LizhiJSBridge.call('toAction', { action });
+    } else {
+      showDownloadDialog(action);
+    }
+  }
+  pause = () => {
+    this.player.pause();
   }
   share = async () => {
-    const { ua } = this.props;
+    const { ua, type, data } = this.props;
     if (ua.isLizhiFM) {
-      lz.shareUrl({
-        url: location.href,
-        title: window.shareData.title,
-        desc: window.shareData.desc, // 分享的描述
-        'image-url': window.shareData.imgUrl, // 分享的图片
-      });
+      const shareData = type === ProgramType.PERSONAL ?
+        getPersonShareData(data.id) :
+        getSchoolShareData(data.id);
+      lz.shareUrl(shareData);
       await new Promise((resolve, reject) => {
         lz.on('shareFinish', (ret) => {
           if (ret.statusCode === 0) {
@@ -55,27 +101,32 @@ class Community extends React.Component {
     });
   }
   vote = async () => {
-    await new Promise((resolve) => {
+    const votes = await new Promise((resolve, reject) => {
       showVoteDialog({
         id: this.props.id,
         restVote: this.props.mine.myVotes,
         onVoteSuccess: resolve,
+        onCancel: reject,
       });
     });
-    this.loadVoiceInfo();
+    this.props.onVote(this.props.data.id, votes);
     this.props.loadMineInfo();
   }
   render() {
     const {
       style, className, ua, data, rank, type, onClick = () => {},
     } = this.props;
+    const { playStatus, playId } = this.state;
     const isSchool = type === ProgramType.SCHOOL;
-    return (<div styleName="community-item" style={style} className={className} onClick={onClick}>
+    return (<div styleName="program-item" style={style} className={className} onClick={onClick}>
       <div styleName="cnt">
         {rank ? <div styleName="rank_wrap"><div styleName="rank">{rank}</div></div> : null}
-        <img styleName="avatar" alt="avatar" src={data.image} />
+        <div styleName="avatar-wrapper">
+          <img styleName="avatar" alt="avatar" src={data.image} onClick={stopPropagation(this.play)} />
+          {playStatus === AudioStatus.PLAYING && playId === data.id ? <div styleName="btn-control pause" onClick={stopPropagation(this.pause)} /> : <div styleName="btn-control play" onClick={stopPropagation(this.play)} />}
+        </div>
         <div styleName="info">
-          <div styleName="name">{isSchool ? data.assnName : data.nickName}
+          <div styleName="name">{isSchool ? <span onClick={this.openGroupPage}>{data.assnName}</span> : <span>{data.nickName}</span>}
             {isSchool ? null : <div styleName="s-votes">新声值：{data.vote}</div>}
           </div>
           {isSchool ?
@@ -99,4 +150,4 @@ class Community extends React.Component {
   }
 }
 
-export default Community;
+export default Program;

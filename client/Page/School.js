@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from 'Component/Banner';
-import Community from 'Component/Community';
+import Program from 'Component/Program';
 import { NoticeBar } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import api from 'utils/api';
@@ -14,7 +14,7 @@ import { showDownloadDialog } from 'Component/DownloadDialog';
 import { withUserAgent } from 'rc-useragent';
 
 @connect(
-  state => ({ mine: state.Mine }),
+  state => ({ mine: state.Mine, isLogin: state.Global.isLogin }),
   dispatch => bindActionCreators(mineActions, dispatch),
 )
 @withUserAgent
@@ -54,9 +54,10 @@ class School extends React.Component {
       showDownloadDialog({ action: 7, url: location.href });
     }
   }
+
   render() {
     const { audioList, schoolInfo } = this.state;
-    const { mine } = this.props;
+    const { mine, ua, isLogin } = this.props;
     return (
       <div styleName="page-school">
         <Banner logo={false} detail>
@@ -71,7 +72,7 @@ class School extends React.Component {
           >
             {noticeText}
           </NoticeBar>
-          <div styleName="rest-votes">剩余贡献值：{mine.myVotes}</div>
+          {ua.isLizhiFM && isLogin ? <div styleName="rest-votes">剩余贡献值：{mine.myVotes}</div>:null}
         </div>
         <input
           styleName="search-box"
@@ -82,8 +83,16 @@ class School extends React.Component {
         />
         <div styleName="card">
           {audioList.length > 0 ? audioList.map(item => (
-            <Community key={item.id} styleName="item" data={item} type={ProgramType.PERSONAL} />
-          )) : <div styleName="empty">暂无新声</div>}
+            <Program
+              key={item.id}
+              styleName="item"
+              data={item}
+              type={ProgramType.PERSONAL}
+              onVote={() => {
+                this.loadData();
+              }}
+            />
+          )) : <div styleName="empty">还没有上传的新声</div>}
         </div>
         <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div>
       </div>

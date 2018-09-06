@@ -9,7 +9,7 @@
         transform: translateX(100%);
     }
 }
-.community-item {
+.program-item {
     position: relative;
     width: 100%;
     background-color: rgb(43, 3, 135);
@@ -65,13 +65,37 @@
             text-align: center;
             border-radius: 8px;
         }
-        .avatar {
+        .avatar-wrapper{
             width: 110px;
             height: 110px;
             border-radius: 50% 50%;
+            overflow: hidden;
             border: 5px solid rgb(47, 77, 187);
             margin: 0 15px;
             box-sizing: border-box;
+            position: relative;
+        }
+        .avatar {
+            width: 100%;
+            height: 100%;
+        }
+        .btn-control {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            background-position: center;
+            width: 110px;
+            height: 110px;
+            &.play {
+                background-image: url('../assets/play.svg');
+            }
+            &.pause {
+                background-image: url('../assets/pause.svg');
+                background-size: 60px auto;
+            }
         }
         .info {
             flex: 1;

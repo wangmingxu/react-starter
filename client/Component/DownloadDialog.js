@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import DownloadDialog from '@lz-component/DownloadDialog';
 import downloadIcon from 'assets/download-icon.png';
+import { setDownloadUrl } from '@lz-utils/openApp';
+
+setDownloadUrl('http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1381344360585');
 
 export default class DL extends DownloadDialog {
   constructor(props) {

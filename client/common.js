@@ -45,9 +45,9 @@ registerInterceptor(clientJWTInterceptor);
 
 window.shareData = {
   url: location.href.replace(location.hash, ''),
-  link: location.href,
-  title: '测试标题',
-  desc: '快来测试一下',
+  link: location.href.replace(location.hash, ''),
+  title: '荔枝高校新声榜火热开战，最美新声等你pick',
+  desc: '好声音成就大梦想，全国寻找最美新声，让全校听见你的声音',
   'image-url': shareCover,
   imgUrl: shareCover,
 };
@@ -57,12 +57,7 @@ if (client.isLizhiFM) {
   lz.ready(() => {
     LizhiJSBridge.call(
       'configShareUrl',
-      {
-        url: window.shareData.url, // 分享的url
-        title: window.shareData.title, // 分享标题
-        desc: window.shareData.desc, // 分享的描述
-        'image-url': window.shareData.imgUrl, // 分享的图片
-      },
+      window.shareData,
       (ret) => {
         console.log(ret);
       },

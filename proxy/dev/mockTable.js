@@ -13,7 +13,9 @@ function fail(data, msg = 'error', status = 1) {
 module.exports = {
   // '/newvoice/mine': (req, res) => {
   //   res.json(succ({
-  //     school: null,
+  //     school: {
+  //       id: 35, bank: '17549128', schoolName: '电子科技大学成都学院', assnName: '电子科技大学成都学院广播台', image: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/cd8.jpg', createTime: null, status: null, vote: 0,
+  //     },
   //     nickName: 'Lhahahahah?124',
   //     image: 'null2017/04/13/2595960757229352962.jpg',
   //     hasUseVotes: 0,
