@@ -15,27 +15,35 @@ class VoteDialog extends React.Component {
     const {
       type, id, onVoteSuccess, onClose,
     } = this.props;
-    if (type === ProgramType.SCHOOL) {
-      await api.voteSchool({ sId: id }, { needAuth: true });
-    } else {
-      await api.vote({ id }, { needAuth: true });
+    try {
+      if (type === ProgramType.SCHOOL) {
+        await api.voteSchool({ sId: id }, { needAuth: true });
+      } else {
+        await api.vote({ id }, { needAuth: true });
+      }
+      Toast.info('投票成功', 1);
+      onVoteSuccess(10);
+      onClose();
+    } catch (error) {
+      Toast.info(error, 1);
     }
-    Toast.info('投票成功', 1);
-    onVoteSuccess(10);
-    onClose();
   }
   voteAll = async () => {
     const {
       type, id, onVoteSuccess, restVote, onClose,
     } = this.props;
-    if (type === ProgramType.SCHOOL) {
-      await api.allInSchool({ sId: id }, { needAuth: true });
-    } else {
-      await api.allIn({ id }, { needAuth: true });
+    try {
+      if (type === ProgramType.SCHOOL) {
+        await api.allInSchool({ sId: id }, { needAuth: true });
+      } else {
+        await api.allIn({ id }, { needAuth: true });
+      }
+      Toast.info('投票成功', 1);
+      onVoteSuccess(restVote);
+      onClose();
+    } catch (error) {
+      Toast.info(error, 1);
     }
-    Toast.info('投票成功', 1);
-    onVoteSuccess(restVote);
-    onClose();
   }
   cancel = () => {
     this.props.onClose();

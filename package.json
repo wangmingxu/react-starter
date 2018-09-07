@@ -73,6 +73,7 @@
     "classnames": "^2.2.5",
     "clipboard": "^2.0.1",
     "dayjs": "^1.7.5",
+    "eruda": "^1.5.3",
     "event-emitter3": "^1.0.4",
     "fastclick": "^1.0.6",
     "fundebug-javascript": "^1.1.2",

@@ -10,6 +10,7 @@ export function setPersonalRank(payload) {
 export function loadPersonalRank(params) {
   return async (dispatch) => {
     const { data } = await api.listAllAudio(params);
-    dispatch(setPersonalRank(data));
+    const payload = Object.assign({}, data, { params });
+    dispatch(setPersonalRank(payload));
   };
 }

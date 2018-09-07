@@ -43,8 +43,8 @@ class Post extends React.Component {
         sId: this.schoolId,
         link: this.phone,
       }, { needAuth: true });
-      Toast.info('发布成功', 1.5);
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      Toast.info('发布成功', 1);
+      await new Promise(resolve => setTimeout(resolve, 1000));
       history.push(`/voice/${audioId}`);
     } catch (error) {
       Toast.info(error);

@@ -36,17 +36,29 @@ class Index extends React.Component {
     this.state = {
       tab: ProgramType.SCHOOL,
     };
+    this.searchRef = React.createRef();
   }
   async componentDidMount() {
     this.props.loadMineInfo();
-    this.changeTab(ProgramType.SCHOOL);
+    this.props.loadPersonalRank({ page: 1 });
+    this.props.loadSchoolRank({ page: 1 });
   }
-  loadMore = (page) => {
-    const params = { page };
-    if (this.state.tab === ProgramType.PERSONAL) {
-      this.props.loadPersonalRank(params);
+  get searchStr() {
+    return this.searchRef.current.value;
+  }
+  get isSchoolRank() {
+    return this.state.tab === ProgramType.SCHOOL;
+  }
+  get isVoiceRank() {
+    return this.state.tab === ProgramType.PERSONAL;
+  }
+  loadMore = () => {
+    // console.log(page);
+    const { personalRank, schoolRank } = this.props;
+    if (this.isVoiceRank) {
+      this.props.loadPersonalRank({ page: personalRank.pageIndex + 1, nickName: this.searchStr });
     } else {
-      this.props.loadSchoolRank(params);
+      this.props.loadSchoolRank({ page: schoolRank.pageIndex + 1, name: this.searchStr });
     }
   };
   gotoRecord = () => {
@@ -62,16 +74,18 @@ class Index extends React.Component {
     }, 500);
   }
   changeTab = (tab) => {
-    this.setState({ tab });
-    // todo
-    if (tab === ProgramType.PERSONAL) {
-      this.props.loadPersonalRank({ page: 1 });
-    } else {
-      this.props.loadSchoolRank({ page: 1 });
+    if (this.searchRef.current.value) {
+      if (this.isVoiceRank) {
+        this.props.loadPersonalRank({ page: 1 });
+      } else {
+        this.props.loadSchoolRank({ page: 1 });
+      }
+      this.searchRef.current.value = '';
     }
+    this.setState({ tab });
   }
   search = debounce((nickName) => {
-    if (this.state.tab === ProgramType.PERSONAL) {
+    if (this.isVoiceRank) {
       this.props.loadPersonalRank({ page: 1, nickName });
     } else {
       this.props.loadSchoolRank({ page: 1, name: nickName });
@@ -82,7 +96,7 @@ class Index extends React.Component {
   }
   addProgramVotes = (id, votes) => {
     const { schoolRank, personalRank } = this.props;
-    if (this.state.tab === ProgramType.PERSONAL) {
+    if (this.isVoiceRank) {
       this.props.setPersonalRank({
         ...personalRank,
         list: personalRank.list.map(item =>
@@ -101,7 +115,7 @@ class Index extends React.Component {
     const {
       mine, ua, isLogin, schoolRank, personalRank,
     } = this.props;
-    const { list, hasMore } = tab === ProgramType.PERSONAL ? personalRank : schoolRank;
+    const { list, hasMore } = this.isVoiceRank ? personalRank : schoolRank;
     return (
       <div styleName="index-page">
         <div styleName="scroller">
@@ -148,14 +162,14 @@ class Index extends React.Component {
               <div styleName="my-community">
                 <div styleName="title">我支持的社团</div>
                 <div>
-                  {mine.school ? <Program style={{ backgroundColor: '#3c04bd' }} type={ProgramType.SCHOOL} data={mine.school} rank={1} onVote={this.addProgramVotes} /> : <div styleName="empty">还没有贡献的社团</div>}
+                  {mine.school ? <Program style={{ backgroundColor: '#3c04bd' }} type={ProgramType.SCHOOL} data={mine.school} onVote={this.addProgramVotes} /> : <div styleName="empty">还没有贡献的社团</div>}
                 </div>
               </div>
             </div>) : null}
             <div styleName="tabs">
               <div
                 styleName={classNames('item', {
-                  active: tab === ProgramType.SCHOOL,
+                  active: this.isSchoolRank,
                 })}
                 onClick={() => {
                   this.changeTab(ProgramType.SCHOOL);
@@ -163,7 +177,7 @@ class Index extends React.Component {
               >高校热度榜</div>
               <div
                 styleName={classNames('item', {
-                  active: tab === ProgramType.PERSONAL,
+                  active: this.isVoiceRank,
                 })}
                 onClick={() => {
                   this.changeTab(ProgramType.PERSONAL);
@@ -172,14 +186,15 @@ class Index extends React.Component {
             </div>
             <input
               styleName="search-box"
-              placeholder="搜索你喜爱的声音，为它打call吧"
+              placeholder={this.isVoiceRank ? '搜索你喜爱的声音，为它打call吧' : '搜索你的学校社团，为它打call吧'}
               onFocus={this.fixIpt}
+              ref={this.searchRef}
               onChange={(e) => {
                 this.search(e.target.value);
               }}
             />
             <div styleName={classNames('list', {
-              hasFooter: tab === ProgramType.PERSONAL,
+              hasFooter: this.isVoiceRank,
             })}
             >
               {
@@ -190,14 +205,14 @@ class Index extends React.Component {
                   rank={i + 1}
                   onVote={this.addProgramVotes}
                   onClick={() => {
-                    tab === ProgramType.PERSONAL && this.gotoVoicePage(item.id);
+                    this.isVoiceRank && this.gotoVoicePage(item.id);
                   }}
                 />))
               }
             </div>
           </InfiniteScroll>
         </div>
-        {tab === ProgramType.PERSONAL ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
+        {this.isVoiceRank ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
       </div>
     );
   }

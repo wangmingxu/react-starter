@@ -2,10 +2,9 @@ import babelHelpers from 'script-loader!../helpers.js'; //eslint-disable-line
 import './styles/global.less';
 import FastClick from 'fastclick';
 import { wxConfig, appConfig } from './config';
-import { fundebugApiKey, baiduTongjiID } from './constant';
+import { fundebugApiKey, baiduTongjiID, getDefaultShareData } from './constant';
 import { registerInterceptor } from 'utils/api';
 import { clientJWTInterceptor } from 'utils/JWTInterceptor';
-import shareCover from './assets/share_cover.jpg';
 import ClientDetect from 'rc-useragent/ClientDetect';
 
 require.ensure([], (require) => {
@@ -32,25 +31,21 @@ require.ensure([], (require) => {
   ];
 }, console.log, 'fundebug');
 
+if (/debug/.test(location.href)) {
+  require.ensure([], (require) => {
+    const eruda = require('eruda');
+    eruda.init();
+  }, console.log, 'eruda');
+}
+
 FastClick.attach(document.body);
 
 const client = ClientDetect.getInstance();
-document.documentElement.setAttribute('data-lizhi', client.isLizhiFM);
-document.documentElement.setAttribute('data-platform', client.checkDeviceType());
-window.debug = location.search.includes('debug');
-window.isPre = location.host.includes('pre') || location.search.includes('pre');
 
 // 请求拦截器,获取token并添加到请求参数中
 registerInterceptor(clientJWTInterceptor);
 
-window.shareData = {
-  url: location.href.replace(location.hash, ''),
-  link: location.href.replace(location.hash, ''),
-  title: '荔枝高校新声榜火热开战，最美新声等你pick',
-  desc: '好声音成就大梦想，全国寻找最美新声，让全校听见你的声音',
-  'image-url': shareCover,
-  imgUrl: shareCover,
-};
+window.shareData = getDefaultShareData();
 
 if (client.isLizhiFM) {
   appConfig();

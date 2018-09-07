@@ -32,13 +32,14 @@ class Program extends React.PureComponent {
   componentDidMount() {
     this.player = Player.getInstance();
     this.player.on(EventMap.STATUS_CHANGE, this.handlePlayerStatus);
+    this.player.on(EventMap.ERROR, this.handlePlayerError);
     this.player.on('playIdChange', this.handlePlayIdChange);
   }
   componentWillUnmount() {
     this.player.off(EventMap.STATUS_CHANGE, this.handlePlayerStatus);
+    this.player.off(EventMap.ERROR, this.handlePlayerError);
     this.player.off('playIdChange', this.handlePlayIdChange);
     if (this.state.playId === this.props.data.id) this.player.pause();
-    this.player = null;
   }
   handlePlayerStatus=(status) => {
     this.setState({ playStatus: status });
@@ -54,6 +55,11 @@ class Program extends React.PureComponent {
     } else {
       this.openGroupPage();
     }
+  }
+  handlePlayerError = (error) => {
+    const { playId } = this.state;
+    const { data } = this.props;
+    playId === data.id && window.alert(error);
   }
   openGroupPage = () => {
     const action = {
@@ -78,12 +84,15 @@ class Program extends React.PureComponent {
       const shareData = type === ProgramType.PERSONAL ?
         getPersonShareData(data.id) :
         getSchoolShareData(data.id);
-      lz.shareUrl(shareData);
+      lz.shareUrl(shareData).then((ret) => {
+        ret.status !== 'success' && lz.alt(ret);
+      });
       await new Promise((resolve, reject) => {
         lz.on('shareFinish', (ret) => {
           if (ret.statusCode === 0) {
             resolve();
           } else {
+            lz.alt(ret);
             reject();
           }
         });
@@ -115,13 +124,18 @@ class Program extends React.PureComponent {
   }
   render() {
     const {
-      style, className, ua, data, rank, type, onClick = () => {},
+      style, className, ua, data, type, onClick = () => {},
     } = this.props;
     const { playStatus, playId } = this.state;
     const isSchool = type === ProgramType.SCHOOL;
     return (<div styleName="program-item" style={style} className={className} onClick={onClick}>
       <div styleName="cnt">
-        {rank ? <div styleName="rank_wrap"><div styleName="rank">{rank}</div></div> : null}
+        {data.rank ? <div styleName="rank_wrap"><div styleName={classNames('rank', {
+          No1: data.rank === 1,
+          No2: data.rank === 2,
+          No3: data.rank === 3,
+        })}
+        >{data.rank}</div></div> : null}
         <div styleName="avatar-wrapper">
           <img
             styleName="avatar"

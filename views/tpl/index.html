@@ -14,15 +14,6 @@
   </script>
   <% } %>
   <script>
-    ;(function () {
-      var src = '//eruda.liriliri.io/eruda.min.js';
-      if(/debug=true/.test(window.location)){
-        document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-        document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-      }
-    })();
-  </script>
-  <script>
     (function(c,g){var t=c.document;var b=t.documentElement;var n=t.querySelector('meta[name="viewport"]');var o=t.querySelector('meta[name="flexible"]');var a=0;var s=0;var m;var d=g.flexible||(g.flexible={});if(n){console.warn("将根据已有的meta标签来设置缩放比例");var f=n.getAttribute("content").match(/initial\-scale=([\d\.]+)/);if(f){s=parseFloat(f[1]);a=parseInt(1/s)}}else{if(o){var k=o.getAttribute("content");if(k){var r=k.match(/initial\-dpr=([\d\.]+)/);var i=k.match(/maximum\-dpr=([\d\.]+)/);if(r){a=parseFloat(r[1]);s=parseFloat((1/a).toFixed(2))}if(i){a=parseFloat(i[1]);s=parseFloat((1/a).toFixed(2))}}}}if(!a&&!s){var q=c.navigator.appVersion.match(/android/gi);var p=c.navigator.appVersion.match(/iphone/gi);var l=c.devicePixelRatio;if(p){if(l>=3&&(!a||a>=3)){a=3}else{if(l>=2&&(!a||a>=2)){a=2}else{a=1}}}else{a=1}s=1/a}b.setAttribute("data-dpr",a);if(!n){n=t.createElement("meta");n.setAttribute("name","viewport");n.setAttribute("content","initial-scale="+s+", maximum-scale="+s+", minimum-scale="+s+", user-scalable=no");if(b.firstElementChild){b.firstElementChild.appendChild(n)}else{var h=t.createElement("div");h.appendChild(n);t.write(h.innerHTML)}}function e(){var v=window.document.documentElement;var w=parseFloat(v.style.fontSize);var u=parseFloat(window.getComputedStyle(v).getPropertyValue("font-size"));console.log("finalFontSize === fontSize",u===w);if(u===w){return}v.style.fontSize=w/(w/u)+"px"}function j(){var u=b.getBoundingClientRect().width;if(u/a>540){u=540*a}var v=u/10;b.style.fontSize=v+"px";d.rem=c.rem=v;setTimeout(e,50)}c.addEventListener("resize",function(){clearTimeout(m);m=setTimeout(j,300)},false);c.addEventListener("pageshow",function(u){if(u.persisted){clearTimeout(m);m=setTimeout(j,300)}},false);if(t.readyState==="complete"){t.body.style.fontSize=12*a+"px"}else{t.addEventListener("DOMContentLoaded",function(u){t.body.style.fontSize=12*a+"px"},false)}j();d.dpr=c.dpr=a;d.refreshRem=j;d.rem2px=function(v){var u=parseFloat(v)*this.rem;if(typeof v==="string"&&v.match(/rem$/)){u+="px"}return u};d.px2rem=function(v){var u=parseFloat(v)/this.rem;if(typeof v==="string"&&v.match(/px$/)){u+="rem"}return u}})(window,window["lib"]||(window["lib"]={}));
   </script>
   <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>

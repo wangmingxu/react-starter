@@ -87,7 +87,7 @@ class Record extends React.PureComponent {
       errMsg = '录音失败';
       break;
     }
-    Toast.info(errMsg, 1.5);
+    Toast.info(errMsg, 1);
   }
   handleUploadStart = () => {
     Toast.loading('正在上传录音...', 0);

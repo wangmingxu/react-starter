@@ -10,6 +10,7 @@ export function setSchoolRank(payload) {
 export function loadSchoolRank(params) {
   return async (dispatch) => {
     const { data } = await api.listSchool(params);
-    dispatch(setSchoolRank(data));
+    const payload = Object.assign({}, data, { params });
+    dispatch(setSchoolRank(payload));
   };
 }

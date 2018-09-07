@@ -30,6 +30,7 @@ class Voice extends React.Component {
   }
   async componentDidMount() {
     this.player = Player.getInstance();
+    console.log(this.player);
     await this.loadVoiceInfo();
     this.player.on(EventMap.STATUS_CHANGE, this.handleStatus);
     await this.player.setAudioSrc(this.state.voiceInfo.audio, false);
@@ -37,7 +38,6 @@ class Voice extends React.Component {
   componentWillUnmount() {
     this.player.off(EventMap.STATUS_CHANGE, this.handleStatus);
     this.player.pause();
-    this.player = null;
   }
   get voiceId() {
     const { match: { params } } = this.props;
@@ -73,7 +73,9 @@ class Voice extends React.Component {
     const { ua } = this.props;
     if (ua.isLizhiFM) {
       const shareData = getPersonShareData(this.voiceId);
-      lz.shareUrl(shareData);
+      lz.shareUrl(shareData).then((ret) => {
+        ret.status !== 'success' && lz.alt(ret);
+      });
       await new Promise((resolve, reject) => {
         lz.on('shareFinish', (ret) => {
           if (ret.statusCode === 0) {

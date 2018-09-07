@@ -71,6 +71,7 @@ export function appConfig() {
     debug: false,
     url: lzAuthUrl,
     apiList: [
+      'getAppInfo',
       'getToken',
       'getSessionUser',
       'gotoLogin',
@@ -79,31 +80,7 @@ export function appConfig() {
       'stopRecordVoice',
       'uploadRecordVoice',
       'replayRecordVoice',
-      'shareImage',
-      'saveImage',
     ],
-    eventList: ['verifySignFinish', 'user:login', 'recordStateChange', 'shareFinish'],
+    eventList: ['user:login', 'recordStateChange', 'shareFinish'],
   });
-  // lz.on('sign', (r) => {
-  //   if (r.status === 'success') {
-  //     const { step } = r.data;
-
-  //     switch (step) {
-  //     case 'getUdid': // 获取udid成功
-  //       break;
-
-  //     case 'getSign': // 获取签名成功
-  //       break;
-
-  //     case 'requestVerifySign': // 请求校验签名成功
-  //       break;
-
-  //     case 'verifySignFinish': // 签名校验通过，签名完成
-  //       break;
-  //     default: console.log(11);
-  //     }
-  //   } else {
-  //     window.alert(`签名在进行到${r.data.step}的时候失败！`);
-  //   }
-  // });
 }

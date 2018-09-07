@@ -19,7 +19,11 @@ class Mine extends React.Component {
   }
   async componentDidMount() {
     const { data: { list } } = await api.listMyAudio({ page: 1, pageSize: 50 }, { needAuth: true });
-    this.setState({ myAudioList: list });
+    const _list = list.map((item) => {
+      const { rank, ...other } = item;
+      return other;
+    });
+    this.setState({ myAudioList: _list });
   }
   render() {
     const { mine } = this.props;

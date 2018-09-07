@@ -14,13 +14,19 @@ module.exports = {
   // '/newvoice/mine': (req, res) => {
   //   res.json(succ({
   //     school: {
-  //       id: 35, bank: '17549128', schoolName: '电子科技大学成都学院', assnName: '电子科技大学成都学院广播台', image: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/cd8.jpg', createTime: null, status: null, vote: 0,
+  //       id: 83,
+  //       schoolName: '广东外语外贸大学',
+  //       vote: 60,
+  //       assnName: '广东外语外贸大学广播台',
+  //       votes: 60,
+  //       image: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/gz2.jpg',
+  //       bank: '1612590',
   //     },
-  //     nickName: 'Lhahahahah?124',
-  //     image: 'null2017/04/13/2595960757229352962.jpg',
-  //     hasUseVotes: 0,
-  //     todayVotes: 0,
-  //     myVotes: 0,
+  //     nickName: 'mx\uD83D\uDE33\uD83C\uDFBC',
+  //     image: 'http://cdn.lizhi.fm//user/2018/07/16/2681181327550609922.jpg',
+  //     hasUseVotes: 20,
+  //     todayVotes: 20,
+  //     myVotes: 230,
   //   }));
   // },
   // '/newvoice/info': (req, res) => {

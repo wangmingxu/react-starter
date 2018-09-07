@@ -22,27 +22,6 @@
     &:last-child {
         margin-bottom: 0px;
     }
-    &:nth-child(1) {
-        .rank{
-            background-image: linear-gradient(
-                to top,
-                rgb(196, 138, 0) 0%,
-                rgb(255, 180, 0) 56%,
-                rgb(255, 211, 57) 99%
-            );
-        }
-    }
-    &:nth-child(2) {
-        .rank{
-            background-image: linear-gradient( to top, rgb(173,173,173) 0%, rgb(219,219,219) 73%);
-
-        }
-    }
-    &:nth-child(3) {
-        .rank{
-            background-image: linear-gradient( to top, rgb(173,173,173) 0%, rgb(160,109,109) 0%, rgb(210,161,159) 57%, rgb(243,188,186) 98%);
-        }
-    }
     .cnt {
         position: absolute;
         left: 50%;
@@ -53,8 +32,8 @@
         color: #fff;
         display: flex;
         align-items: center;
-        .rank_wrap{
-            width: 65px;
+        .rank_wrap {
+            width: 60px;
             text-align: right;
         }
         .rank {
@@ -64,14 +43,38 @@
             width: 30px;
             text-align: center;
             border-radius: 8px;
+            &.No1 {
+                background-image: linear-gradient(
+                    to top,
+                    rgb(196, 138, 0) 0%,
+                    rgb(255, 180, 0) 56%,
+                    rgb(255, 211, 57) 99%
+                );
+            }
+            &.No2 {
+                background-image: linear-gradient(
+                    to top,
+                    rgb(173, 173, 173) 0%,
+                    rgb(219, 219, 219) 73%
+                );
+            }
+            &.No3 {
+                background-image: linear-gradient(
+                    to top,
+                    rgb(173, 173, 173) 0%,
+                    rgb(160, 109, 109) 0%,
+                    rgb(210, 161, 159) 57%,
+                    rgb(243, 188, 186) 98%
+                );
+            }
         }
-        .avatar-wrapper{
+        .avatar-wrapper {
             width: 110px;
             height: 110px;
             border-radius: 50% 50%;
             overflow: hidden;
             border: 5px solid rgb(47, 77, 187);
-            margin: 0 15px;
+            margin: 0 15px 0 25px;
             box-sizing: border-box;
             position: relative;
         }
@@ -105,15 +108,16 @@
                 font-size: 24px;
                 font-weight: bold;
                 margin-bottom: 12px;
-                .s-votes{
+                .s-votes {
                     float: right;
                 }
             }
-            .title,.votes{
+            .title,
+            .votes {
                 font-size: 22px;
                 margin-bottom: 12px;
             }
-            .title{
+            .title {
                 color: #c4c0d7;
                 min-height: 30px;
                 text-overflow: ellipsis;
@@ -129,12 +133,12 @@
             .operation {
                 display: flex;
                 justify-content: flex-end;
-                &.withSchool{
-                    .btn{
+                &.withSchool {
+                    .btn {
                         margin-right: 18px;
                     }
                 }
-                .schoolName{
+                .schoolName {
                     flex: 1;
                     text-align: left;
                     color: #c4c0d7;

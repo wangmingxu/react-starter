@@ -32,7 +32,7 @@ module.exports = {
   },
   dev: {
     port: 8080,
-    SERVER_URL: 'https://mkactivitypre.lizhifm.com',
+    SERVER_URL: '',
     autoOpenBrowser: false,
     assetsSubDirectory: 'client',
     assetsPublicPath: '/',

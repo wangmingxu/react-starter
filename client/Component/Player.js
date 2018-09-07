@@ -21,7 +21,8 @@ class Player {
     static instance = null;
     static getInstance() {
       if (!Player.instance) {
-        return new Player();
+        Player.instance = new Player();
+        return Player.instance;
       }
       return Player.instance;
     }
