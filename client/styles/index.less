@@ -5,8 +5,8 @@
     flex-direction: column;
     .scroller{
         flex: 1;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
+        // overflow: auto;
+        // -webkit-overflow-scrolling: touch;
         position: relative;
     }
     .notice-bar{
@@ -178,16 +178,19 @@
     }
     .list{
         width: 715px;
-        padding-bottom: 15px;
         box-sizing: border-box;
         margin: 0 auto;
-        &.hasFooter{
-            padding-bottom: 96+15px;
+        padding-bottom: 96+15px;
+        .empty{
+            text-align: center;
+            padding: 50px;
+            color: #fff;
+            font-size: 28px;
         }
     }
     .btn-join{
         .ft-btn-mixin();
-        position: absolute;
+        position: fixed;
         bottom: 0px;
         left: 0px;
     }

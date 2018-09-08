@@ -9,7 +9,6 @@ import { stopPropagation } from 'utils/domHelper';
 class VoteDialog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
   vote = async () => {
     const {

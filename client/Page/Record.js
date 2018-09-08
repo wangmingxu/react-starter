@@ -9,7 +9,8 @@ import api from 'utils/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
-import { recordText } from 'constant';
+import { recordTextArr } from 'constant';
+import sample from 'lodash/sample';
 
 @connect(
   state => ({ post: state.Post, mine: state.Mine }),
@@ -33,7 +34,11 @@ class Record extends React.PureComponent {
       onUploadStart: this.handleUploadStart,
       onUploadFinish: this.handleUploadFinish,
       onReplayStatusChange: this.handleReplayStatusChange,
+      onRecordTimeout: this.handleRecordTimeout,
     });
+    this.recordText = sample(recordTextArr);
+    this.sTime = 0;
+    this.timer = null;
   }
   componentDidMount() {
     this.recordManager.init();
@@ -52,6 +57,7 @@ class Record extends React.PureComponent {
   }
   remakeRecord = () => {
     this.recordManager.remakeRecord();
+    this.setState({ currentTime: 0 });
   }
   finish = () => {
     this.recordManager.uploadAudio();
@@ -61,9 +67,6 @@ class Record extends React.PureComponent {
   }
   handleStatusChange = (status) => {
     this.setState({ status });
-  }
-  handleReplayStatusChange = (status) => {
-    this.setState({ replayStatus: status });
   }
   handleRecordError = (type) => {
     let errMsg;
@@ -88,6 +91,9 @@ class Record extends React.PureComponent {
       break;
     }
     Toast.info(errMsg, 1);
+  }
+  handleRecordTimeout = () => {
+    Toast.info('录音最长不超过60秒', 1);
   }
   handleUploadStart = () => {
     Toast.loading('正在上传录音...', 0);
@@ -120,6 +126,17 @@ class Record extends React.PureComponent {
       }
     } catch (error) {
       return Promise.reject(error);
+    }
+  }
+  handleReplayStatusChange = (status) => {
+    this.setState({ replayStatus: status });
+    if (status === ReplayStatus.PLAYING) {
+      this.sTime = Date.now();
+      this.timer = setInterval(() => {
+        this.setState({ currentTime: Date.now() - this.sTime });
+      }, 50);
+    } else {
+      clearInterval(this.timer);
     }
   }
   startReplay = () => {
@@ -159,7 +176,7 @@ class Record extends React.PureComponent {
               <div styleName="melody" />
               <div styleName="text">
                 <div styleName="tit">录制内容建议</div>
-                {recordText}
+                {this.recordText}
               </div>
             </div>
           </div>

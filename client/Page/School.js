@@ -25,6 +25,7 @@ class School extends React.Component {
       audioList: [],
       schoolInfo: {},
     };
+    this.searchRef = React.createRef();
   }
 
   componentDidMount() {
@@ -34,6 +35,10 @@ class School extends React.Component {
   get sId() {
     const { match: { params } } = this.props;
     return params.id;
+  }
+
+  get searchStr() {
+    return this.searchRef.current && this.searchRef.current.value;
   }
 
   loadData = async (params) => {
@@ -77,6 +82,7 @@ class School extends React.Component {
         <input
           styleName="search-box"
           placeholder="搜索你喜爱的声音，为它打call吧"
+          ref={this.searchRef}
           onChange={(e) => {
             this.search(e.target.value);
           }}
@@ -92,7 +98,7 @@ class School extends React.Component {
                 this.loadData();
               }}
             />
-          )) : <div styleName="empty">还没有上传的新声</div>}
+          )) : <div styleName="empty">{this.searchStr ? '未搜索到对应的用户' : '还没有上传的新声'}</div>}
         </div>
         <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div>
       </div>

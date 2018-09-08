@@ -16,7 +16,7 @@ class RouteWrapper extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
       this.initShare();
       if (this.props.ua.isWeiXin) {
         wxConfig(); // spa跳转之后重新获取wx-sdk授权
@@ -38,11 +38,11 @@ class RouteWrapper extends React.Component {
     return (
       <ReactCSSTransitionGroup
         transitionName="fade"
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={1000}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
         component={React.Fragment}
       >
-        <div key={location.pathname} className="routerWrapper">
+        <div key={location.pathname}>
           {React.cloneElement(this.props.children, { location })}
         </div>
       </ReactCSSTransitionGroup>

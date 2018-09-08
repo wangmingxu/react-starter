@@ -1,12 +1,16 @@
 @import './mixin.less';
 
 .page-mine{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    // height: 100%;
+    // display: flex;
+    // flex-direction: column;
     .panl{
         #panl-mixin.panl();
-        flex: 1;
+        // flex: 1;
+        height: auto;
+        min-height: 600px;
         margin: 25px auto;
         .panl-title {
             #panl-mixin.panl-title();

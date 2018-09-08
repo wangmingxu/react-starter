@@ -14,12 +14,15 @@ import { bindActionCreators } from 'redux';
 import { stopPropagation } from 'utils/domHelper';
 import api from 'utils/api';
 import Player, { EventMap, AudioStatus } from 'Component/Player';
+import { withRouter } from 'react-router';
+import { Toast } from 'antd-mobile';
 
 @connect(
   state => ({ mine: state.Mine }),
   dispatch => bindActionCreators(mineActions, dispatch),
 )
 @withUserAgent
+@withRouter
 class Program extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -49,7 +52,9 @@ class Program extends React.PureComponent {
   }
   play = () => {
     const { data, type } = this.props;
-    if (type === ProgramType.PERSONAL) {
+    if (!data.audio) {
+      Toast.info('该节目违规，已被删除', 1);
+    } else if (type === ProgramType.PERSONAL) {
       this.player.setAudioSrc(data.audio);
       this.player.emit('playIdChange', data.id);
     } else {
@@ -62,11 +67,12 @@ class Program extends React.PureComponent {
     playId === data.id && window.alert(error);
   }
   openGroupPage = () => {
+    const { data } = this.props;
     const action = {
       type: 3,
-      id: '17878651029830272',
+      id: data.radioId,
       extraData: {
-        userId: '5095360', // 主播 id
+        userId: data.userId, // 主播 id
       },
     };
     if (this.props.ua.isLizhiFM) {
@@ -92,7 +98,6 @@ class Program extends React.PureComponent {
           if (ret.statusCode === 0) {
             resolve();
           } else {
-            lz.alt(ret);
             reject();
           }
         });
@@ -122,13 +127,29 @@ class Program extends React.PureComponent {
     this.props.onVote(this.props.data.id, votes);
     this.props.loadMineInfo();
   }
+  handleLoginFinish = async () => {
+    this.props.loadMineInfo();
+    const { deviceId } = await lz.getAppInfo();
+    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
+  }
+  gotoVoicePage = () => {
+    const { history, data } = this.props;
+    history.push(`/voice/${data.id}`);
+  }
   render() {
     const {
-      style, className, ua, data, type, onClick = () => {},
+      style, className, ua, data, type,
     } = this.props;
     const { playStatus, playId } = this.state;
     const isSchool = type === ProgramType.SCHOOL;
-    return (<div styleName="program-item" style={style} className={className} onClick={onClick}>
+    return (<div
+      styleName="program-item"
+      style={style}
+      className={className}
+      onClick={() => {
+        !isSchool && this.gotoVoicePage();
+      }}
+    >
       <div styleName="cnt">
         {data.rank ? <div styleName="rank_wrap"><div styleName={classNames('rank', {
           No1: data.rank === 1,
@@ -162,7 +183,7 @@ class Program extends React.PureComponent {
           <div styleName={classNames('operation', { withSchool: !isSchool })}>
             {isSchool ? null : <div styleName="schoolName">{data.schoolName}</div>}
             {ua.isLizhiFM ?
-              <WithLoginBtn render={() => <div styleName="btn btn-vote" onClick={stopPropagation(this.vote)}>贡献</div>} /> :
+              <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn btn-vote" onClick={stopPropagation(this.vote)}>贡献</div>} /> :
               <div styleName="btn btn-vote" onClick={stopPropagation(this.downloadApp)}>贡献</div>
             }
             {isSchool ? <Link styleName="btn btn-listen" to={`/school/${data.id}`}>听新声</Link> : null}

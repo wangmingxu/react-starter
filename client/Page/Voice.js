@@ -13,6 +13,7 @@ import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { showDownloadDialog } from 'Component/DownloadDialog';
 import { getPersonShareData, ProgramType } from 'constant';
+import { Toast } from 'antd-mobile';
 
 @connect(
   state => ({ mine: state.Mine }),
@@ -30,10 +31,8 @@ class Voice extends React.Component {
   }
   async componentDidMount() {
     this.player = Player.getInstance();
-    console.log(this.player);
     await this.loadVoiceInfo();
     this.player.on(EventMap.STATUS_CHANGE, this.handleStatus);
-    await this.player.setAudioSrc(this.state.voiceInfo.audio, false);
   }
   componentWillUnmount() {
     this.player.off(EventMap.STATUS_CHANGE, this.handleStatus);
@@ -48,7 +47,11 @@ class Voice extends React.Component {
     this.setState({ voiceInfo: data });
   }
   play = () => {
-    this.player.play();
+    if (!this.state.voiceInfo.audio) {
+      Toast.info('该节目违规，已被删除');
+    } else {
+      this.player.setAudioSrc(this.state.voiceInfo.audio, true);
+    }
   }
   pause = () => {
     this.player.pause();
@@ -97,6 +100,11 @@ class Voice extends React.Component {
       url: location.href,
     });
   }
+  handleLoginFinish = async () => {
+    this.props.loadMineInfo();
+    const { deviceId } = await lz.getAppInfo();
+    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
+  }
   render() {
     const { status, voiceInfo } = this.state;
     const { ua } = this.props;
@@ -130,7 +138,7 @@ class Voice extends React.Component {
                 <div styleName="row">
                   <div styleName="cl1">
                     {ua.isLizhiFM ?
-                      <WithLoginBtn render={() => <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>} /> :
+                      <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>} /> :
                       <div styleName="btn btn-vote" onClick={this.downloadApp}>贡献</div>}
                   </div>
                   <div styleName="cl2">

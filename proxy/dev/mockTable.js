@@ -21,6 +21,7 @@ module.exports = {
   //       votes: 60,
   //       image: 'https://bizadv.lizhi.fm/festatic/city/2018/newvoice/school_head/gz2.jpg',
   //       bank: '1612590',
+  //       rank:1
   //     },
   //     nickName: 'mx\uD83D\uDE33\uD83C\uDFBC',
   //     image: 'http://cdn.lizhi.fm//user/2018/07/16/2681181327550609922.jpg',

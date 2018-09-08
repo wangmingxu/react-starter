@@ -4,6 +4,7 @@ import * as Global from 'Action/Global';
 import { bindActionCreators } from 'redux';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
+import { preventDefault } from 'utils/domHelper'
 
 /**
  *
@@ -41,11 +42,18 @@ export class WithLoginBtn extends React.Component {
   constructor(props) {
     super(props);
   }
+  gotoLogin = async () => {
+    const { onLogin } = this.props;
+    await this.props.login();
+    onLogin && onLogin();
+  }
   render() {
-    const { isLogin, login } = this.props;
+    const { isLogin } = this.props;
     return (<React.Fragment>
       {
-        isLogin ? this.props.render() : React.cloneElement(this.props.render(), { onClick: login })
+        isLogin ?
+          this.props.render() :
+          React.cloneElement(this.props.render(), { onClick: preventDefault(this.gotoLogin) })
       }
     </React.Fragment>);
   }

@@ -1,6 +1,7 @@
 const initState = {
   isLogin: false,
   errMsg: [],
+  tab: 1,
 };
 const Global = (state = initState, action) => {
   switch (action.type) {
@@ -13,6 +14,11 @@ const Global = (state = initState, action) => {
     return {
       ...state,
       errMsg: [...state.errMsg, action.msg],
+    };
+  case 'toggleTab':
+    return {
+      ...state,
+      tab: action.index,
     };
   default:
     return state;

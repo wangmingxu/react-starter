@@ -35,7 +35,6 @@ const clientConfig = merge(baseConfig, {
           name: 'vendor',
         },
         'async-vendor': {
-          test: /[\\/]node_modules[\\/]/,
           minChunks: 2,
           chunks: 'async',
           name: 'async-vendor',

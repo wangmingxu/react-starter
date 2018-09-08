@@ -48,6 +48,14 @@ class Player {
     init() {
       this.audioRef.addEventListener('ended', this.handlePlayEnded);
       this.audioRef.addEventListener('timeupdate', this.handleTimeUpdate);
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+    handleVisibilityChange = () => {
+      if (document.hidden) {
+        this.pause();
+      } else {
+        // 页面呼出
+      }
     }
     async play() {
       this.lockP && await this.lockP;
@@ -114,6 +122,7 @@ class Player {
       this.pause();
       this.audioRef.removeEventListener('ended', this.handlePlayEnded);
       this.audioRef.removeEventListener('timeupdate', this.handleTimeUpdate);
+      document.removeEventListener('visibilitychange', this.handleVisibilityChange);
       this.audioRef = null;
       Object.values(EventMap).forEach((eventName) => {
         this.eventBus.removeAllListeners(eventName);

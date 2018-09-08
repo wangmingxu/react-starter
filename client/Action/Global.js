@@ -24,3 +24,10 @@ export function collectErrMsg(msg) {
     msg,
   };
 }
+
+export function toggleTab(index) {
+  return {
+    type: 'toggleTab',
+    index
+  }
+}

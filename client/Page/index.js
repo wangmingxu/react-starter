@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../styles/index.less';
-import { NoticeBar, Flex, ActivityIndicator } from 'antd-mobile';
+import { NoticeBar } from 'antd-mobile';
 import Program from 'Component/Program';
 import InfiniteScroll from 'react-infinite-scroller';
 import { showDownloadDialog } from 'Component/DownloadDialog';
@@ -10,12 +10,14 @@ import { withUserAgent } from 'rc-useragent';
 import Banner from 'Component/Banner';
 import classNames from 'classnames';
 import * as mineActions from 'Action/Mine';
-import * as schoolRankActins from 'Action/SchoolRank';
-import * as personalRankActins from 'Action/PersonalRank';
+import * as schoolRankActions from 'Action/SchoolRank';
+import * as personalRankActions from 'Action/PersonalRank';
+import * as GlobalActions from 'Action/Global';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { ProgramType, noticeText } from 'constant';
+import api from 'utils/api';
 
 @connect(
   state => ({
@@ -23,9 +25,12 @@ import { ProgramType, noticeText } from 'constant';
     isLogin: state.Global.isLogin,
     schoolRank: state.SchoolRank,
     personalRank: state.PersonalRank,
+    tab: state.Global.tab,
   }),
   dispatch => bindActionCreators(
-    { ...mineActions, ...personalRankActins, ...schoolRankActins },
+    {
+      ...mineActions, ...personalRankActions, ...schoolRankActions, ...GlobalActions,
+    },
     dispatch,
   ),
 )
@@ -33,24 +38,20 @@ import { ProgramType, noticeText } from 'constant';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tab: ProgramType.SCHOOL,
-    };
     this.searchRef = React.createRef();
   }
   async componentDidMount() {
-    this.props.loadMineInfo();
     this.props.loadPersonalRank({ page: 1 });
     this.props.loadSchoolRank({ page: 1 });
   }
   get searchStr() {
-    return this.searchRef.current.value;
+    return this.searchRef.current && this.searchRef.current.value;
   }
   get isSchoolRank() {
-    return this.state.tab === ProgramType.SCHOOL;
+    return this.props.tab === ProgramType.SCHOOL;
   }
   get isVoiceRank() {
-    return this.state.tab === ProgramType.PERSONAL;
+    return this.props.tab === ProgramType.PERSONAL;
   }
   loadMore = () => {
     // console.log(page);
@@ -61,12 +62,11 @@ class Index extends React.Component {
       this.props.loadSchoolRank({ page: schoolRank.pageIndex + 1, name: this.searchStr });
     }
   };
-  gotoRecord = () => {
-    if (this.props.ua.isLizhiFM) {
-      this.props.history.push('/record');
-    } else {
-      showDownloadDialog({ action: 7, url: location.href });
-    }
+  downloadApp = () => {
+    showDownloadDialog({
+      type: 7,
+      url: location.href,
+    });
   }
   fixIpt = ({ target }) => {
     setTimeout(() => {
@@ -82,7 +82,7 @@ class Index extends React.Component {
       }
       this.searchRef.current.value = '';
     }
-    this.setState({ tab });
+    this.props.toggleTab(tab);
   }
   search = debounce((nickName) => {
     if (this.isVoiceRank) {
@@ -91,45 +91,50 @@ class Index extends React.Component {
       this.props.loadSchoolRank({ page: 1, name: nickName });
     }
   }, 500)
-  gotoVoicePage = (id) => {
-    this.props.history.push(`/voice/${id}`);
-  }
   addProgramVotes = (id, votes) => {
-    const { schoolRank, personalRank } = this.props;
+    // const { schoolRank, personalRank } = this.props;
     if (this.isVoiceRank) {
-      this.props.setPersonalRank({
-        ...personalRank,
-        list: personalRank.list.map(item =>
-          (id === item.id ? { ...item, vote: item.vote + votes } : item)),
-      });
+      // this.props.setPersonalRank({
+      //   ...personalRank,
+      //   list: personalRank.list.map(item =>
+      //     (id === item.id ? { ...item, vote: item.vote + votes } : item)),
+      // });
+      this.props.updatePersonalRank();
+      this.props.loadSchoolRank({ page: 1 });
     } else {
-      this.props.setSchoolRank({
-        ...schoolRank,
-        list: schoolRank.list.map(item =>
-          (id === item.id ? { ...item, vote: item.vote + votes } : item)),
-      });
+      // this.props.setSchoolRank({
+      //   ...schoolRank,
+      //   list: schoolRank.list.map(item =>
+      //     (id === item.id ? { ...item, vote: item.vote + votes } : item)),
+      // });
+      this.props.updateSchoolRank();
     }
   }
+  handleLoginFinish = async () => {
+    this.props.loadMineInfo();
+    const { deviceId } = await lz.getAppInfo();
+    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
+  }
   render() {
-    const { tab } = this.state;
     const {
-      mine, ua, isLogin, schoolRank, personalRank,
+      mine, ua, isLogin, schoolRank, personalRank, tab,
     } = this.props;
     const { list, hasMore } = this.isVoiceRank ? personalRank : schoolRank;
     return (
       <div styleName="index-page">
-        <div styleName="scroller">
+        <div styleName="scroller" id="scroller">
           <InfiniteScroll
             pageStart={0}
             initialLoad={false}
             loadMore={this.loadMore}
             hasMore={hasMore}
-            useWindow={false}
-            loader={
-              <Flex justify="center" key={0}>
-                <ActivityIndicator />
-              </Flex>
-            }
+            useWindow
+            loader={null}
+            // loader={
+            //   <Flex justify="center" key={0} style={{ marginBottom: '1.28rem' }}>
+            //     <ActivityIndicator />
+            //   </Flex>
+            // }
           >
             <Banner logo detail />
             <div styleName="notice-bar">
@@ -149,9 +154,11 @@ class Index extends React.Component {
                   styleName="avatar"
                 />
                 <div styleName="stat">
-                  {isLogin ? <div styleName="nickName">{mine.nickName}</div> : <WithLoginBtn render={() => <div styleName="btn-login">登录</div>} />
+                  {isLogin ?
+                    <div styleName="nickName">{mine.nickName}</div> :
+                    <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn-login">登录</div>} />
                   }
-                  <Link styleName="btn-my_voice" to="/mine">我的新声</Link>
+                  <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <Link styleName="btn-my_voice" to="/mine">我的新声</Link>} />
                   <div styleName="rest-votes">剩余贡献值：{isLogin ? mine.myVotes : 0}</div>
                   <div styleName="history-votes">
                     <div styleName="today">今日贡献：{isLogin ? mine.todayVotes : 0}</div>
@@ -162,7 +169,14 @@ class Index extends React.Component {
               <div styleName="my-community">
                 <div styleName="title">我支持的社团</div>
                 <div>
-                  {mine.school ? <Program style={{ backgroundColor: '#3c04bd' }} type={ProgramType.SCHOOL} data={mine.school} onVote={this.addProgramVotes} /> : <div styleName="empty">还没有贡献的社团</div>}
+                  {mine.school ? <Program
+                    style={{ backgroundColor: '#3c04bd' }}
+                    type={ProgramType.SCHOOL}
+                    data={mine.school}
+                    onVote={() => {
+                      this.props.loadSchoolRank({ page: 1 });
+                    }}
+                  /> : <div styleName="empty">还没有贡献的社团</div>}
                 </div>
               </div>
             </div>) : null}
@@ -193,26 +207,22 @@ class Index extends React.Component {
                 this.search(e.target.value);
               }}
             />
-            <div styleName={classNames('list', {
-              hasFooter: this.isVoiceRank,
-            })}
-            >
-              {
-                list.map((item, i) => (<Program
+            <div styleName="list">
+              {list.length === 0 && this.searchStr ?
+                <div styleName="empty">未搜索到对应的{this.isSchoolRank ? '社团' : '用户'}</div> :
+                list.map(item => (<Program
                   key={item.id}
                   type={tab}
                   data={item}
-                  rank={i + 1}
                   onVote={this.addProgramVotes}
-                  onClick={() => {
-                    this.isVoiceRank && this.gotoVoicePage(item.id);
-                  }}
-                />))
-              }
+                />))}
             </div>
           </InfiniteScroll>
         </div>
-        {this.isVoiceRank ? <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div> : null}
+        {ua.isLizhiFM ?
+          <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <Link styleName="btn-join" to="/record">参与上传</Link>} /> :
+          <div styleName="btn-join" onClick={this.downloadApp}>参与上传</div>
+        }
       </div>
     );
   }
