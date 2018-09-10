@@ -15,6 +15,7 @@ import { stopPropagation } from 'utils/domHelper';
 import Player, { EventMap, AudioStatus } from '@lz-component/Player';
 import { withRouter } from 'react-router';
 import { Toast } from 'antd-mobile';
+import throttle from 'lodash/throttle';
 
 @connect(
   state => ({ mine: state.Mine }),
@@ -49,7 +50,7 @@ class Program extends React.PureComponent {
   handlePlayIdChange = (id) => {
     this.setState({ playId: id });
   }
-  play = () => {
+  play = throttle(() => {
     const { data, type } = this.props;
     if (!data.audio) {
       Toast.info('该节目违规，已被删除', 1);
@@ -59,11 +60,11 @@ class Program extends React.PureComponent {
     } else {
       this.openGroupPage();
     }
-  }
+  }, 1000)
   handlePlayerError = (error) => {
     const { playId } = this.state;
     const { data } = this.props;
-    playId === data.id && window.alert(error);
+    playId === data.id && console.log(error);
   }
   openGroupPage = () => {
     const { data } = this.props;
@@ -77,9 +78,9 @@ class Program extends React.PureComponent {
       showDownloadDialog(action);
     }
   }
-  pause = () => {
+  pause = throttle(() => {
     this.player.pause();
-  }
+  }, 1000)
   share = async () => {
     const { ua, type, data } = this.props;
     if (ua.isLizhiFM) {

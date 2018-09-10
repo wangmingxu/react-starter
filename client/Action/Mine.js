@@ -9,7 +9,11 @@ export function setMineInfo(info) {
 
 export function loadMineInfo() {
   return async (dispatch) => {
-    const { data: info } = await api.mine({}, { needAuth: true });
-    dispatch(setMineInfo(info));
+    try {
+      const { data: info } = await api.mine({}, { needAuth: true });
+      dispatch(setMineInfo(info));
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
