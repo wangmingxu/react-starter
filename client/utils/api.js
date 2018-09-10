@@ -47,6 +47,7 @@ const api = apiConfig({
   listSchool: 'GET /newvoice/listSchool', // 列出学校榜单 page 页数  pageSize 每页大小（可不传，默认10）  nickName 查询的学校名（可不传）
   audioInfo: 'GET /newvoice/info', // 音频节目信息 id 节目id
   mine: 'GET /newvoice/mine', // 首页的个人信息（贡献值的记录，最近贡献的学校等) token 用户token
+  isActiviting: 'GET /newvoice/isActiviting',
   transApp: 'GET //oauthbiz.lizhi.fm/checkAppTrans',
 });
 

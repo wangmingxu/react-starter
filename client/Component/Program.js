@@ -12,8 +12,7 @@ import { showVoteDialog } from 'Component/VoteDialog';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { stopPropagation } from 'utils/domHelper';
-import api from 'utils/api';
-import Player, { EventMap, AudioStatus } from 'Component/Player';
+import Player, { EventMap, AudioStatus } from '@lz-component/Player';
 import { withRouter } from 'react-router';
 import { Toast } from 'antd-mobile';
 
@@ -69,11 +68,8 @@ class Program extends React.PureComponent {
   openGroupPage = () => {
     const { data } = this.props;
     const action = {
-      type: 3,
-      id: data.radioId,
-      extraData: {
-        userId: data.userId, // 主播 id
-      },
+      type: 29,
+      id: data.userId,
     };
     if (this.props.ua.isLizhiFM) {
       LizhiJSBridge.call('toAction', { action });
@@ -93,17 +89,6 @@ class Program extends React.PureComponent {
       lz.shareUrl(shareData).then((ret) => {
         ret.status !== 'success' && lz.alt(ret);
       });
-      await new Promise((resolve, reject) => {
-        lz.on('shareFinish', (ret) => {
-          if (ret.statusCode === 0) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
-      });
-      await api.getShareVote({}, { needAuth: true });
-      this.props.loadMineInfo();
     } else {
       showShareOverlay();
     }
@@ -126,11 +111,6 @@ class Program extends React.PureComponent {
     });
     this.props.onVote(this.props.data.id, votes);
     this.props.loadMineInfo();
-  }
-  handleLoginFinish = async () => {
-    this.props.loadMineInfo();
-    const { deviceId } = await lz.getAppInfo();
-    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
   }
   gotoVoicePage = () => {
     const { history, data } = this.props;
@@ -183,7 +163,7 @@ class Program extends React.PureComponent {
           <div styleName={classNames('operation', { withSchool: !isSchool })}>
             {isSchool ? null : <div styleName="schoolName">{data.schoolName}</div>}
             {ua.isLizhiFM ?
-              <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn btn-vote" onClick={stopPropagation(this.vote)}>贡献</div>} /> :
+              <WithLoginBtn render={() => <div styleName="btn btn-vote" onClick={stopPropagation(this.vote)}>贡献</div>} /> :
               <div styleName="btn btn-vote" onClick={stopPropagation(this.downloadApp)}>贡献</div>
             }
             {isSchool ? <Link styleName="btn btn-listen" to={`/school/${data.id}`}>听新声</Link> : null}

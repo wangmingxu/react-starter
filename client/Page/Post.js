@@ -5,12 +5,13 @@ import '../styles/post.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
+import * as MineActions from 'Action/Mine';
 import api from 'utils/api';
 import { Toast } from 'antd-mobile';
 
 @connect(
   state => ({ post: state.Post }),
-  dispatch => bindActionCreators(PostActions, dispatch),
+  dispatch => bindActionCreators({ ...PostActions, ...MineActions }, dispatch),
 )
 class Post extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class Post extends React.Component {
         link: this.phone,
       }, { needAuth: true });
       Toast.info('发布成功', 1);
+      this.props.loadMineInfo();
       await new Promise(resolve => setTimeout(resolve, 1000));
       history.push(`/voice/${audioId}`);
     } catch (error) {

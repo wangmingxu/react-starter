@@ -17,7 +17,10 @@ class Mine extends React.Component {
       myAudioList: [],
     };
   }
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadMyAudio();
+  }
+  loadMyAudio = async () => {
     const { data: { list } } = await api.listMyAudio({ page: 1, pageSize: 50 }, { needAuth: true });
     const _list = list.map((item) => {
       const { rank, ...other } = item;
@@ -45,7 +48,15 @@ class Mine extends React.Component {
           <div styleName="panl-content">
             {
               myAudioList.length > 0 ? myAudioList.map(item => (
-                <Program key={item.id} styleName="item" data={item} type={ProgramType.PERSONAL} />
+                <Program
+                  key={item.id}
+                  styleName="item"
+                  data={item}
+                  type={ProgramType.PERSONAL}
+                  onVote={() => {
+                    this.loadMyAudio();
+                  }}
+                />
               )) : <div styleName="empty">还没有上传新的声音</div>
             }
           </div>

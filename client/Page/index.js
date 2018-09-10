@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../styles/index.less';
-import { NoticeBar } from 'antd-mobile';
+import { NoticeBar, Toast } from 'antd-mobile';
 import Program from 'Component/Program';
 import InfiniteScroll from 'react-infinite-scroller';
 import { showDownloadDialog } from 'Component/DownloadDialog';
@@ -17,7 +17,6 @@ import { WithLoginBtn } from 'Hoc/WithLogin';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import { ProgramType, noticeText } from 'constant';
-import api from 'utils/api';
 
 @connect(
   state => ({
@@ -26,6 +25,7 @@ import api from 'utils/api';
     schoolRank: state.SchoolRank,
     personalRank: state.PersonalRank,
     tab: state.Global.tab,
+    activityStatus: state.Global.activityStatus,
   }),
   dispatch => bindActionCreators(
     {
@@ -110,10 +110,12 @@ class Index extends React.Component {
       this.props.updateSchoolRank();
     }
   }
-  handleLoginFinish = async () => {
-    this.props.loadMineInfo();
-    const { deviceId } = await lz.getAppInfo();
-    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
+  gotoRecord = () => {
+    if (this.props.activityStatus) {
+      this.props.history.push('/record');
+    } else {
+      Toast.info('当前时间不在活动时间内', 1);
+    }
   }
   render() {
     const {
@@ -156,9 +158,9 @@ class Index extends React.Component {
                 <div styleName="stat">
                   {isLogin ?
                     <div styleName="nickName">{mine.nickName}</div> :
-                    <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn-login">登录</div>} />
+                    <WithLoginBtn render={() => <div styleName="btn-login">登录</div>} />
                   }
-                  <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <Link styleName="btn-my_voice" to="/mine">我的新声</Link>} />
+                  <WithLoginBtn render={() => <Link styleName="btn-my_voice" to="/mine">我的新声</Link>} />
                   <div styleName="rest-votes">剩余贡献值：{isLogin ? mine.myVotes : 0}</div>
                   <div styleName="history-votes">
                     <div styleName="today">今日贡献：{isLogin ? mine.todayVotes : 0}</div>
@@ -220,7 +222,7 @@ class Index extends React.Component {
           </InfiniteScroll>
         </div>
         {ua.isLizhiFM ?
-          <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <Link styleName="btn-join" to="/record">参与上传</Link>} /> :
+          <WithLoginBtn render={() => <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div>} /> :
           <div styleName="btn-join" onClick={this.downloadApp}>参与上传</div>
         }
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from 'Component/Banner';
 import '../styles/voice.less';
-import Player, { AudioStatus, EventMap } from 'Component/Player';
+import Player, { AudioStatus, EventMap } from '@lz-component/Player';
 import { showVoteDialog } from 'Component/VoteDialog';
 import api from 'utils/api';
 import { Link } from 'react-router-dom';
@@ -79,17 +79,6 @@ class Voice extends React.Component {
       lz.shareUrl(shareData).then((ret) => {
         ret.status !== 'success' && lz.alt(ret);
       });
-      await new Promise((resolve, reject) => {
-        lz.on('shareFinish', (ret) => {
-          if (ret.statusCode === 0) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
-      });
-      await api.getShareVote({}, { needAuth: true });
-      this.props.loadMineInfo();
     } else {
       showShareOverlay();
     }
@@ -99,11 +88,6 @@ class Voice extends React.Component {
       type: 7,
       url: location.href,
     });
-  }
-  handleLoginFinish = async () => {
-    this.props.loadMineInfo();
-    const { deviceId } = await lz.getAppInfo();
-    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
   }
   render() {
     const { status, voiceInfo } = this.state;
@@ -138,7 +122,7 @@ class Voice extends React.Component {
                 <div styleName="row">
                   <div styleName="cl1">
                     {ua.isLizhiFM ?
-                      <WithLoginBtn onLogin={this.handleLoginFinish} render={() => <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>} /> :
+                      <WithLoginBtn render={() => <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>} /> :
                       <div styleName="btn btn-vote" onClick={this.downloadApp}>贡献</div>}
                   </div>
                   <div styleName="cl2">

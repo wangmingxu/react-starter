@@ -54,20 +54,3 @@ export function showDownloadDialog(action) {
   };
 }
 
-export class DownloadBtn extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  download = () => {
-    const { action } = this.props;
-    showDownloadDialog(action);
-  }
-  render() {
-    return (
-      <React.Fragment>
-        {React.cloneElement(this.props.render(), { onClick: this.download })}
-      </React.Fragment>
-    );
-  }
-}
-

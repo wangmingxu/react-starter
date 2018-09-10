@@ -2,6 +2,7 @@ const initState = {
   isLogin: false,
   errMsg: [],
   tab: 1,
+  activityStatus: true,
 };
 const Global = (state = initState, action) => {
   switch (action.type) {
@@ -19,6 +20,11 @@ const Global = (state = initState, action) => {
     return {
       ...state,
       tab: action.index,
+    };
+  case 'setActivityStatus':
+    return {
+      ...state,
+      activityStatus: action.status,
     };
   default:
     return state;

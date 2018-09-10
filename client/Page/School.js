@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from 'Component/Banner';
 import Program from 'Component/Program';
-import { NoticeBar } from 'antd-mobile';
+import { NoticeBar, Toast } from 'antd-mobile';
 import { Link } from 'react-router-dom';
 import api from 'utils/api';
 import '../styles/school.less';
@@ -12,9 +12,14 @@ import { connect } from 'react-redux';
 import * as mineActions from 'Action/Mine';
 import { showDownloadDialog } from 'Component/DownloadDialog';
 import { withUserAgent } from 'rc-useragent';
+import { WithLoginBtn } from 'Hoc/WithLogin';
 
 @connect(
-  state => ({ mine: state.Mine, isLogin: state.Global.isLogin }),
+  state => ({
+    mine: state.Mine,
+    isLogin: state.Global.isLogin,
+    activityStatus: state.Global.activityStatus,
+  }),
   dispatch => bindActionCreators(mineActions, dispatch),
 )
 @withUserAgent
@@ -29,7 +34,7 @@ class School extends React.Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    this.loadSchoolAudio();
   }
 
   get sId() {
@@ -41,7 +46,7 @@ class School extends React.Component {
     return this.searchRef.current && this.searchRef.current.value;
   }
 
-  loadData = async (params) => {
+  loadSchoolAudio = async (params) => {
     const { data: { list: { list }, school } } = await api.listSchoolAudio({
       sId: this.sId, page: 1, pageSize: 50, ...params,
     });
@@ -49,14 +54,27 @@ class School extends React.Component {
   }
 
   search = debounce((nickName) => {
-    this.loadData({ nickName });
+    this.loadSchoolAudio({ nickName });
   }, 500)
 
+  fixIpt = ({ target }) => {
+    setTimeout(() => {
+      target.scrollIntoView();
+    }, 500);
+  }
+
+  downloadApp = () => {
+    showDownloadDialog({
+      type: 7,
+      url: location.href,
+    });
+  }
+
   gotoRecord = () => {
-    if (this.props.ua.isLizhiFM) {
+    if (this.props.activityStatus) {
       this.props.history.push('/record');
     } else {
-      showDownloadDialog({ action: 7, url: location.href });
+      Toast.info('当前时间不在活动时间内', 1);
     }
   }
 
@@ -83,6 +101,7 @@ class School extends React.Component {
           styleName="search-box"
           placeholder="搜索你喜爱的声音，为它打call吧"
           ref={this.searchRef}
+          onFocus={this.fixIpt}
           onChange={(e) => {
             this.search(e.target.value);
           }}
@@ -95,12 +114,15 @@ class School extends React.Component {
               data={item}
               type={ProgramType.PERSONAL}
               onVote={() => {
-                this.loadData();
+                this.loadSchoolAudio();
               }}
             />
           )) : <div styleName="empty">{this.searchStr ? '未搜索到对应的用户' : '还没有上传的新声'}</div>}
         </div>
-        <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div>
+        {ua.isLizhiFM ?
+          <WithLoginBtn render={() => <div styleName="btn-join" onClick={this.gotoRecord}>参与上传</div>} /> :
+          <div styleName="btn-join" onClick={this.downloadApp}>参与上传</div>
+        }
       </div>
     );
   }

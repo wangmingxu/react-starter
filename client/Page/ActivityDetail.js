@@ -37,7 +37,7 @@ const ActivityDetail = () => (
       <div styleName="center desc">学校获取新声值与该校所有新声获取新声值相加排名</div>
       <div styleName="title">个人榜单排名</div>
       <div styleName="center desc">所有学校个人获取新声值总排名</div>
-      <div styleName="desc">你的学校没在榜上？<br />欢迎大高校积极参与<br />联系QQ：3002820959推荐你的学校<br />不要错过这个向全世界安利的机会哦！</div>
+      <div styleName="desc">你的学校没在榜上？<br />欢迎大高校积极参与<br />联系QQ：<a styleName="qq">3002820959</a>推荐你的学校<br />不要错过这个向全世界安利的机会哦！</div>
     </div>
   </div>
 );

@@ -4,13 +4,14 @@ import * as Global from 'Action/Global';
 import { bindActionCreators } from 'redux';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import { preventDefault } from 'utils/domHelper'
+import { preventDefault } from 'utils/domHelper';
 
 /**
  *
  * @param {*} forceLogin 如果未登录是否强制跳转登录
+ * @param {*} cb 登录完之后的回调
  */
-const WithLogin = (forceLogin = true) => (Wrapper) => {
+const WithLogin = (forceLogin = true, cb) => (Wrapper) => {
   class WithLoginComponent extends Wrapper {
     static propTypes = {
       isLogin: PropTypes.bool.isRequired,
@@ -20,8 +21,16 @@ const WithLogin = (forceLogin = true) => (Wrapper) => {
     }
     async componentDidMount() {
       const isLogin = await this.props.checkAuthStatus();
-      if (!isLogin && forceLogin) {
-        await this.props.login();
+      if (!isLogin) {
+        if (forceLogin) {
+          await this.props.login();
+        } else {
+          lz.on('user:login', () => {
+            cb && cb(this.props.dispatch);
+          });
+        }
+      } else {
+        cb && cb(this.props.dispatch);
       }
     }
     render() {
@@ -31,32 +40,29 @@ const WithLogin = (forceLogin = true) => (Wrapper) => {
   }
   return connect(
     state => ({ isLogin: get(state, ['Global', 'isLogin']) }),
-    dispatch => bindActionCreators(Global, dispatch),
+    dispatch => ({ ...bindActionCreators(Global, dispatch), dispatch }),
   )(WithLoginComponent);
 };
 @connect(
   state => ({ isLogin: get(state, ['Global', 'isLogin']) }),
   dispatch => bindActionCreators(Global, dispatch),
 )
-export class WithLoginBtn extends React.Component {
+class WithLoginBtn extends React.Component {
   constructor(props) {
     super(props);
   }
-  gotoLogin = async () => {
-    const { onLogin } = this.props;
-    await this.props.login();
-    onLogin && onLogin();
-  }
   render() {
-    const { isLogin } = this.props;
+    const { isLogin, login } = this.props;
     return (<React.Fragment>
       {
         isLogin ?
           this.props.render() :
-          React.cloneElement(this.props.render(), { onClick: preventDefault(this.gotoLogin) })
+          React.cloneElement(this.props.render(), { onClick: preventDefault(login) })
       }
     </React.Fragment>);
   }
 }
 
 export default WithLogin;
+
+export { WithLoginBtn };

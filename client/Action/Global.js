@@ -1,4 +1,5 @@
 import { checkLogin, applyLogin } from 'utils/auth';
+import api from 'utils/api';
 
 export function toggleAuthStatus(isLogin) {
   return {
@@ -28,6 +29,20 @@ export function collectErrMsg(msg) {
 export function toggleTab(index) {
   return {
     type: 'toggleTab',
-    index
-  }
+    index,
+  };
+}
+
+export function setActivityStatus(status) {
+  return {
+    type: 'setActivityStatus',
+    status,
+  };
+}
+
+export function checkActivityStatus() {
+  return async (dispatch) => {
+    const { data: status } = await api.isActiviting();
+    dispatch(setActivityStatus(status));
+  };
 }
