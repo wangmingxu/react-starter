@@ -92,6 +92,7 @@ class Index extends React.Component {
     }
   }, 500)
   addProgramVotes = (id, votes) => {
+    console.log(`已成功为节目${id}增加${votes}票`);
     // const { schoolRank, personalRank } = this.props;
     if (this.isVoiceRank) {
       // this.props.setPersonalRank({

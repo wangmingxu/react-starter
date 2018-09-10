@@ -10,13 +10,13 @@ const ActivityDetail = () => (
       <div styleName="center desc">9月10号——9月25号</div>
       <div styleName="title">获得新声值的方式</div>
       <div styleName="title">每日登陆</div>
-      <div styleName="center desc">每天进入活动榜单，可获100贡献值</div>
+      <div styleName="center desc">每天登录荔枝APP，进入活动页面，可获100贡献值</div>
       <div styleName="title">参与上传</div>
-      <div styleName="desc">每天首次参与上传录音，可获50贡献值</div>
+      <div styleName="desc">每天登录荔枝APP，首次参与上传录音，可获50贡献值</div>
       <div styleName="title">邀请朋友一起来贡献</div>
       <div styleName="desc">
-      转发1次获10贡献值，用户每天分享最高可得100贡献值<br />
-        注：每天贡献值不回收，贡献次数不限。
+      荔枝APP内，转发1次获10贡献值，每天分享最高可得100贡献值<br />
+      注：每天贡献值不回收，贡献次数不限
       </div>
       <div styleName="title">高校热度榜奖励</div>
       <div styleName="desc">
