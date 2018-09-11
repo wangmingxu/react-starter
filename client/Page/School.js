@@ -48,7 +48,7 @@ class School extends React.Component {
 
   loadSchoolAudio = async (params) => {
     const { data: { list: { list }, school } } = await api.listSchoolAudio({
-      sId: this.sId, page: 1, pageSize: 50, ...params,
+      sId: this.sId, page: 1, pageSize: 100, ...params,
     });
     this.setState({ audioList: list, schoolInfo: school });
   }

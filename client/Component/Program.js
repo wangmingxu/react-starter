@@ -75,7 +75,7 @@ class Program extends React.PureComponent {
     if (this.props.ua.isLizhiFM) {
       LizhiJSBridge.call('toAction', { action });
     } else {
-      showDownloadDialog(action);
+      location.href = `https://m.lizhi.fm/user/${data.userId}`;
     }
   }
   pause = throttle(() => {

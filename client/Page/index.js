@@ -16,7 +16,7 @@ import * as GlobalActions from 'Action/Global';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { Link } from 'react-router-dom';
 import debounce from 'lodash/debounce';
-import { ProgramType, noticeText } from 'constant';
+import { ProgramType, noticeText, defaultAvatar } from 'constant';
 
 @connect(
   state => ({
@@ -152,7 +152,7 @@ class Index extends React.Component {
             {ua.isLizhiFM ? (<div styleName="user-card">
               <div styleName="user-info">
                 <img
-                  src={mine.image}
+                  src={mine.image || defaultAvatar}
                   alt="avatar"
                   styleName="avatar"
                 />

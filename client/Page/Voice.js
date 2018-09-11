@@ -12,7 +12,7 @@ import { showShareOverlay } from '@lz-component/ShareOverlay';
 import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { showDownloadDialog } from 'Component/DownloadDialog';
-import { getPersonShareData, ProgramType } from 'constant';
+import { getPersonShareData, ProgramType, defaultAvatar } from 'constant';
 import { Toast } from 'antd-mobile';
 
 @connect(
@@ -101,7 +101,7 @@ class Voice extends React.Component {
               <div styleName="avatar-wrapper">
                 <img
                   styleName="avatar"
-                  src={voiceInfo.image}
+                  src={voiceInfo.image || defaultAvatar}
                   alt="avatar"
                 />
                 {status === AudioStatus.PLAYING ? <div styleName="btn-control pause" onClick={this.pause} /> : <div styleName="btn-control play" onClick={this.play} />}

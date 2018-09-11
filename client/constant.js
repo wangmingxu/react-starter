@@ -1,5 +1,7 @@
 import shareCover from './assets/share_cover.jpg';
 
+export { default as defaultAvatar } from 'assets/campus-line/avatar-default.png';
+
 export const cookiePrefix = 'base_cityfm_campus_line_';
 export const tokenKey = `${cookiePrefix}token`;
 
