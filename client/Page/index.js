@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import '../styles/index.less';
-import { NoticeBar, Toast } from 'antd-mobile';
+import { NoticeBar, Toast, Flex, ActivityIndicator } from 'antd-mobile';
 import Program from 'Component/Program';
 import InfiniteScroll from 'react-infinite-scroller';
 import { showDownloadDialog } from 'Component/DownloadDialog';
@@ -219,6 +219,9 @@ class Index extends React.Component {
                   data={item}
                   onVote={this.addProgramVotes}
                 />))}
+              {hasMore ? <Flex justify="center" key={0}>
+                <ActivityIndicator />
+              </Flex> : null}
             </div>
           </InfiniteScroll>
         </div>
