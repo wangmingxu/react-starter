@@ -1,0 +1,111 @@
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/voicereport/bg-record.png') no-repeat;
+    background-size: 100% auto;
+    background-position: left center;
+}
+.rounds {
+    position: absolute;
+    top: (260+837/2)/1106 * 100%;
+    transform: translateY(-50%);
+    width: 100%;
+    background: url('../assets/voicereport/round.png') no-repeat;
+    background-size: 100% auto;
+    height: 837px;
+    position: relative;
+}
+.wrapper-progress_bar {
+    width: 400px;
+    height: 80px;
+    overflow: hidden;
+    position: absolute;
+    top: 46px;
+    // left: 50%;
+    // transform: translateX(-50%);/*ios下面会导致overflow:hidden失效*/
+    left: 175px;
+    border-radius: 0 0 14px 14px;
+    // -webkit-transform-style: preserve-3d;/*ios transition闪烁*/
+    // background-color: purple;
+}
+.progress_bar {
+    width: 656+15 * 2px;
+    height: 656+15 * 2px;
+    border-radius: 50%;
+    position: absolute;
+    left: -171px; /*(656+15*2+28*2)/2+400/2*/
+    // -webkit-backface-visibility: hidden;/*ios transition闪烁*/
+    // transform: translateX(-50%);
+}
+.outter {
+    border: 28px solid #ffacd1;
+}
+.inner {
+    border: 28px solid transparent;
+    border-top: 28px solid #9cf0ef;
+    transform: translate3d(0,0,0) rotate(-80deg);
+    [data-platform='Android'] &{
+        transition: transform .1s linear;/*ios transition闪烁*/
+    }
+    // todo
+    // transform:    rotate(-10deg);
+}
+.btn-record {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../assets/voicereport/btn-record.png') no-repeat;
+    background-size: 100% auto;
+    width: 656px;
+    height: 656px;
+    border-radius: 50% 50%;
+    .press{
+        width: 388px;
+        height: 388px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: url('../assets/voicereport/record-press.png') no-repeat;
+        background-size: 100% auto;
+    }
+    &.active .press{
+        background-image: url('../assets/voicereport/record-press-active.png');
+    }
+    &::after {
+        content: '';
+        background: url('../assets/voicereport/rocker.png') no-repeat;
+        background-size: 100% auto;
+        width: 129px;
+        height: 272px;
+        position: absolute;
+        top: 46px;
+        right: 74px;
+        transform-origin: center top;
+        transform: rotate(-30deg);
+        transition: transform 1s;
+    }
+    &.active::after{
+        transform: rotate(0deg);
+    }
+}
+.wrapper-text{
+    writing-mode: vertical-rl;
+    font-size: 28px;
+    position: absolute;
+    top: 152/1106*100%;
+    left: 465px;
+    transform: translate(-50%,-50%);
+    white-space:nowrap;
+    z-index: 5;
+    .tit{
+        color: #58bab9;
+        margin-left: 20px;
+    }
+    .text{
+        margin-left: 20px;
+        color: #f090bc;
+    }
+}

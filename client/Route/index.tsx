@@ -11,5 +11,19 @@ const routes = [
       : lazy(() => import('Page/index')),
     exact: true,
   },
+  {
+    path: '/record',
+    component: __ISOMORPHIC__
+      ? require('Page/record').default
+      : lazy(() => import('Page/record')),
+    exact: true,
+  },
+  {
+    path: '/loading/:id',
+    component: __ISOMORPHIC__
+      ? require('Page/loading').default
+      : lazy(() => import('Page/loading')),
+    exact: true,
+  },
 ];
 export default routes;

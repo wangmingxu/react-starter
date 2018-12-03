@@ -5,13 +5,9 @@ import {
   APP_USERAGENT_TOKEN,
   ClientDetectService,
 } from '@lizhife/lz-market-service/package/ClientDetectService';
-import {
-  APP_CONFIG_TOKEN,
-  DEFAULT_APP_CONFIG,
-} from '@lizhife/lz-market-service/package/ConfigService';
-import DefaultResInterceptor from '@lizhife/lz-market-service/package/DefaultResInterceptor';
-import JsBridgeService from '@lizhife/lz-market-service/package/JsBridgeService';
+import { APP_CONFIG_TOKEN } from '@lizhife/lz-market-service/package/ConfigService';
 import JWTReqInterceptor from '@lizhife/lz-market-service/package/JWTReqInterceptor';
+import RecordService from '@lizhife/lz-market-service/package/RecordService';
 import ShareService from '@lizhife/lz-market-service/package/ShareService';
 import { COOKIE_STR_TOKEN, CookieService } from 'di-sdk/package/CookieService';
 // import { ClientDetectService, APP_USERAGENT_TOKEN } from 'di-sdk/package/ClientDetectService';
@@ -22,17 +18,23 @@ import {
   HttpService,
 } from 'di-sdk/package/HttpService';
 import { Provider, ReflectiveInjector } from 'injection-js';
+import config from './config';
+import DefaultResInterceptor from './DefaultResInterceptor';
+import httpAlias from './http-alias';
+import JsBridgeService, { JSB_SERVICE_TOKEN } from './JsBridgeService';
 
 const defaultProvider: Provider[] = [
   ClientDetectService,
   HttpService,
   CookieService,
   AuthService,
+  RecordService,
   { provide: 'cdServ', useExisting: ClientDetectService },
   { provide: '$http', useExisting: HttpService },
   { provide: 'cookieServ', useExisting: CookieService },
   { provide: 'AuthServ', useExisting: AuthService },
-  { provide: APP_CONFIG_TOKEN, useValue: DEFAULT_APP_CONFIG },
+  { provide: 'recordServ', useExisting: RecordService },
+  { provide: APP_CONFIG_TOKEN, useValue: config },
   {
     provide: HTTP_RESPONSE_INTERCEPTORS,
     useClass: DefaultResInterceptor,
@@ -45,9 +47,7 @@ const defaultProvider: Provider[] = [
   },
   {
     provide: HTTP_ALIAS_TOKEN,
-    useValue: {
-      getCity: 'GET /hangzhou/singleDog/getCity',
-    },
+    useValue: httpAlias,
   },
 ];
 
@@ -60,8 +60,8 @@ const injector = typeof window === 'object'
   ? createInjector([
     { provide: APP_USERAGENT_TOKEN, useValue: navigator.userAgent },
     { provide: COOKIE_STR_TOKEN, useValue: document.cookie },
-    JsBridgeService,
-    { provide: 'jsbServ', useExisting: JsBridgeService },
+    {provide: JSB_SERVICE_TOKEN, useClass: JsBridgeService},
+    { provide: 'jsbServ', useExisting: JSB_SERVICE_TOKEN },
     ShareService,
     { provide: 'shareServ', useExisting: ShareService },
   ])
