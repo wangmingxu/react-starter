@@ -1,0 +1,220 @@
+@keyframes notes{
+    from{
+        transform: translate(-50%,-50%) rotate(0);
+    }
+    to{
+        transform: translate(-50%,-50%) rotate(360deg);
+    }
+}
+.loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    .bg{
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .notes{
+        width: 40px;
+        height: 62px;
+        position: absolute;
+        left: 50%;
+        top: (620+62/2)/1447*100%;
+        transform: translate(-50%,-50%);
+        background: url('../assets/voicereport/notes.png') no-repeat;
+        background-size: 100% auto;
+        animation: notes 1s infinite linear;
+        transform-origin: 50% 50%;
+    }
+}
+.analysising{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    [data-platform='IPhoneX'] &{
+        top: 0px;
+    }
+    .bg{
+        width: 100%;
+        // transform: translateY(-100px);
+    }
+    .voice-layout{
+        position: absolute;
+        width: 568px;
+        height: 800px;
+        background: url('../assets/voicereport/voice-layout.png') no-repeat;
+        background-size: 100% auto;
+        top: 117px;
+        left: 106px;
+    }
+    .tip{
+        position: absolute;
+        top: 1065px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 26px;
+        writing-mode: vertical-rl;
+        white-space:nowrap;
+        .text{
+            margin-left: 20px;
+        }
+    }
+}
+.poster{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1334px;
+    background: url('../assets/voicereport/bg-poster.png') no-repeat;
+    background-size: 100% auto;
+    background-position: left -53px;
+    .title{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 25px;
+        color: #58bab9;
+        font-size: 36px
+    }
+    .avatar-wrapper{
+        position: absolute;
+        top: 190px;
+        left: (750-372)/2px;
+        width: 372px;
+        height: 372px;
+        background: url('../assets/voicereport/poster-avatar-wrapper.png') no-repeat;
+        background-size: 100% auto;
+        .rocker{
+            width: 63px;
+            height: 132px;
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            // background: url('../assets/voicereport/rocker.png') no-repeat;
+            // background-size: 100% auto;
+            z-index: 3;
+        }
+        .avatar{
+            width: 318px;
+            height: 318px;
+            position: absolute;
+            left: (372-318-5)/2px;
+            top: (372-318-5)/2px;
+            border-radius: 50% 50%;
+            z-index: 2;
+        }
+    }
+    .prop-list{
+        position: absolute;
+        top: 585px;
+        left: 105px;
+        font-size: 28px;
+        .item{
+            width: 540px;
+            display: flex;
+            margin-bottom: 15px;
+            .label{
+                width: 160px;
+                color: #49aead;
+                letter-spacing: 2px;
+            }
+            .value{
+                flex: 1;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                .simliar{
+                    color: #ff8abf;
+                    margin-left: 10px;
+                }
+                .heart{
+                    width: 33px;
+                    height: 29px;
+                    margin-right: 10px;
+                    // background: url('../assets/voicereport/icon-heart.png') no-repeat;
+                    // background-size: 100% auto;
+                }
+            }
+        }
+    }
+    .tone-panl{
+        position: absolute;
+        top: 816px;
+        left: 106px;
+        min-width: 539px;
+        height: 179px;
+        background: url('../assets/voicereport/poster-panl.png') no-repeat;
+        background-size: 100% auto;
+        color: #58bab9;
+        font-size: 28px;
+        .panl-title{
+            padding-top: 15px;
+            height: 64px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .panl-content{
+            text-align: center;
+            display: flex;
+            align-items: center;
+            height: 115px;
+            .text{
+                flex: 1;
+            }
+        }
+    }
+    .best-partner{
+        text-align: center;
+        background: linear-gradient(to right,#ffe2f0 0%,#fff3f9 100%);
+        width: 507px;
+        height: 110px;
+        position: absolute;
+        left: 120px;
+        top: 1003px;
+        border-radius: 0 0 25px 25px;
+        color: #fd80b5;
+        font-size: 28px;
+        box-sizing: border-box;
+        padding-top: 15px;
+        [data-lizhi='true'] [data-display='dom']&{
+            display: none;
+        }
+        .dot{
+            font-weight: bold;
+            font-size: 30px;
+            margin: 0 5px;
+        }
+    }
+    .bottom-bar{
+        width: 100%;
+        height: 156px;
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        // background: url('../assets/voicereport/poster-bar.png') no-repeat;
+        // background-size: 100% auto;
+        background-color: #fff;
+        .bg{
+            width: 100%;
+        }
+        .qrcode{
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            width: 141px;
+        }
+        [data-lizhi='true'] [data-display='dom']&{
+            display: none;
+        }
+    }
+}

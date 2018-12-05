@@ -7,22 +7,29 @@ const routes = [
   {
     path: '/',
     component: __ISOMORPHIC__
-      ? require('Page/index').default
-      : lazy(() => import('Page/index')),
+      ? require('@/Page/index').default
+      : lazy(() => import('@/Page/index')),
     exact: true,
   },
   {
     path: '/record',
     component: __ISOMORPHIC__
-      ? require('Page/record').default
-      : lazy(() => import('Page/record')),
+      ? require('@/Page/record').default
+      : lazy(() => import('@/Page/record')),
     exact: true,
   },
   {
     path: '/loading/:id',
     component: __ISOMORPHIC__
-      ? require('Page/loading').default
-      : lazy(() => import('Page/loading')),
+      ? require('@/Page/loading').default
+      : lazy(() => import('@/Page/loading')),
+    exact: true,
+  },
+  {
+    path: '/result/:id',
+    component: __ISOMORPHIC__
+      ? require('@/Page/result').default
+      : lazy(() => import('@/Page/result')),
     exact: true,
   },
 ];

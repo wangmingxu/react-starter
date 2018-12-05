@@ -1,4 +1,4 @@
-import { IResult } from 'types/result';
+import { IResult } from '@/types/result';
 
 const initState: IResult = {
   color: '',
@@ -10,11 +10,12 @@ const initState: IResult = {
     voiceManCover:    '',
     voiceType:        -1,
     similarityPerson: '',
-    voiceStar:        -1,
+    voiceStar:        0,
     matchType:        -1,
     voiceTypeVal:     -1,
     semeVal:          -1,
-    voiceManAudioUrl: ''  
+    voiceManAudioUrl: '',
+    temperament:      -1  
   },
 };
 

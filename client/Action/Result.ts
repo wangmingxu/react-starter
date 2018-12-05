@@ -1,15 +1,21 @@
-// import random from 'lodash/random';
-// import set from 'lodash/set';
-// import { voiceTpmMap } from 'constant';
-import { IServerResponse } from 'Service/DefaultResInterceptor';
-import { IResult } from 'types/result';
-import { HttpAliasMap } from 'types/service';
-// todo
+import { voiceTpmMap } from '@/constant';
+import { IServerResponse } from '@/Service/DefaultResInterceptor';
+import { IResult } from '@/types/result';
+import { HttpAliasMap } from '@/types/service';
+import random from 'lodash/random';
+import set from 'lodash/set';
 
-const setResult = result => ({
-  type: 'setResult',
-  payload: result,
-});
+const setResult = (result) => {
+  const payload = set(
+    result,
+    'voiceMan.temperament',
+    random(voiceTpmMap[`${result.voiceMan.voiceType}`].length - 1),
+  );
+  return {
+    type: 'setResult',
+    payload,
+  };
+};
 
 export const pollResult = analysisId => async (dispatch, getState) => {
   const { Injector } = getState();

@@ -1,4 +1,4 @@
-import { IUserInfo } from 'types';
+import { IUserInfo } from '@/types';
 
 const initState: IUserInfo = {
   name: '',

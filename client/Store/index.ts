@@ -1,4 +1,4 @@
-import rootReducer from 'Reducer';
+import rootReducer from '@/Reducer';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import Injector from '../Service';

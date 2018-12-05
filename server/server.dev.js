@@ -33,7 +33,12 @@ require('@babel/register')({
   plugins: [
     ['module-resolver', {
       extensions: ['.jsx', '.js', '.tsx', '.ts'],
-      root: ['client'],
+      root: ['../'],
+      alias: {
+        '@': './client',
+        '@lz-component': '@lizhife/lz-market-component/lib',
+        '@lz-service': '@lizhife/lz-market-service/package',
+      },
     }],
     'dynamic-import-node',
   ],

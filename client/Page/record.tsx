@@ -1,18 +1,18 @@
-import ClientDetectService from '@lizhife/lz-market-service/package/ClientDetectService';
+import { recordText } from '@/constant';
+import { IApplicationState } from '@/Reducer';
+import { IUserInfo } from '@/types';
+import { HttpAliasMap } from '@/types/service';
+import ClientDetectService from '@lz-service/ClientDetectService';
 import RecordService, {
   ErrorType,
   RecordStatus,
-} from '@lizhife/lz-market-service/package/RecordService';
+} from '@lz-service/RecordService';
 import { Toast } from 'antd-mobile';
 import classNames from 'classnames';
-import { recordText } from 'constant';
 import sample from 'lodash/sample';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { IApplicationState } from 'Reducer';
-import { IUserInfo } from 'types';
-import { HttpAliasMap } from 'types/service';
 import '../styles/record.less';
 
 interface IProps extends RouteComponentProps {
@@ -25,14 +25,13 @@ interface IProps extends RouteComponentProps {
 interface IState {
   status: RecordStatus;
   recordingTime: number;
-  text: string[];
 }
 
 class Record extends PureComponent<IProps, IState> {
-  public state = {
+
+  public readonly state: IState = {
     status: RecordStatus.WAITING_RECORD,
     recordingTime: 0,
-    text: [],
   };
 
   public startTime = 0;
@@ -42,6 +41,13 @@ class Record extends PureComponent<IProps, IState> {
   public recordDelay = 150;
 
   public recordBtn = React.createRef<HTMLDivElement>();
+
+  public recordText: string[];
+
+  constructor(props) {
+    super(props);
+    this.recordText = sample(recordText)!.split(/[？,；]/)
+  }
 
   public componentDidMount() {
     this.recordBtn.current!.addEventListener('contextmenu', (e) => {
@@ -58,7 +64,6 @@ class Record extends PureComponent<IProps, IState> {
       onUploadStart: this.handleUploadStart,
       onUploadFinish: this.handleUploadFinish,
     });
-    this.setState({ text: sample(recordText)!.split(/[？,；]/) });
   }
 
   public componentWillUnmount() {
@@ -107,26 +112,25 @@ class Record extends PureComponent<IProps, IState> {
       [audioIdKey]: id,
       ...userInfo,
     })
-      .then((rst) => {
+      .then(async (rst) => {
+        Toast.hide(); // 先去掉正在上传的Toast
         if (rst.rCode === 0) {
           const { analysisId } = rst.data;
           history.push(`/loading/${analysisId}`);
         } else {
-          Toast.fail(rst.msg, 1.5);
-          if (rst.rCode === 2) {
-            setTimeout(() => {
+          Toast.fail(rst.msg, Toast.SHORT, () => {
+            if (rst.rCode === 2) {
               history.go(-1); // 名字违规
-            }, 1500);
-          }
+            }
+          });
         }
       })
-      .catch((e) => {
-        Toast.fail(e, 1.5);
-        setTimeout(() => {
+      .catch(async (e) => {
+        Toast.hide(); // 先去掉正在上传的Toast
+        Toast.fail(e, Toast.SHORT, () => {
           this.props.recordServ.remakeRecord();
-        }, 1500);
+        });
       });
-    // todo hide Toast
   };
 
   public handleRecordStatus = (status) => {
@@ -155,11 +159,11 @@ class Record extends PureComponent<IProps, IState> {
       errMsg = '录音失败';
       break;
     }
-    Toast.fail(errMsg, 1.5);
+    Toast.fail(errMsg, Toast.SHORT);
   };
 
   public render() {
-    const { recordingTime, status, text } = this.state;
+    const { recordingTime, status } = this.state;
     const roate = -80 + (Math.min(recordingTime, 5000) / 5000) * 70;
     return (
       <div styleName="page">
@@ -182,9 +186,9 @@ class Record extends PureComponent<IProps, IState> {
         </div>
         <div styleName="wrapper-text">
           <div styleName="tit">不负责任的文案建议</div>
-          {text.map((item, i) => (
+          {this.recordText.map((text, i) => (
             <div styleName="text" key={i}>
-              {item}
+              {text}
             </div>
           ))}
         </div>
@@ -195,7 +199,7 @@ class Record extends PureComponent<IProps, IState> {
 
 export default connect((state: IApplicationState) => ({
   userInfo: state.UserInfo,
-  recordServ: state.Injector.get('recordServ'),
+  recordServ: state.Injector.get('recordServ', {}),
   cdServ: state.Injector.get('cdServ'),
   httpAlias: state.Injector.get('$http').alias,
 }))(Record);

@@ -19,14 +19,17 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
+    "downlevelIteration": true,
     "typeRoots": ["node_modules/@types"],
     "types": ["webpack-env", "react-css-modules"],
-    "lib": ["es6", "es2017", "dom"],
-    "baseUrl": "client/",
+    "lib": ["es6", "es2017", "dom", "es2018"],
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["client/*"]
+      "@/*": ["client/*"],
+      "@lz-service/*": ["node_modules/@lizhife/lz-market-service/package/*"],
+      "@lz-component/*": ["node_modules/@lizhife/lz-market-component/lib/*"]
     }
   },
   "include": ["client"],
-  "exclude": ["node_modules", "dist", "./config", "./proxy"]
+  "exclude": ["node_modules", "dist", "./config", "./proxy", "./server"]
 }

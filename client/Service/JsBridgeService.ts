@@ -1,4 +1,4 @@
-import { default as superClass, JSB_SERVICE_TOKEN } from '@lizhife/lz-market-service/package/JsBridgeService';
+import { default as superClass, JSB_SERVICE_TOKEN } from '@lz-service/JsBridgeService';
 import axios from 'axios';
 
 class JsBridgeService extends superClass {

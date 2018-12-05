@@ -1,14 +1,14 @@
 import express from 'express';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { configureStore } from 'Store';
+import { configureStore } from '@/Store';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter, Route } from 'react-router';
-import routes from 'Route';
+import routes from '@/Route';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
-import { collectErrMsg } from 'Action/Global';
-import { createInjector } from 'Service';
+import { collectErrMsg } from '@/Action/Global';
+import { createInjector } from '@/Service';
 import { COOKIE_STR_TOKEN } from 'di-sdk/package/CookieService';
 import { APP_USERAGENT_TOKEN } from 'di-sdk/package/ClientDetectService';
 import UseragentInterceptor from 'di-sdk/package/WithUAReqInterceptor';

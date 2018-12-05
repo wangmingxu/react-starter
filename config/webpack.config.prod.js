@@ -3,17 +3,17 @@
  */
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const utils = require('./utils');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const { common, build } = require('./build.config');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const PreloadWebpackPlugin = require('preload-webpack-plugin-fork');
 const CrossOriginPlugin = require('script-crossorigin-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const { common, build } = require('./build.config');
+const utils = require('./utils');
 const info = require('./info');
 const baseConfig = require('./webpack.config.base');
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -146,6 +146,7 @@ const serverConfig = {
     extensions: [
       '.js', '.jsx', '.json', '.scss', '.less', '.html', '.ejs', '.ts', '.tsx',
     ], // 当requrie的模块找不到时，添加这些后缀
+    alias: baseConfig.resolve.alias,
   },
   module: {
     rules: [

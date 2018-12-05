@@ -1,14 +1,15 @@
 import 'reflect-metadata';
 
-import AuthService from '@lizhife/lz-market-service/package/AuthService';
+import AuthService from '@lz-service/AuthService';
 import {
   APP_USERAGENT_TOKEN,
   ClientDetectService,
-} from '@lizhife/lz-market-service/package/ClientDetectService';
-import { APP_CONFIG_TOKEN } from '@lizhife/lz-market-service/package/ConfigService';
-import JWTReqInterceptor from '@lizhife/lz-market-service/package/JWTReqInterceptor';
-import RecordService from '@lizhife/lz-market-service/package/RecordService';
-import ShareService from '@lizhife/lz-market-service/package/ShareService';
+} from '@lz-service/ClientDetectService';
+import { APP_CONFIG_TOKEN } from '@lz-service/ConfigService';
+import JWTReqInterceptor from '@lz-service/JWTReqInterceptor';
+import RecordService from '@lz-service/RecordService';
+import ShareService from '@lz-service/ShareService';
+import AudioPlayerService from 'di-sdk/package/AudioPlayerService';
 import { COOKIE_STR_TOKEN, CookieService } from 'di-sdk/package/CookieService';
 // import { ClientDetectService, APP_USERAGENT_TOKEN } from 'di-sdk/package/ClientDetectService';
 import {
@@ -28,12 +29,10 @@ const defaultProvider: Provider[] = [
   HttpService,
   CookieService,
   AuthService,
-  RecordService,
   { provide: 'cdServ', useExisting: ClientDetectService },
   { provide: '$http', useExisting: HttpService },
   { provide: 'cookieServ', useExisting: CookieService },
   { provide: 'AuthServ', useExisting: AuthService },
-  { provide: 'recordServ', useExisting: RecordService },
   { provide: APP_CONFIG_TOKEN, useValue: config },
   {
     provide: HTTP_RESPONSE_INTERCEPTORS,
@@ -60,10 +59,14 @@ const injector = typeof window === 'object'
   ? createInjector([
     { provide: APP_USERAGENT_TOKEN, useValue: navigator.userAgent },
     { provide: COOKIE_STR_TOKEN, useValue: document.cookie },
-    {provide: JSB_SERVICE_TOKEN, useClass: JsBridgeService},
+    { provide: JSB_SERVICE_TOKEN, useClass: JsBridgeService },
     { provide: 'jsbServ', useExisting: JSB_SERVICE_TOKEN },
     ShareService,
     { provide: 'shareServ', useExisting: ShareService },
+    RecordService,
+    { provide: 'recordServ', useExisting: RecordService },
+    AudioPlayerService,
+    { provide: 'player', useExisting: AudioPlayerService },
   ])
   : null;
 

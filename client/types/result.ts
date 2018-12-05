@@ -18,4 +18,5 @@ export interface IVoiceMan {
     voiceTypeVal:     number;
     semeVal:          number;
     voiceManAudioUrl: string;
+    temperament:      number; // 后端接口之外额外加的一个随机数 用来记录生成海报时的声音气质选项
 }

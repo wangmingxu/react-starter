@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { RouteComponentProps } from 'react-router';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
@@ -8,7 +8,7 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
  * 2.在路由跳转时执行某些操作，比如微信sdk授权
  * 3.恢复滚动条到最顶部
  */
-class RouteWrapper extends React.Component<RouteComponentProps> {
+class RouteWrapper extends PureComponent<RouteComponentProps> {
   public componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);

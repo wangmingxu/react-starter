@@ -1,16 +1,16 @@
-import { showDownloadDialog } from '@lizhife/lz-market-component/lib/DownloadDialog';
-import ClientDetectService from '@lizhife/lz-market-service/package/ClientDetectService';
-import JsBridgeService from '@lizhife/lz-market-service/package/JsBridgeService';
-import * as userInfoActions from 'Action/UserInfo';
+import * as userInfoActions from '@/Action/UserInfo';
+import { IApplicationState } from '@/Reducer';
+import { Gender, IUserInfo } from '@/types';
+// import { showDownloadDialog } from '@lz-component/DownloadDialog';
+import ClientDetectService from '@lz-service/ClientDetectService';
+import JsBridgeService from '@lz-service/JsBridgeService';
 import { Toast } from 'antd-mobile';
 import Schema from 'async-validator';
 import classNames from 'classnames';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import { IApplicationState } from 'Reducer';
 import { bindActionCreators } from 'redux';
-import { Gender, IUserInfo } from 'types';
 import '../styles/index.less';
 
 const descriptor = {
@@ -52,16 +52,13 @@ interface IState {
 }
 
 class Index extends React.PureComponent<IProp, IState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userInfo: {
-        name: '',
-        gender: 0,
-        likeGender: 0,
-      },
-    };
-  }
+  public readonly state: IState = {
+    userInfo: {
+      name: '',
+      gender: 0,
+      likeGender: 0,
+    },
+  };
 
   public async componentDidMount() {
     const {cdServ, jsbServ} = this.props;
@@ -91,12 +88,12 @@ class Index extends React.PureComponent<IProp, IState> {
     const { cdServ } = this.props;
     if (!cdServ.isLizhiFM && !cdServ.isWeiXin) {
       // todo
-      showDownloadDialog({
-        action: {
-          type: 7,
-          url: location.href,
-        },
-      });
+      // showDownloadDialog({
+      //   action: {
+      //     type: 7,
+      //     url: location.href,
+      //   },
+      // });
     } else {
       try {
         await new Promise((resolve, reject) => {
@@ -112,7 +109,7 @@ class Index extends React.PureComponent<IProp, IState> {
         this.props.setUserInfo(this.state.userInfo);
         history.push('/record');
       } catch (error) {
-        Toast.fail(error.message, 1.5);
+        Toast.fail(error.message, Toast.SHORT);
       }
     }
   };
@@ -178,7 +175,7 @@ class Index extends React.PureComponent<IProp, IState> {
 export default connect(
   (state: IApplicationState) => ({
     cdServ: state.Injector.get('cdServ'),
-    jsbServ: state.Injector.get('jsbServ')
+    jsbServ: state.Injector.get('jsbServ', {})
   }),
   dispatch => bindActionCreators(userInfoActions, dispatch),
 )(Index);

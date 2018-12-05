@@ -1,17 +1,17 @@
-import ClientDetectService from '@lizhife/lz-market-service/package/ClientDetectService';
-import ShareService from '@lizhife/lz-market-service/package/ShareService';
-import * as GlobalActions from 'Action/Global';
-import * as ResultActions from 'Action/Result';
+import * as GlobalActions from '@/Action/Global';
+import * as ResultActions from '@/Action/Result';
+import RouteWrapper from '@/Component/RouteWrapper';
+import { IApplicationState } from '@/Reducer';
+import routes from '@/Route';
+import ClientDetectService from '@lz-service/ClientDetectService';
+import ShareService from '@lz-service/ShareService';
 import { ActivityIndicator } from 'antd-mobile';
-import RouteWrapper from 'Component/RouteWrapper';
 import React, { Suspense } from 'react';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { HashRouter, Redirect, Route } from 'react-router-dom';
-import { IApplicationState } from 'Reducer';
 import { bindActionCreators, compose } from 'redux';
-import routes from 'Route';
 
 const basename = process.env.BASE_PATH || '';
 
@@ -23,25 +23,43 @@ interface IProps {
 }
 
 interface IState {
-  hasResult: boolean
+  hasResult: boolean;
 }
 
 class App extends React.Component<IProps, IState> {
-
   public state = {
-    hasResult: false
-  }
+    hasResult: false,
+  };
 
   public componentDidMount() {
     this.props.checkAuthStatus();
     this.props.shareServ.configShareInfo();
     this.checkAppResult();
+    this.checkPlatform();
+    // todo preload
   }
+
+  public checkPlatform = () => {
+    const { cdServ } = this.props;
+    const $doc = document.documentElement;
+    switch (true) {
+    case cdServ.isAndroid:
+        $doc!.dataset.platform = 'Android';
+        break;
+    case cdServ.isIPhoneX:
+        $doc!.dataset.platform = 'IPhoneX';
+        break;
+    case cdServ.isIPhone:
+        $doc!.dataset.platform = 'IPhone';
+        break;
+    }
+    $doc!.dataset.lizhi = `${cdServ.isLizhiFM}`;
+  };
 
   public checkAppResult = async () => {
     if (this.props.cdServ.isLizhiFM) {
       await this.props.checkAppResult();
-      this.setState({hasResult: true})
+      this.setState({ hasResult: true });
     }
   };
 
@@ -54,18 +72,12 @@ class App extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const {hasResult} = this.state;
+    const { hasResult } = this.state;
     return (
       <HashRouter basename={basename}>
         <Suspense fallback={<ActivityIndicator toast={true} text="Loading..." />}>
-          <Route
-            render={props => (
-                <RouteWrapper {...props}>
-                  {renderRoutes(routes)}
-                </RouteWrapper>
-            )}
-          />
-          {hasResult ? <Redirect to="/loading/0"/> : null}
+          <Route render={props => <RouteWrapper {...props}>{renderRoutes(routes)}</RouteWrapper>} />
+          {hasResult ? <Redirect to="/loading/0" /> : null}
         </Suspense>
       </HashRouter>
     );
