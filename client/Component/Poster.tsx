@@ -1,10 +1,10 @@
+import avatar from '@/assets/avatar';
 import heart from '@/assets/voicereport/icon-heart.png';
 import bottomBar from '@/assets/voicereport/poster-bar.png';
 import qrcodeWX from '@/assets/voicereport/qrcode-wx.png';
 import rocker from '@/assets/voicereport/rocker.png';
 import { voiceToneMap, voiceTpmMap } from '@/constant';
-import { IUserInfo } from '@/types';
-import { IResult } from '@/types/result';
+import { IResult, IUserInfo } from '@/types';
 import React, { memo } from 'react';
 import '../styles/poster.less';
 
@@ -24,7 +24,7 @@ export default memo((props: IProps) => {
       </div>
       <div styleName="avatar-wrapper">
         <img styleName="rocker" src={rocker} alt="rocker" />
-        {reportData.voiceMan.voiceType ? (<img styleName="avatar" alt="avatar" src={`/static/voicereport/common/${reportData.voiceMan.voiceType}.png`} />) : null}
+        {reportData.voiceMan.voiceType ? (<img styleName="avatar" alt="avatar" src={avatar[reportData.voiceMan.voiceType - 1]} />) : null}
       </div>
       <div styleName="prop-list">
         <div styleName="item">

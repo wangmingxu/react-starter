@@ -33,7 +33,7 @@ class RouteWrapper extends PureComponent<RouteComponentProps> {
           classNames={classNames}
           timeout={{ enter: 1000, exit: 1000 }}
         >
-          {React.cloneElement((this.props.children as any), { location })}
+          {this.props.children}
         </CSSTransition>
       </TransitionGroup>
     );

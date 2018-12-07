@@ -21,13 +21,13 @@ module.exports = {
     BASE_PATH: '/', // 用于React-Router的basename
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'client', // 单独创建一个目录存放静态资源，方便upload
-    assetsPublicPath: `https://bizadv.lizhi.fm/festatic/${name}/`,
+    assetsPublicPath: `/static/${name}/`,
     bundleAnalyzerReport: true,
     analyzerPort: 7777,
     tinyApiKey: '6i9NPe1a2nU6YN1k5tjrTEQyK4h3-ZDU',
     mergeCssChunks: true,
     usePWA: true, // 是否启用PWA,如果已经开启了服务端渲染,则此选项不会生效
-    cacheApiRegular: /hangzhou\/singleDog/, // 正则匹配需要缓存的api链接,用于离线应用
+    cacheApiRegular: /voice_card/, // 正则匹配需要缓存的api链接,用于离线应用
   },
   dev: {
     port: 8080,

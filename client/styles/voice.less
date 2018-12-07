@@ -1,0 +1,183 @@
+@keyframes dashAnim{
+    0%   {padding: (550-250)/2px;}
+    75%  {padding: 20px;}
+    100% {padding: 20px;}
+}
+@keyframes round1Anim{
+    0%   {transform: translate(-50%,-50%) scale(1);}
+    25% {transform: translate(-50%,-50%) scale(785/550);}
+    50% {transform: translate(-50%,-50%) scale(785/550);}
+    75% {transform: translate(-50%,-50%) scale(785/550);}
+    100% {transform: translate(-50%,-50%) scale(785/550);}
+}
+@keyframes round2Anim{
+    0%   {transform: translate(-50%,-50%) scale(1);}
+    25%  {transform: translate(-50%,-50%) scale(785/550);}
+    50%  {transform: translate(-50%,-50%) scale(905/550);}
+    75%  {transform: translate(-50%,-50%) scale(905/550);}
+    100% {transform: translate(-50%,-50%) scale(905/550);}
+}
+@keyframes round3Anim{
+    0%   {transform: translate(-50%,-50%) scale(1);}
+    25%  {transform: translate(-50%,-50%) scale(785/550);}
+    50%  {transform: translate(-50%,-50%) scale(905/550);}
+    75%  {transform: translate(-50%,-50%) scale(1011/550);}
+    100% {transform: translate(-50%,-50%) scale(1011/550);}
+}
+.center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/voicereport/bg-poster.png') no-repeat;
+    background-size: 100% auto;
+    background-position: left -53px;
+}
+.title{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 25px;
+    color: #58bab9;
+    font-size: 36px
+}
+.player{
+    position: absolute;
+    top: 163px;
+    height: 1011px;
+    width: 100%;
+    &.isPlaying{
+        .rocker{
+            transform: rotate(0deg);
+        }
+        .dash{
+            animation: dashAnim infinite 1.5s linear;
+        }
+        .round1{
+            animation: round1Anim infinite 1.5s linear;
+        }
+        .round2{
+            animation: round2Anim infinite 1.5s linear;
+        }
+        .round3{
+            animation: round3Anim infinite 1.5s linear;
+        }
+    }
+    .avatar{
+        .center;
+        width: 289px;
+        height: 289px;
+        z-index: 6;
+        border-radius: 50%;
+    }
+    .rocker{
+        position: absolute;
+        top: 326px;
+        right: 205px;
+        width: 63px;
+        height: 134px;
+        background: url('../assets/voicereport/rocker.png') no-repeat;
+        background-size: 100% 100%;
+        z-index: 7;
+        transform-origin: center top;
+        transform: rotate(-30deg);
+        transition: transform 1s;
+    }
+    .btn-play{
+        .center;
+        width: 280px;
+        height: 280px;
+        z-index: 7;
+        border-radius: 50% 50%;
+        background: url('../assets/play.svg') no-repeat;
+        background-size: 150px auto;
+        background-position: center center;
+        background-color: rgba(0,0,0,.3);
+        display: none;
+        .showAudioCtrlBtn &{
+            display: block;
+        }
+    }
+    .btn-pause{
+        .center;
+        width: 280px;
+        height: 280px;
+        z-index: 7;
+        border-radius: 50% 50%;
+        background: url('../assets/pause.svg') no-repeat;
+        background-size: 100px auto;
+        background-position: center center;
+        background-color: rgba(0,0,0,.3);
+        display: none;
+        .showAudioCtrlBtn &{
+            display: block;
+        }
+    }
+    .static-round{
+        .center;
+        width: 550px;
+        height: 550px;
+        background-color: #fff;
+        border-radius: 50%;
+        z-index: 5;
+        .dash{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            background: url('../assets/voicereport/dash.png') no-repeat;
+            background-size: 453px auto;
+            background-position: center center;
+            background-clip: content-box;
+            padding: 300px;
+            transform: translateZ(0);
+        }
+    }
+    .round1{
+        .center;
+        // width: 785px;
+        // height: 785px;
+        width: 550px;
+        height: 550px;
+        background-color: #ffe4f0;
+        border-radius: 50%;
+        z-index: 4;
+    }
+    .round2{
+        .center;
+        // width: 905px;
+        // height: 905px;
+        width: 550px;
+        height: 550px;
+        background-color: #ffb1d5;
+        border-radius: 50%;
+        z-index: 3;
+    }
+    .round3{
+        .center;
+        // width: 1011px;
+        // height: 1011px;
+        width: 550px;
+        height: 550px;
+        box-sizing: border-box;
+        border: 15px solid #fff;
+        border-radius: 50%;
+        background-color: #c8f7f6;
+        z-index: 2;
+    }
+    .btn-test-fate{
+        width: 319px;
+        height: 58px;
+        position: absolute;
+        top: 800px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: url('../assets/voicereport/btn-test_fate.png') no-repeat;
+        background-size: 100% auto;
+        z-index: 7;
+    }
+}

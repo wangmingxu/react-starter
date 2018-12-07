@@ -1,7 +1,7 @@
 import { BaiduStatKey, fundebugApiKey } from '@/constant';
 
 export const initBaiduStat = () => {
-  (window as any)._hmt = (window as any)._hmt || [];
+  window._hmt = window._hmt || [];
   const hm = document.createElement('script');
   hm.src = `https://hm.baidu.com/hm.js?${BaiduStatKey}`;
   const s = document.getElementsByTagName('script')[0];

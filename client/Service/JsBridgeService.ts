@@ -33,10 +33,6 @@ class JsBridgeService extends superClass {
           'onMenuShareAppMessage',
           'onMenuShareQQ',
           'onMenuShareWeibo',
-          'hideMenuItems',
-          'showMenuItems',
-          'hideAllNonBaseMenuItem',
-          'showAllNonBaseMenuItem',
           'translateVoice',
           'startRecord',
           'stopRecord',
@@ -46,28 +42,14 @@ class JsBridgeService extends superClass {
           'stopVoice',
           'uploadVoice',
           'downloadVoice',
-          'chooseImage',
-          'previewImage',
-          'uploadImage',
-          'downloadImage',
           'getNetworkType',
-          'openLocation',
-          'getLocation',
-          'hideconfigMenu',
-          'showconfigMenu',
-          'closeWindow',
-          'scanQRCode',
-          'chooseWXPay',
-          'openProductSpecificView',
-          'addCard',
-          'chooseCard',
-          'openCard',
           'updateTimelineShareData',
           'updateAppMessageShareData',
         ], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
     });
   };
+  
 }
 
 export {JSB_SERVICE_TOKEN};

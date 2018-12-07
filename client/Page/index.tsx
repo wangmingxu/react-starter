@@ -1,13 +1,14 @@
-import * as userInfoActions from '@/Action/UserInfo';
+import * as GlobalActions from '@/Action/Global';
+import * as UserInfoActions from '@/Action/UserInfo';
 import { IApplicationState } from '@/Reducer';
 import { Gender, IUserInfo } from '@/types';
-// import { showDownloadDialog } from '@lz-component/DownloadDialog';
+import { showDownloadDialog } from '@/utils/openApp';
 import ClientDetectService from '@lz-service/ClientDetectService';
 import JsBridgeService from '@lz-service/JsBridgeService';
 import { Toast } from 'antd-mobile';
 import Schema from 'async-validator';
 import classNames from 'classnames';
-import * as React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -45,13 +46,15 @@ interface IProp extends RouteComponentProps {
   setUserInfo: (info: IUserInfo) => void;
   cdServ: ClientDetectService;
   jsbServ: JsBridgeService;
+  isLogin: boolean;
+  login: () => any;
 }
 
 interface IState {
   userInfo: IUserInfo;
 }
 
-class Index extends React.PureComponent<IProp, IState> {
+class Index extends PureComponent<IProp, IState> {
   public readonly state: IState = {
     userInfo: {
       name: '',
@@ -66,9 +69,6 @@ class Index extends React.PureComponent<IProp, IState> {
       const { name } = await jsbServ.safeCall('getSessionUser')
       this.setState({ userInfo: { ...this.state.userInfo, name } });
     }
-    // setTimeout(() => {
-    //   this.props.history.push('/loading/0')
-    // }, 2000)
   }
 
   public setName = (e) => {
@@ -85,15 +85,12 @@ class Index extends React.PureComponent<IProp, IState> {
   };
 
   public submit = async () => {
-    const { cdServ } = this.props;
+    const { cdServ, history, isLogin } = this.props;
     if (!cdServ.isLizhiFM && !cdServ.isWeiXin) {
-      // todo
-      // showDownloadDialog({
-      //   action: {
-      //     type: 7,
-      //     url: location.href,
-      //   },
-      // });
+      showDownloadDialog({
+        type: 7,
+        url: location.href,
+      });
     } else {
       try {
         await new Promise((resolve, reject) => {
@@ -105,8 +102,10 @@ class Index extends React.PureComponent<IProp, IState> {
             }
           });
         });
-        const { history } = this.props;
         this.props.setUserInfo(this.state.userInfo);
+        if (cdServ.isLizhiFM && !isLogin) {
+          await this.props.login();
+        }
         history.push('/record');
       } catch (error) {
         Toast.fail(error.message, Toast.SHORT);
@@ -174,8 +173,11 @@ class Index extends React.PureComponent<IProp, IState> {
 
 export default connect(
   (state: IApplicationState) => ({
+    isLogin: state.Global.isLogin,
     cdServ: state.Injector.get('cdServ'),
     jsbServ: state.Injector.get('jsbServ', {})
   }),
-  dispatch => bindActionCreators(userInfoActions, dispatch),
+  dispatch => bindActionCreators({
+    ...UserInfoActions, 
+    ...GlobalActions}, dispatch),
 )(Index);

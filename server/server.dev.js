@@ -5,16 +5,17 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const proxyMiddleware = require('proxy-middleware');
+const useragent = require('express-useragent');
+const chokidar = require('chokidar');
 
 const app = express();
 const config = require('../config/webpack.config.dev');
 const { common, dev } = require('../config/build.config');
 const proxyTable = require('../proxy/dev/proxyTable');
 const mockTable = require('../proxy/dev/mockTable');
-const proxyMiddleware = require('proxy-middleware');
-const useragent = require('express-useragent');
-const chokidar = require('chokidar');
 const utils = require('../config/utils');
+const baseWebpackConfig = require('../config/webpack.config.base');
 
 // Provide custom regenerator runtime and core-js
 require('@babel/polyfill');
@@ -34,11 +35,7 @@ require('@babel/register')({
     ['module-resolver', {
       extensions: ['.jsx', '.js', '.tsx', '.ts'],
       root: ['../'],
-      alias: {
-        '@': './client',
-        '@lz-component': '@lizhife/lz-market-component/lib',
-        '@lz-service': '@lizhife/lz-market-service/package',
-      },
+      alias: baseWebpackConfig.resolve.alias,
     }],
     'dynamic-import-node',
   ],
@@ -54,7 +51,7 @@ require('css-modules-require-hook')({
 // Image require hook
 require('asset-require-hook')({
   extensions: ['jpg', 'png', 'gif', 'webp'],
-  limit: 8000,
+  limit: 8192,
   name: `/${utils.assetsPath('assets/[name].[ext]?[hash]')}`,
 });
 

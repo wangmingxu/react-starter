@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 export interface IServerResponse<T= any> {
   rCode: number;
+  code: number;
   data: T;
   msg: string;
 }
@@ -16,7 +17,7 @@ enum rCodeMap {
 class DefaultResponseInterceptor {
   public intercept(res: AxiosResponse<IServerResponse>) {
     const { data } = res;
-    if (data.rCode === rCodeMap.SUCCESS || data.rCode === rCodeMap.POLLING) {
+    if ([data.rCode, data.code].includes(rCodeMap.SUCCESS) || [data.rCode, data.code].includes(rCodeMap.POLLING)) {
       return Promise.resolve(data);
     }
     return Promise.reject(data.msg);

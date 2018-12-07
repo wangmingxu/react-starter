@@ -1,7 +1,6 @@
 import { voiceTpmMap } from '@/constant';
 import { IServerResponse } from '@/Service/DefaultResInterceptor';
-import { IResult } from '@/types/result';
-import { HttpAliasMap } from '@/types/service';
+import { HttpAliasMap, IResult } from '@/types';
 import random from 'lodash/random';
 import set from 'lodash/set';
 
@@ -19,9 +18,9 @@ const setResult = (result) => {
 
 export const pollResult = analysisId => async (dispatch, getState) => {
   const { Injector } = getState();
-  const api: HttpAliasMap = Injector.get('$http').alias;
+  const httpAlias: HttpAliasMap = Injector.get('$http').alias;
   const pullTask = async () => {
-    const rst = await api.pollResult<IServerResponse<IResult>>({ analysisId });
+    const rst = await httpAlias.pollResult<IServerResponse<IResult>>({ analysisId });
     if (rst.rCode === 0) {
       return rst.data;
     }
@@ -45,8 +44,8 @@ export const pollResult = analysisId => async (dispatch, getState) => {
 
 export const checkAppResult = () => async (dispatch, getState) => {
   const { Injector } = getState();
-  const api: HttpAliasMap = Injector.get('$http').alias;
-  const rst = await api.checkAppResult<IServerResponse<IResult>>();
+  const httpAlias: HttpAliasMap = Injector.get('$http').alias;
+  const rst = await httpAlias.checkAppResult<IServerResponse<IResult>>({needToken: true});
   if (rst.rCode === 0) {
     dispatch(setResult(rst.data));
     return rst.data;

@@ -1,4 +1,4 @@
-import { IResult } from '@/types/result';
+import { IResult } from '@/types';
 
 const initState: IResult = {
   color: '',

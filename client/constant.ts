@@ -1,7 +1,7 @@
 import sample from 'lodash/sample';
 
-export const fundebugApiKey = '294a8593da2207207c592dcd7364e84e913b366ca32bd592002dfc068c568f58';
-export const BaiduStatKey = '50f7f3f779102291f22b776ad51e5893';
+export const fundebugApiKey = '232ebadc1d4a414336b71465353780738cb2710ef7b60f331757cae6c655c963';
+export const BaiduStatKey = '9dcbf85cdc3b9ad0f7e7164efde49115';
 
 export const recordText = [
   '甜有100种方式；吃糖，蛋糕；还有每天98次想你',
@@ -179,3 +179,26 @@ export const loadingTips = [
   ]),
   sample([['嘻嘻！在做', '最后匹配'], ['你的声音', '像某个明星'], ['分析结果', '出来了哦！']]),
 ];
+
+export const downloadUrlMap = {
+  f301: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382027903340',
+  f302: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382027903341',
+  f303: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382027903342',
+  f304: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382027903343',
+  f305: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382035271386',
+  f306: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382035436691',
+  f307: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382118909442',
+  f308: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382038513661',
+  f309: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382037047286',
+  f310: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382037515188',
+  f311: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382037712186',
+  f312: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382037712188',
+  f313: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382038860739',
+  f314: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382038896614',
+  f315: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382038896615',
+  f316: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382039207816',
+  f317: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382040757744',
+  f318: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382040966744',
+  f319: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382041013778',
+  f320: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.yibasan.lizhifm&ckey=CK1382041149502',
+};

@@ -109,6 +109,7 @@ const clientConfig = merge(baseConfig, {
       clientsClaim: true,
       skipWaiting: true,
       exclude: [/\.map\?\w+/],
+      // ignoreUrlParametersMatching: [/./],//查找缓存时忽略查询参数
       dontCacheBustUrlsMatching: /\?\w{8,20}$/, // 不用插件的revision,而是通过URL中的版本戳进行唯一版本化,减少precache带来的带宽消耗
       runtimeCaching: [
         {

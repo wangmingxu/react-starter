@@ -1,5 +1,6 @@
 import { IUserInfo } from '@/types';
-import { IResult } from '@/types/result';
+import { IResult } from '@/types';
+import { ReflectiveInjector } from 'injection-js';
 import { combineReducers } from 'redux';
 import Global, { IGlobalState } from './Global';
 import Injector from './Injector';
@@ -9,7 +10,7 @@ import UserInfo from './UserInfo';
 
 export interface IApplicationState {
   Global: IGlobalState;
-  Injector: any;
+  Injector: ReflectiveInjector;
   UserInfo: IUserInfo;  
   Result: IResult,
   Poster: string

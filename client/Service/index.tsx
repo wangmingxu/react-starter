@@ -55,7 +55,7 @@ const createInjector = (provider: Provider[]) => {
   return factory;
 };
 
-const injector = typeof window === 'object'
+const injector: ReflectiveInjector = typeof window === 'object'
   ? createInjector([
     { provide: APP_USERAGENT_TOKEN, useValue: navigator.userAgent },
     { provide: COOKIE_STR_TOKEN, useValue: document.cookie },
@@ -68,7 +68,7 @@ const injector = typeof window === 'object'
     AudioPlayerService,
     { provide: 'player', useExisting: AudioPlayerService },
   ])
-  : null;
+  : ({} as any);
 
 export { createInjector };
 
