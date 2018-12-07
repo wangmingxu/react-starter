@@ -47,7 +47,6 @@ class App extends PureComponent<IProps, IState> {
       await this.checkAppResult();
     }
     this.setState({readyToRender: true})
-    // todo preload img
   }
 
   public checkPlatform = () => {

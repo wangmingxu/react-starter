@@ -4,6 +4,7 @@ import { IApplicationState } from '@/Reducer';
 import { IResult, IUserInfo } from '@/types';
 import { stopPropagation } from '@/utils/domHelper';
 import { showDownloadDialog } from '@/utils/openApp';
+import { timeout } from '@/utils/promisify';
 import { Toast } from 'antd-mobile';
 import classNames from 'classnames';
 import AudioPlayerService, {
@@ -46,7 +47,9 @@ class Voice extends PureComponent<IProps, IState> {
     if (player.audioStatus !== AudioStatus.PLAYING) {
       Toast.info('正在加载音频...', 0);
       try {
-        await player.play();
+        await Promise.race([player.play(), timeout(5000)]);
+      } catch (e) {
+        this.handleAudioError(e);
       } finally {
         Toast.hide();
       }

@@ -3,3 +3,9 @@ export const delay = (ms) => (
         setTimeout(resolve, ms)
     })
 )
+
+export const timeout = (ms) => (
+    new Promise((resolve, reject) => {
+        setTimeout(reject, ms)
+    })
+)
