@@ -1,5 +1,5 @@
 import rootReducer from '@/Reducer';
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
 import thunk from 'redux-thunk';
@@ -31,7 +31,7 @@ export const configureStore = (state = {}) => {
   const store = createStore(
     persistedReducer,
     { ...state, ...ssrState },
-    compose(applyMiddleware(...middleware)),
+    applyMiddleware(...middleware),
   );
 
   // tslint:disable-next-line:no-shadowed-variable
@@ -46,5 +46,3 @@ export const configureStore = (state = {}) => {
 };
 
 export const {persistor, store} = configureStore({ Injector });
-
-export default configureStore({ Injector });
