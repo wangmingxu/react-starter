@@ -12,7 +12,7 @@ export const getDownloadUrl = () => {
 export const showDownloadDialog = async (action) => {
   const {
     showDownloadDialog: show,
-  } = await import('@lizhife/lz-market-component/lib/DownloadDialog');
+  } = await import('@lz-component/DownloadDialog');
   show({
     action,
     downloadUrl: getDownloadUrl(),

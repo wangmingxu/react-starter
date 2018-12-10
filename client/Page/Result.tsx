@@ -7,8 +7,8 @@ import JsBridgeService from '@/Service/JsBridgeService';
 import { Gender, HttpAliasMap, IResult, IUserInfo } from '@/types';
 import { trackClickEvent } from '@/utils/domHelper';
 import preload from '@/utils/preload';
+import AudioPlayerService from '@common-service/AudioPlayerService';
 import ClientDetectService from '@lz-service/ClientDetectService';
-import AudioPlayerService from 'di-sdk/package/AudioPlayerService';
 import jsonp from 'jsonp';
 import throttle from 'lodash/throttle';
 import React, { PureComponent } from 'react';
@@ -67,7 +67,6 @@ class Result extends PureComponent<IProps, IState> {
             console.log('分享成功');
           }
         });
-      window._hmt.push(['_trackEvent', '页面', '点击', '分享图片']);
     },
     1500,
     { trailing: false },
@@ -81,7 +80,6 @@ class Result extends PureComponent<IProps, IState> {
           id: '2686341451598543445',
         },
       });
-      window._hmt.push(['_trackEvent', '页面', '点击', '跳转声鉴交流圈']);
     },
     1500,
     { trailing: false },
@@ -100,7 +98,6 @@ class Result extends PureComponent<IProps, IState> {
             console.log('保存成功');
           }
         });
-      window._hmt.push(['_trackEvent', '页面', '点击', '保存图片']);
     },
     1500,
     { trailing: false },
@@ -148,6 +145,7 @@ class Result extends PureComponent<IProps, IState> {
     const { deviceId } = await this.props.jsbServ.safeCall('getAppInfo');
     jsonp(`//h5zy.lizhifm.com/api/v1/lizhi/promo/savesee?deviceId=${deviceId}`);
     location.href = 'https://h5zy.lizhifm.com/home.html?source=lizhiVoiceCard';
+    // todo
     window._hmt.push(['_trackEvent', '按钮', '点击', '跳转吱呀']);
   };
 
@@ -219,26 +217,26 @@ class Result extends PureComponent<IProps, IState> {
           <Link styleName="btn-operate remake" to="/" onClick={trackClickEvent(null, '重新鉴定')}>
             重新鉴定
           </Link>
-          <div styleName="btn-operate save" onClick={this.save}>
+          <div styleName="btn-operate save" onClick={trackClickEvent(this.save, '保存图片')}>
             保存图片
           </div>
           <div
             styleName="btn-share wb"
-            onClick={() => {
+            onClick={trackClickEvent(() => {
               this.share(1);
-            }}
+            }, '分享图片')}
           >
             分享到微博
           </div>
           <div
             styleName="btn-share wx"
-            onClick={() => {
+            onClick={trackClickEvent(() => {
               this.share(23);
-            }}
+            }, '分享图片')}
           >
             分享到朋友圈
           </div>
-          <div styleName="btn-share-circle" onClick={this.shareToCircle}>
+          <div styleName="btn-share-circle" onClick={trackClickEvent(this.shareToCircle, '跳转声鉴交流圈')}>
             分享到声鉴交流圈
           </div>
         </div>

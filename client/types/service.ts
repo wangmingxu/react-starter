@@ -1,4 +1,4 @@
 import { HttpAlias } from '@/Service/http-alias';
-import { aliasMap } from 'di-sdk/package/HttpService';
+import { aliasMap } from '@common-service/HttpService';
 
 export type HttpAliasMap = aliasMap<HttpAlias>;

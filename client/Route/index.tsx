@@ -1,9 +1,16 @@
-// import { lazy } from 'react';
+import index from '@/Page/index';
+import Loading from '@/Page/Loading';
+import Record from '@/Page/Record';
+import Result from '@/Page/Result';
+import Voice from '@/Page/Voice';
 import { lazyWithPreload } from '@/utils/preload';
 import { RouteConfig } from 'react-router-config';
 
-export const indexPage = lazyWithPreload(() => import('@/Page/index'));
-export const RecordPage = lazyWithPreload(() => import('@/Page/Record'));
+const createComponent = (Component) => (
+  (Component.displayName || Component.name)
+    ? Component
+    : lazyWithPreload(() => (new Promise(resolve => Component(resolve))))
+)
 
 // 如果需要执行前后端通用的应用级初始化启动逻辑(比如登录状态检查)
 // 可以在routes建一个根节点Root,
@@ -11,38 +18,29 @@ export const RecordPage = lazyWithPreload(() => import('@/Page/Record'));
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: __ISOMORPHIC__
-      ? require('@/Page/index').default
-      : indexPage,
+    component: createComponent(index),
     exact: true,
   },
   {
     path: '/record',
-    component: __ISOMORPHIC__
-      ? require('@/Page/Record').default
-      : RecordPage,
+    component: createComponent(Record),
     exact: true,
   },
   {
     path: '/loading/:id',
-    component: __ISOMORPHIC__
-      ? require('@/Page/Loading').default
-      : lazyWithPreload(() => import('@/Page/Loading')),
+    component: createComponent(Loading),
     exact: true,
   },
   {
     path: '/result/:id',
-    component: __ISOMORPHIC__
-      ? require('@/Page/Result').default
-      : lazyWithPreload(() => import('@/Page/Result')),
+    component: createComponent(Result),
     exact: true,
   },
   {
     path: '/voice/:id',
-    component: __ISOMORPHIC__
-      ? require('@/Page/Voice').default
-      : lazyWithPreload(() => import('@/Page/Voice')),
+    component: createComponent(Voice),
     exact: true,
   },
 ];
+
 export default routes;

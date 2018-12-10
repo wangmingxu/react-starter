@@ -32,6 +32,7 @@ const baseConfig = {
       '@': common.clientPath,
       '@lz-component': '@lizhife/lz-market-component/lib',
       '@lz-service': '@lizhife/lz-market-service/package',
+      '@common-service': 'di-sdk/package',
     },
   },
   module: {

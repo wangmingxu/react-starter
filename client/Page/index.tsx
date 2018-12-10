@@ -1,7 +1,6 @@
 import * as GlobalActions from '@/Action/Global';
 import * as UserInfoActions from '@/Action/UserInfo';
 import { IApplicationState } from '@/Reducer';
-import { RecordPage } from '@/Route';
 import { Gender, IUserInfo } from '@/types';
 import { showDownloadDialog } from '@/utils/openApp';
 import ClientDetectService from '@lz-service/ClientDetectService';
@@ -66,7 +65,6 @@ class Index extends PureComponent<IProp, IState> {
       const { name } = await jsbServ.safeCall('getSessionUser')
       this.setState({ userInfo: { ...this.state.userInfo, name } });
     }
-    RecordPage.preload();
   }
 
   public setName = (e) => {

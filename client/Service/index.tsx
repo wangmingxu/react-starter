@@ -1,5 +1,14 @@
 import 'reflect-metadata';
 
+import AudioPlayerService from '@common-service/AudioPlayerService';
+import { COOKIE_STR_TOKEN, CookieService } from '@common-service/CookieService';
+// import { ClientDetectService, APP_USERAGENT_TOKEN } from '@common-service/ClientDetectService';
+import {
+  HTTP_ALIAS_TOKEN,
+  HTTP_REQUEST_INTERCEPTORS,
+  HTTP_RESPONSE_INTERCEPTORS,
+  HttpService,
+} from '@common-service/HttpService';
 import AuthService from '@lz-service/AuthService';
 import {
   APP_USERAGENT_TOKEN,
@@ -9,15 +18,6 @@ import { APP_CONFIG_TOKEN } from '@lz-service/ConfigService';
 import JWTReqInterceptor from '@lz-service/JWTReqInterceptor';
 import RecordService from '@lz-service/RecordService';
 import ShareService from '@lz-service/ShareService';
-import AudioPlayerService from 'di-sdk/package/AudioPlayerService';
-import { COOKIE_STR_TOKEN, CookieService } from 'di-sdk/package/CookieService';
-// import { ClientDetectService, APP_USERAGENT_TOKEN } from 'di-sdk/package/ClientDetectService';
-import {
-  HTTP_ALIAS_TOKEN,
-  HTTP_REQUEST_INTERCEPTORS,
-  HTTP_RESPONSE_INTERCEPTORS,
-  HttpService,
-} from 'di-sdk/package/HttpService';
 import { Provider, ReflectiveInjector } from 'injection-js';
 import config from './config';
 import DefaultResInterceptor from './DefaultResInterceptor';

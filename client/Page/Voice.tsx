@@ -5,12 +5,12 @@ import { IResult, IUserInfo } from '@/types';
 import { stopPropagation } from '@/utils/domHelper';
 import { showDownloadDialog } from '@/utils/openApp';
 import { timeout } from '@/utils/promisify';
-import { Toast } from 'antd-mobile';
-import classNames from 'classnames';
 import AudioPlayerService, {
   AudioStatus,
   EventMap as AudioEventMap,
-} from 'di-sdk/package/AudioPlayerService';
+} from '@common-service/AudioPlayerService';
+import { Toast } from 'antd-mobile';
+import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
