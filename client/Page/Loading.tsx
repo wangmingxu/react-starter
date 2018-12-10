@@ -156,7 +156,7 @@ class Loading extends PureComponent<IProps, IState> {
         </div>
       ),
       isGenerating ? (
-        <Poster key="poster" displayType="img" reportData={result} userInfo={userInfo} showZiyaAdv={false}/>
+        <Poster key="poster" displayType="img" reportData={result} userInfo={userInfo}/>
       ) : null,
     ];
   }

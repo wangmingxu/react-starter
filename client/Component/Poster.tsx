@@ -12,7 +12,6 @@ interface IProps {
     displayType: 'dom' | 'img'
     reportData: IResult
     userInfo: IUserInfo
-    showZiyaAdv: boolean
 }
 
 export default memo((props: IProps) => {

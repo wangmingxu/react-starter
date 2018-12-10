@@ -25,7 +25,7 @@ interface IProps {
   cdServ: ClientDetectService;
   jsbServ: JsBridgeService;
   setUserInfo: (info: IUserInfo) => void;
-  userInfo: IUserInfo
+  userInfo: IUserInfo;
 }
 
 interface IState {
@@ -46,13 +46,15 @@ class App extends PureComponent<IProps, IState> {
     if (this.props.cdServ.isLizhiFM) {
       await this.checkAppResult();
     }
-    this.setState({readyToRender: true})
+    this.setState({ readyToRender: true });
     this.preloadRoutes();
   }
 
   public preloadRoutes = () => {
-    Promise.all(routes.map((item: any) => item.component.preload()))
-  }
+    Promise.all(routes.map(({component}) => {
+      (component as any).preload ? (component as any).preload() : Promise.resolve()
+    }));
+  };
 
   public checkPlatform = () => {
     const { cdServ } = this.props;
@@ -78,8 +80,8 @@ class App extends PureComponent<IProps, IState> {
       if (currentRoutes.length > 0 && currentRoutes[0].match.path === '/') {
         await this.props.checkAppResult();
         // 后端不会记录首页填写的name,重新进入会丢失name,用当前用户昵称代替
-        const { name } = await this.props.jsbServ.safeCall('getSessionUser')
-        this.props.setUserInfo({...this.props.userInfo, name})
+        const { name } = await this.props.jsbServ.safeCall('getSessionUser');
+        this.props.setUserInfo({ ...this.props.userInfo, name });
         this.setState({ needRedirect: true });
       }
     } catch (error) {
@@ -100,13 +102,15 @@ class App extends PureComponent<IProps, IState> {
     return (
       <HashRouter basename={basename}>
         <Suspense fallback={null}>
-          {readyToRender ? <Route
-            render={props => (
-              <RouteWrapper {...props}>
-                {renderRoutes(routes, null, { location: props.location })}
-              </RouteWrapper>
-            )}
-          /> : null}
+          {readyToRender ? (
+            <Route
+              render={props => (
+                <RouteWrapper {...props}>
+                  {renderRoutes(routes, null, { location: props.location })}
+                </RouteWrapper>
+              )}
+            />
+          ) : null}
           {needRedirect ? <Redirect to="/loading/0" /> : null}
         </Suspense>
       </HashRouter>
@@ -121,7 +125,7 @@ export default compose(
       shareServ: state.Injector.get('shareServ'),
       cdServ: state.Injector.get('cdServ'),
       jsbServ: state.Injector.get('jsbServ', {}),
-      userInfo: state.UserInfo
+      userInfo: state.UserInfo,
     }),
     dispatch => bindActionCreators({ ...GlobalActions, ...ResultActions, ...UserInfoActions }, dispatch),
   ),

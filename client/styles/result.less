@@ -79,6 +79,50 @@
         display: none;
     }
 }
+.ziya-match{
+    position: absolute;
+    top: 1015px;
+    left: 105px;
+    width: 540px;
+    height: 245px;
+    background: url('../assets/voicereport/ziya-panl.png') no-repeat;
+    background-size: 100% auto;
+    color: #58bab9;
+    font-size: 28px;
+    border-radius: 25px;
+    [data-lizhi='false'] & {
+        display: none;
+    }
+    .panl-title{
+        padding-top: 15px;
+        height: 64px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    .match-avatar{
+        position: absolute;
+        left: 10px;
+        top: 70px;
+        width: 156px;
+        height: 156px;
+    }
+    .panl-content{
+        font-size: 29px;
+        color: #58bab9;
+        position: absolute;
+        left: 185px;
+        top: 80px;
+    }
+    .ziya-btn{
+        position: absolute;
+        left: 184px;
+        top: 165px;
+        width: 298px;
+        height: 65px;
+        background: url('../assets/voicereport/ziya-btn.png') no-repeat;
+        background-size: 100% auto;
+    }
+}
 .test-fate {
     position: absolute;
     top: 1029px;
@@ -87,6 +131,9 @@
     display: none;
     [data-lizhi='true'] & {
         display: block;
+    }
+    [data-showZiya="true"] &{
+        top: 1282px;
     }
     .tit {
         font-size: 28px;
@@ -220,6 +267,9 @@
     font-size: 28px;
     [data-lizhi='false'] &{
         top: 1334px;
+    }
+    [data-showZiya="true"] &{
+        top: 1530px;
     }
     &::after{
         display: block;

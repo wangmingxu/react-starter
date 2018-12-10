@@ -1,4 +1,5 @@
 import * as ResultActions from '@/Action/Result';
+import avatar from '@/assets/avatar';
 import Poster from '@/Component/Poster';
 import { voiceToneMap } from '@/constant';
 import { IApplicationState } from '@/Reducer';
@@ -142,10 +143,9 @@ class Result extends PureComponent<IProps, IState> {
   };
 
   public navToZiya = async () => {
-    const { deviceId } = await this.props.jsbServ.safeCall('getAppInfo');
-    jsonp(`//h5zy.lizhifm.com/api/v1/lizhi/promo/savesee?deviceId=${deviceId}`);
-    location.href = 'https://h5zy.lizhifm.com/home.html?source=lizhiVoiceCard';
-    // todo
+    // const { deviceId } = await this.props.jsbServ.safeCall('getAppInfo');
+    // jsonp(`//h5zy.lizhifm.com/api/v1/lizhi/promo/savesee?deviceId=${deviceId}`);
+    location.href = 'https://gio.ren/reJmmvQ';
     window._hmt.push(['_trackEvent', '按钮', '点击', '跳转吱呀']);
   };
 
@@ -166,10 +166,9 @@ class Result extends PureComponent<IProps, IState> {
   public render() {
     const { poster, result, userInfo } = this.props;
     const { recommendList, showZiyaAdv } = this.state;
-    // todo
     const recommendColor = result.color && result.color.replace('0x', '#');
     return (
-      <div styleName="result-page">
+      <div styleName="result-page" data-showZiya={showZiyaAdv}>
         <div styleName="content">
           <img styleName="picture" src={poster} alt="poster" key="poster" />
           <Poster
@@ -177,10 +176,25 @@ class Result extends PureComponent<IProps, IState> {
             displayType="dom"
             reportData={result}
             userInfo={userInfo}
-            showZiyaAdv={showZiyaAdv}
           />
           <div styleName="save-tip" key="save-tip" />
           <div onClick={trackClickEvent(this.navToVoicePage, '倾听Ta的心声')} styleName="btn-listen-voice" key="voice" />
+          {showZiyaAdv ? (
+            <div styleName="ziya-match" onClick={this.navToZiya}>
+              <div styleName="panl-title">声音恋人</div>
+              <div styleName="panl-content">
+                根据你的声音气质
+                <br />
+                为你找到一位声音恋人
+              </div>
+              <div styleName="ziya-btn" />
+              <img
+                alt="avatar"
+                src={avatar[result.voiceMan.matchType - 1]}
+                styleName="match-avatar"
+              />
+            </div>
+          ) : null}
           <div styleName="test-fate" key="test-fate">
             <div styleName="tit">探知你们的缘分</div>
             <div styleName="btn" onClick={trackClickEvent(this.openVoice, '打开app声音页')}>
