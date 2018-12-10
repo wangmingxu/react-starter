@@ -1,5 +1,9 @@
-import { lazy } from 'react';
+// import { lazy } from 'react';
+import { lazyWithPreload } from '@/utils/preload';
 import { RouteConfig } from 'react-router-config';
+
+export const indexPage = lazyWithPreload(() => import('@/Page/index'));
+export const RecordPage = lazyWithPreload(() => import('@/Page/Record'));
 
 // 如果需要执行前后端通用的应用级初始化启动逻辑(比如登录状态检查)
 // 可以在routes建一个根节点Root,
@@ -9,35 +13,35 @@ const routes: RouteConfig[] = [
     path: '/',
     component: __ISOMORPHIC__
       ? require('@/Page/index').default
-      : lazy(() => import('@/Page/index')),
+      : indexPage,
     exact: true,
   },
   {
     path: '/record',
     component: __ISOMORPHIC__
       ? require('@/Page/Record').default
-      : lazy(() => import('@/Page/Record')),
+      : RecordPage,
     exact: true,
   },
   {
     path: '/loading/:id',
     component: __ISOMORPHIC__
       ? require('@/Page/Loading').default
-      : lazy(() => import('@/Page/Loading')),
+      : lazyWithPreload(() => import('@/Page/Loading')),
     exact: true,
   },
   {
     path: '/result/:id',
     component: __ISOMORPHIC__
       ? require('@/Page/Result').default
-      : lazy(() => import('@/Page/Result')),
+      : lazyWithPreload(() => import('@/Page/Result')),
     exact: true,
   },
   {
     path: '/voice/:id',
     component: __ISOMORPHIC__
       ? require('@/Page/Voice').default
-      : lazy(() => import('@/Page/Voice')),
+      : lazyWithPreload(() => import('@/Page/Voice')),
     exact: true,
   },
 ];

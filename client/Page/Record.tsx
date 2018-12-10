@@ -80,7 +80,7 @@ class Record extends PureComponent<IProps, IState> {
       }
       this.props.recordServ.startRecord();
       window._hmt.push(['_trackEvent', '按钮', '点击', '按住录音']);
-    }, 150);
+    }, this.recordDelay);
   };
 
   public endRecord = () => {

@@ -65,6 +65,7 @@ class Voice extends PureComponent<IProps, IState> {
 
   public handleAudioError = (error) => {
     console.log(error);
+    this.props.player.reset();
     this.setState({ showAudioCtrlBtn: true });
   };
 

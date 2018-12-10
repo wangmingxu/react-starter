@@ -8,7 +8,7 @@ import { IUserInfo } from '@/types';
 import ClientDetectService from '@lz-service/ClientDetectService';
 import JsBridgeService from '@lz-service/JsBridgeService';
 import ShareService from '@lz-service/ShareService';
-// import { ActivityIndicator } from 'antd-mobile';
+import { ActivityIndicator } from 'antd-mobile';
 import React, { PureComponent, Suspense } from 'react';
 import { hot } from 'react-hot-loader';
 import { connect } from 'react-redux';
@@ -94,7 +94,7 @@ class App extends PureComponent<IProps, IState> {
     const { needRedirect, readyToRender } = this.state;
     return (
       <HashRouter basename={basename}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<ActivityIndicator toast={true} text="Loading..."/>}>
           {readyToRender ? <Route
             render={props => (
               <RouteWrapper {...props}>

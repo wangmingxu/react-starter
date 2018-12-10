@@ -111,7 +111,7 @@ class Result extends PureComponent<IProps, IState> {
       this.loadRecommend();
       this.checkZiyaStatus();
     }
-    preload(this.props.result.voiceMan.voiceManAudioUrl, 'audio');
+    preload(this.props.result.voiceMan.voiceManAudioUrl);
   }
 
   public loadRecommend = () => {

@@ -1,6 +1,7 @@
 import * as GlobalActions from '@/Action/Global';
 import * as UserInfoActions from '@/Action/UserInfo';
 import { IApplicationState } from '@/Reducer';
+import { RecordPage } from '@/Route';
 import { Gender, IUserInfo } from '@/types';
 import { showDownloadDialog } from '@/utils/openApp';
 import ClientDetectService from '@lz-service/ClientDetectService';
@@ -56,11 +57,7 @@ interface IState {
 
 class Index extends PureComponent<IProp, IState> {
   public readonly state: IState = {
-    userInfo: {
-      name: '',
-      gender: 0,
-      likeGender: 0,
-    },
+    userInfo: this.props.userInfo,
   };
 
   public async componentDidMount() {
@@ -69,6 +66,7 @@ class Index extends PureComponent<IProp, IState> {
       const { name } = await jsbServ.safeCall('getSessionUser')
       this.setState({ userInfo: { ...this.state.userInfo, name } });
     }
+    RecordPage.preload();
   }
 
   public setName = (e) => {
@@ -173,6 +171,7 @@ class Index extends PureComponent<IProp, IState> {
 
 export default connect(
   (state: IApplicationState) => ({
+    userInfo: state.UserInfo,
     isLogin: state.Global.isLogin,
     cdServ: state.Injector.get('cdServ'),
     jsbServ: state.Injector.get('jsbServ', {})
