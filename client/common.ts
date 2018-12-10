@@ -1,4 +1,5 @@
 import FastClick from 'fastclick';
+import 'url-polyfill';
 import './styles/global.less';
 import { initBaiduStat, initFundebug } from './utils/stat';
 

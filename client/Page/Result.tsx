@@ -180,7 +180,7 @@ class Result extends PureComponent<IProps, IState> {
           <div styleName="save-tip" key="save-tip" />
           <div onClick={trackClickEvent(this.navToVoicePage, '倾听Ta的心声')} styleName="btn-listen-voice" key="voice" />
           {showZiyaAdv ? (
-            <div styleName="ziya-match" onClick={this.navToZiya}>
+            <div styleName="ziya-match" onClick={trackClickEvent(this.navToZiya, '跳转吱呀')}>
               <div styleName="panl-title">声音恋人</div>
               <div styleName="panl-content">
                 根据你的声音气质
