@@ -23,12 +23,17 @@ export const initFundebug = () => {
         message: /Network Error/,
       },
       {
+        name: /^caught error$/,
+      },
+      {
+        name: /^TypeError$/,
+        message: /(ownerDocument|childNodes)/,
+      },
+      {
         message: /JSBridge/,
       },
       {
-        target: {
-          tagName: /^IMG$/,
-        },
+        target: {tagName: /^IMG$/},
       },
     ];
   }, console.log, 'fundebug');

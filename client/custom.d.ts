@@ -12,5 +12,4 @@ declare var fundebug: any;
 interface Window{
     _hmt: any;
     REDUX_STATE: any;
-    LizhiJSBridge: any;
 }

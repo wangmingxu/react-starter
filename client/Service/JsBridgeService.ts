@@ -3,6 +3,30 @@ import axios from 'axios';
 
 class JsBridgeService extends superClass {
 
+  public lzJsbConfig = async () => {
+    this.jsb.config({
+      debug: false,
+      url: this.config.lzJsConfUrl,
+      apiList: [
+        'isSupportFunc',
+        'toAction',
+        'getAppInfo',
+        'getToken',
+        'getSessionUser',
+        'gotoLogin',
+        'shareUrl',
+        'startRecordVoice',
+        'stopRecordVoice',
+        'uploadRecordVoice',
+        'replayRecordVoice',
+        'shareImage',
+        'saveImage',
+        'configShareUrl',
+      ],
+      eventList: ['user:login', 'recordStateChange', 'shareFinish'],
+    });
+  };
+
   public wxJsbConfig = async () => {
     const {
       protocol, host, pathname, search,

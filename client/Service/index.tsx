@@ -16,7 +16,6 @@ import {
 } from '@lz-service/ClientDetectService';
 import { APP_CONFIG_TOKEN } from '@lz-service/ConfigService';
 import JWTReqInterceptor from '@lz-service/JWTReqInterceptor';
-import RecordService from '@lz-service/RecordService';
 import ShareService from '@lz-service/ShareService';
 import { Provider, ReflectiveInjector } from 'injection-js';
 import config from './config';
@@ -63,8 +62,6 @@ const injector: ReflectiveInjector = typeof window === 'object'
     { provide: 'jsbServ', useExisting: JSB_SERVICE_TOKEN },
     ShareService,
     { provide: 'shareServ', useExisting: ShareService },
-    RecordService,
-    { provide: 'recordServ', useExisting: RecordService },
     AudioPlayerService,
     { provide: 'player', useExisting: AudioPlayerService },
   ])

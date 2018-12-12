@@ -8,6 +8,7 @@ import RecordService, {
 } from '@lz-service/RecordService';
 import { Toast } from 'antd-mobile';
 import classNames from 'classnames';
+import { ReflectiveInjector } from 'injection-js';
 import sample from 'lodash/sample';
 import throttle from 'lodash/throttle';
 import React, { PureComponent } from 'react';
@@ -17,9 +18,9 @@ import '../styles/record.less';
 
 interface IProps extends RouteComponentProps {
   cdServ: ClientDetectService;
-  recordServ: RecordService;
   userInfo: IUserInfo;
   httpAlias: HttpAliasMap;
+  injector: ReflectiveInjector
 }
 
 interface IState {
@@ -49,13 +50,15 @@ class Record extends PureComponent<IProps, IState> {
     Toast.info('正在上传录音...', 0);
   }, 1000, {trailing: false});
 
+  private recordServ: RecordService = this.props.injector.resolveAndInstantiate(RecordService)
+
   constructor(props) {
     super(props);
     this.recordText = sample(recordText)!.split(/[？,；]/)
   }
 
   public componentDidMount() {
-    this.props.recordServ.init({
+    this.recordServ.init({
       isShowWXProgressTips: 0,
       immediateUpload: true,
       maxRecordTime: 5 * 1000, // 服务端限制最长录音时长是8s
@@ -68,7 +71,7 @@ class Record extends PureComponent<IProps, IState> {
   }
 
   public componentWillUnmount() {
-    this.props.recordServ.destroy();
+    this.recordServ.destroy();
   }
 
   public startRecord = () => {
@@ -78,7 +81,7 @@ class Record extends PureComponent<IProps, IState> {
       if (delta > 0 && delta <= this.recordDelay) {
         return;
       }
-      this.props.recordServ.startRecord();
+      this.recordServ.startRecord();
       window._hmt.push(['_trackEvent', '按钮', '点击', '按住录音']);
     }, this.recordDelay);
   };
@@ -91,7 +94,7 @@ class Record extends PureComponent<IProps, IState> {
     }
     if (this.state.status < RecordStatus.RECORD_FINISH) {
       // 如果已经超时停止则不需要执行
-      this.props.recordServ.endRecord();
+      this.recordServ.endRecord();
     }
   };
 
@@ -126,7 +129,7 @@ class Record extends PureComponent<IProps, IState> {
       .catch(async (e) => {
         Toast.hide(); // 先去掉正在上传的Toast
         Toast.fail(e, Toast.SHORT, () => {
-          this.props.recordServ.remakeRecord();
+          this.recordServ.remakeRecord();
         });
       });
   };
@@ -201,7 +204,7 @@ class Record extends PureComponent<IProps, IState> {
 
 export default connect((state: IApplicationState) => ({
   userInfo: state.UserInfo,
-  recordServ: state.Injector.get('recordServ'),
   cdServ: state.Injector.get('cdServ'),
   httpAlias: state.Injector.get('$http').alias,
+  injector: state.Injector
 }))(Record);

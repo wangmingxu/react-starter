@@ -75,7 +75,7 @@ class Result extends PureComponent<IProps, IState> {
 
   public shareToCircle = throttle(
     () => {
-      window.LizhiJSBridge.call('toAction', {
+      this.props.jsbServ.safeCall('toAction', {
         action: {
           type: 43,
           id: '2686341451598543445',
@@ -124,8 +124,7 @@ class Result extends PureComponent<IProps, IState> {
 
   // 打开app声音页
   public openVoice = () => {
-    const [matchstr, userId, id] = this.props.result.voiceMan.voiceManLink.match(/\/(\d+)\/(\d+)$/);
-    console.log(matchstr);
+    const [, userId, id] = this.props.result.voiceMan.voiceManLink.match(/\/(\d+)\/(\d+)$/);
     const action = {
       type: 28,
       id, // 声音 id
@@ -133,7 +132,7 @@ class Result extends PureComponent<IProps, IState> {
         userId, // 主播 id
       },
     };
-    window.LizhiJSBridge.call('toAction', { action });
+    this.props.jsbServ.safeCall('toAction', { action });
   };
 
   public navToVoicePage = () => {
@@ -146,7 +145,6 @@ class Result extends PureComponent<IProps, IState> {
     // const { deviceId } = await this.props.jsbServ.safeCall('getAppInfo');
     // jsonp(`//h5zy.lizhifm.com/api/v1/lizhi/promo/savesee?deviceId=${deviceId}`);
     location.href = 'https://gio.ren/reJmmvQ';
-    window._hmt.push(['_trackEvent', '按钮', '点击', '跳转吱呀']);
   };
 
   public checkZiyaStatus = async () => {
