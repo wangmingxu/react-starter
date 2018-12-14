@@ -1,7 +1,8 @@
+import preload from '@/utils/preload';
+import { initBaiduStat, initFundebug } from '@/utils/stat';
 import FastClick from 'fastclick';
 import 'url-polyfill';
 import './styles/global.less';
-import { initBaiduStat, initFundebug } from './utils/stat';
 
 FastClick.attach(document.body);
 
@@ -15,3 +16,9 @@ if (/debug/.test(location.href)) {
 initFundebug();
 
 initBaiduStat();
+
+// 页面的背景图片都比较大 需要预加载
+const pageBgSet = require.context('@/assets/voicereport', false, /bg-\w+\.png/)
+pageBgSet.keys().forEach(key => {
+  preload(pageBgSet(key))
+})

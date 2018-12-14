@@ -41,8 +41,6 @@ class Record extends PureComponent<IProps, IState> {
 
   public recordDelay = 150;
 
-  public recordBtn = React.createRef<HTMLDivElement>();
-
   public recordText: string[];
 
   // 会连续触发多次
@@ -115,21 +113,17 @@ class Record extends PureComponent<IProps, IState> {
     })
       .then(async (rst) => {
         Toast.hide(); // 先去掉正在上传的Toast
-        if (rst.rCode === 0) {
-          const { analysisId } = rst.data;
-          history.push(`/loading/${analysisId}`);
-        } else {
-          Toast.fail(rst.msg, Toast.SHORT, () => {
-            if (rst.rCode === 2) {
-              history.go(-1); // 名字违规
-            }
-          });
-        }
+        const { analysisId } = rst.data;
+        history.push(`/loading/${analysisId}`);
       })
       .catch(async (e) => {
         Toast.hide(); // 先去掉正在上传的Toast
         Toast.fail(e, Toast.SHORT, () => {
-          this.recordServ.remakeRecord();
+          if (/用户名违规/.test(e)) {
+            history.go(-1); // 名字违规
+          } else {
+            this.recordServ.remakeRecord();
+          }
         });
       });
   };
@@ -178,7 +172,6 @@ class Record extends PureComponent<IProps, IState> {
             styleName={classNames('btn-record', {
               active: status === RecordStatus.RECORD_START,
             })}
-            ref={this.recordBtn}
             onContextMenu={(e) => {
               e.preventDefault();
               return false

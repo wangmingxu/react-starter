@@ -11,9 +11,9 @@ export const timeout = (ms: number) => (
 )
 
 export const pMinDelay = (p: Promise<any>, ms: number) => (
-    Promise.all([p, delay(ms)])
+    Promise.all([p, delay(ms)]).then(([ret, ]) => ret)
 )
 
-export const minDelayForLazy = (p: Promise<any>, ms: number) => (
-    pMinDelay(p, ms).then(([mod, dl]) => mod)
+export const pMaxTimeout = (p: Promise<any>, ms: number) => (
+    Promise.race([p, timeout(ms)])
 )

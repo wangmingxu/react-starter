@@ -1,10 +1,10 @@
 import * as GlobalActions from '@/Action/Global';
 import * as UserInfoActions from '@/Action/UserInfo';
 import { IApplicationState } from '@/Reducer';
+import JsBridgeService from '@/Service/JsBridgeService';
 import { Gender, IUserInfo } from '@/types';
 import { showDownloadDialog } from '@/utils/openApp';
 import ClientDetectService from '@lz-service/ClientDetectService';
-import JsBridgeService from '@lz-service/JsBridgeService';
 import { Toast } from 'antd-mobile';
 import Schema from 'async-validator';
 import classNames from 'classnames';
