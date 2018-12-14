@@ -28,7 +28,7 @@ module.exports = {
     tinyApiKey: '6i9NPe1a2nU6YN1k5tjrTEQyK4h3-ZDU',
     mergeCssChunks: true,
     usePWA: true, // 是否启用PWA,如果已经开启了服务端渲染,则此选项不会生效
-    cacheApiRegular: /voice_card/, // 正则匹配需要缓存的api链接,用于离线应用
+    cacheApiRegular: /\/voice_card\//, // 正则匹配需要缓存的api链接,用于离线应用
   },
   dev: {
     port: 8080,

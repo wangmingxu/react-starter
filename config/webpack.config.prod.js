@@ -51,7 +51,7 @@ const clientConfig = merge(baseConfig, {
       } : {}),
     },
   },
-  devtool: 'source-map',
+  devtool: false,
   module: {
     rules: [
       {

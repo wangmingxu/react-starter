@@ -61,7 +61,7 @@ class Index extends PureComponent<IProp, IState> {
 
   public async componentDidMount() {
     const {cdServ, jsbServ} = this.props;
-    if (cdServ.isLizhiFM) {
+    if (cdServ.isLizhiFM && !this.props.userInfo.name) {
       const { name } = await jsbServ.safeCall('getSessionUser')
       this.setState({ userInfo: { ...this.state.userInfo, name } });
     }

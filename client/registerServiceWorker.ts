@@ -113,5 +113,6 @@ export function unregister() {
   }
 }
 
-// bootstrap
+// switch
 registerServiceWorker();
+// unregister();
