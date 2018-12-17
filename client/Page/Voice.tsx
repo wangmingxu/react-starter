@@ -4,7 +4,7 @@ import { IApplicationState } from '@/Reducer';
 import { IResult, IUserInfo } from '@/types';
 import { stopPropagation } from '@/utils/domHelper';
 import { showDownloadDialog } from '@/utils/openApp';
-import { timeout } from '@/utils/promisify';
+import { pMaxTimeout } from '@/utils/promisify';
 import AudioPlayerService, {
   AudioStatus,
   EventMap as AudioEventMap,
@@ -47,7 +47,7 @@ class Voice extends PureComponent<IProps, IState> {
     if (player.audioStatus !== AudioStatus.PLAYING) {
       Toast.info('正在加载音频...', 0);
       try {
-        await Promise.race([player.play(), timeout(5000)]);
+        await pMaxTimeout(player.play(), 5000)
       } catch (e) {
         this.handleAudioError(e);
       } finally {

@@ -1,6 +1,7 @@
 import { recordText } from '@/constant';
 import { IApplicationState } from '@/Reducer';
 import { HttpAliasMap, IUserInfo } from '@/types';
+import { delay } from '@/utils/promisify';
 import ClientDetectService from '@lz-service/ClientDetectService';
 import RecordService, {
   ErrorType,
@@ -55,7 +56,8 @@ class Record extends PureComponent<IProps, IState> {
     this.recordText = sample(recordText)!.split(/[？,；]/)
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
+    await delay(500); // 等待过渡动画结束,否则录音授权弹窗会阻塞页面渲染
     this.recordServ.init({
       isShowWXProgressTips: 0,
       immediateUpload: true,
@@ -136,8 +138,9 @@ class Record extends PureComponent<IProps, IState> {
     let errMsg;
     switch (type) {
     case ErrorType.NO_PERMISSION:
-      errMsg = '没有录音权限';
-      break;
+      // errMsg = '没有录音权限';
+      // break;
+      return; // 客户端bug,偶尔会报这个错,但是其实已经有权限
     case ErrorType.RECORD_SAVE_FAIL:
       errMsg = '录音保存失败';
       break;
