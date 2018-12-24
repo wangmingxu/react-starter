@@ -1,8 +1,8 @@
 import avatar from '@/assets/avatar';
-import heart from '@/assets/voicereport/icon-heart.png';
 import bottomBar from '@/assets/voicereport/poster-bar.png';
-import qrcodeWX from '@/assets/voicereport/qrcode-wx.png';
-import rocker from '@/assets/voicereport/rocker.png';
+import heart from '@/assets/voicereport/poster-icon-heart.png';
+import qrcodeWX from '@/assets/voicereport/poster-qrcode-wx.png';
+import rocker from '@/assets/voicereport/poster-rocker.png';
 import { voiceToneMap, voiceTpmMap } from '@/constant';
 import { IResult, IUserInfo } from '@/types';
 import React, { memo } from 'react';

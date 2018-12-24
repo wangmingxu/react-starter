@@ -80,6 +80,20 @@ const baseConfig = {
       },
       {
         test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
+        exclude: /poster/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: utils.assetsPath('assets/[name].[ext]?[hash]'),
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
+        include: /poster/,
         use: [
           {
             loader: 'url-loader',
