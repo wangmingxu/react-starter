@@ -7,6 +7,7 @@ module.exports = {
       rootValue: 75,
       propList: ['*'],
       selectorBlackList: [/\s+body$/],
+      minPixelValue: 2,
     }),
     autoprefixer,
   ],
