@@ -1,7 +1,6 @@
 import preload from '@/utils/preload';
 import { initBaiduStat, initFundebug } from '@/utils/stat';
 import FastClick from 'fastclick';
-import 'url-polyfill';
 import './styles/global.less';
 
 FastClick.attach(document.body);

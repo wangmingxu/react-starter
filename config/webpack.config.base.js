@@ -12,6 +12,7 @@ const publicPath = NODE_ENV === 'production' ? build.assetsPublicPath : dev.asse
 const baseConfig = {
   context: common.clientPath,
   entry: {
+    polyfill: common.polyfill,
     app: common.entry,
   },
   output: {

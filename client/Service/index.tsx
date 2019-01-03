@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-
 import AudioPlayerService from '@common-service/AudioPlayerService';
 import { COOKIE_STR_TOKEN, CookieService } from '@common-service/CookieService';
 // import { ClientDetectService, APP_USERAGENT_TOKEN } from '@common-service/ClientDetectService';

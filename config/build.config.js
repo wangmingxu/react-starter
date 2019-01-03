@@ -8,6 +8,7 @@ const DIST_PATH = path.join(ROOT_PATH, 'dist'); // 输出目录
 const SERVER_PATH = path.join(ROOT_PATH, 'server'); // 输出目录
 module.exports = {
   common: {
+    polyfill: path.resolve(CLIENT_PATH,'polyfill.ts'),
     entry: path.resolve(CLIENT_PATH, 'index.tsx'), // js入口
     index: path.resolve(VIEW_PATH, 'tpl/index.html'), // html入口
     rootPath: ROOT_PATH,

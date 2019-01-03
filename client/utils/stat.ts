@@ -35,6 +35,9 @@ export const initFundebug = () => {
       {
         target: {tagName: /^IMG$/},
       },
+      {
+        message: /isTrusted/
+      }
     ];
   }, console.log, 'fundebug');
 };
