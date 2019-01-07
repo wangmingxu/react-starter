@@ -1,14 +1,21 @@
+import { IApplicationState } from '@/Reducer';
+import ShareService from '@lz-service/ShareService';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
+
+interface IProps extends RouteComponentProps {
+  shareServ: ShareService;
+}
 
 /**
  * 1.添加路由过渡动画
  * 2.在路由跳转时执行某些操作，比如微信sdk授权
  * 3.恢复滚动条到最顶部
  */
-class RouteWrapper extends Component<RouteComponentProps> {
+class RouteWrapper extends Component<IProps> {
 
   public shouldComponentUpdate(prevProps: RouteComponentProps) {
     return this.props.location.pathname !== prevProps.location.pathname
@@ -17,6 +24,7 @@ class RouteWrapper extends Component<RouteComponentProps> {
   public componentDidUpdate(prevProps: RouteComponentProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       window.scrollTo(0, 0);
+      this.props.shareServ.configShareInfo();
     }
   }
 
@@ -45,4 +53,8 @@ class RouteWrapper extends Component<RouteComponentProps> {
   }
 }
 
-export default RouteWrapper;
+export default connect(
+  (state: IApplicationState) => ({
+    shareServ: state.Injector.get('shareServ')
+  }),
+)(RouteWrapper);

@@ -124,7 +124,7 @@ class Loading extends PureComponent<IProps, IState> {
       });
       const imgData = canvas.toDataURL('image/jpeg');
       if (imgData.slice(0, 15).length < 15) {
-        await Promise.reject(new Error('生成图片失败'));
+        await Promise.reject('生成海报失败');
       }
       return imgData;
     } catch (error) {
