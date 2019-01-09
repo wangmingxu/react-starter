@@ -6,7 +6,7 @@ FastClick.attach(document.body);
 
 if (/debug/.test(location.href)) {
   require.ensure([], (require) => {
-    const eruda: any = require('eruda');
+    const eruda = require('eruda');
     eruda.init();
   }, console.log, 'eruda');
 }

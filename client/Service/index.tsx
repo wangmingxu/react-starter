@@ -1,7 +1,6 @@
 import { COOKIE_STR_TOKEN, CookieService } from '@common-service/CookieService';
 // import { ClientDetectService, APP_USERAGENT_TOKEN } from '@common-service/ClientDetectService';
 import {
-  HTTP_ALIAS_TOKEN,
   HTTP_REQUEST_INTERCEPTORS,
   HTTP_RESPONSE_INTERCEPTORS,
   HttpService,
@@ -15,7 +14,6 @@ import JWTReqInterceptor from '@lz-service/JWTReqInterceptor';
 import ShareService from '@lz-service/ShareService';
 import { Provider, ReflectiveInjector } from 'injection-js';
 import config from './config';
-import httpAlias from './http-alias';
 
 const defaultProvider: Provider[] = [
   ClientDetectService,
@@ -36,10 +34,6 @@ const defaultProvider: Provider[] = [
     provide: HTTP_REQUEST_INTERCEPTORS,
     useClass: JWTReqInterceptor,
     multi: true,
-  },
-  {
-    provide: HTTP_ALIAS_TOKEN,
-    useValue: httpAlias,
   },
 ];
 
