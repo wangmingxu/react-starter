@@ -124,11 +124,12 @@ class Loading extends PureComponent<IProps, IState> {
       });
       const imgData = canvas.toDataURL('image/jpeg');
       if (imgData.slice(0, 15).length < 15) {
-        await Promise.reject('生成海报失败');
+        await Promise.reject(new Error('生成海报失败'));
       }
       return imgData;
     } catch (error) {
-      Toast.fail(error, Toast.SHORT);
+      console.log(error.message);
+      Toast.fail(error.message, Toast.SHORT);
       return Promise.reject(error);
     }
   };
