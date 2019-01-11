@@ -31,7 +31,7 @@ export const pollResult = analysisId => async (dispatch, getState) => {
       const result = await pullTask();
       return result;
     }
-    return Promise.reject(rst.msg);
+    return Promise.reject(new Error(rst.msg));
   };
   try {
     const result = await pullTask();
@@ -50,5 +50,5 @@ export const checkAppResult = () => async (dispatch, getState) => {
     dispatch(setResult(rst.data));
     return rst.data;
   }
-  return Promise.reject(rst.msg);
+  return Promise.reject(new Error(rst.msg));
 };

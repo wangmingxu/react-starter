@@ -20,7 +20,7 @@ class DefaultResponseInterceptor {
     if ([data.rCode, data.code].includes(rCodeMap.SUCCESS) || [data.rCode, data.code].includes(rCodeMap.POLLING)) {
       return Promise.resolve(data);
     }
-    return Promise.reject(data.msg);
+    return Promise.reject(new Error(data.msg));
   }
 }
 
