@@ -16,6 +16,7 @@ const { common, build } = require('./build.config');
 const utils = require('./utils');
 const info = require('./info');
 const baseConfig = require('./webpack.config.base');
+const ManifestPlugin = require('webpack-manifest-plugin');
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const { RENDER_MODE } = process.env;
@@ -107,6 +108,11 @@ const clientConfig = merge(baseConfig, {
     new CleanWebpackPlugin([common.distPath], {
       root: common.rootPath,
     }),
+    new ManifestPlugin({
+      filter(file) {
+        return /\.(js|css)/.test(file.name)
+      },
+    })
   ].concat(build.bundleAnalyzerReport ? [
     /** 分析打包情况* */
     new BundleAnalyzerPlugin({

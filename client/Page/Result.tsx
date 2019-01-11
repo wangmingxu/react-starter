@@ -108,8 +108,9 @@ class Result extends PureComponent<IProps, IState> {
     if (this.props.cdServ.isLizhiFM) {
       this.loadRecommend();
       this.checkZiyaStatus();
+    } else {
+      preload(this.props.result.voiceMan.voiceManAudioUrl);
     }
-    preload(this.props.result.voiceMan.voiceManAudioUrl);
   }
 
   public loadRecommend = () => {
