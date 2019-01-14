@@ -1,4 +1,4 @@
-import { createInjector } from '@/Service';
+import { CommonService } from '@/Service';
 import { APP_USERAGENT_TOKEN } from '@common-service/ClientDetectService';
 import { COOKIE_STR_TOKEN } from '@common-service/CookieService';
 import { HTTP_REQUEST_INTERCEPTORS } from '@common-service/HttpService';
@@ -6,6 +6,7 @@ import { LocationService, URL_INJECT_TOKEN } from '@common-service/LocationServi
 import RelPathInterceptor from '@common-service/RelpathReqInterceptor';
 import UseragentInterceptor from '@common-service/WithUAReqInterceptor';
 import { Request } from 'express';
+import { ReflectiveInjector } from 'injection-js';
 
 const createInjectorWithReq = (req: Request) => {
   const {
@@ -18,7 +19,7 @@ const createInjectorWithReq = (req: Request) => {
   const useragent = req.get('User-Agent');
   const hostname = /localhost/.test(host) ? host.replace('localhost', '127.0.0.1') : host;
   const reqUrl = `${protocol}://${hostname}${originalUrl}`;
-  const injector = createInjector([
+  const ServerService = [
     { provide: COOKIE_STR_TOKEN, useValue: cookie },
     { provide: APP_USERAGENT_TOKEN, useValue: useragent },
     { provide: URL_INJECT_TOKEN, useValue: reqUrl },
@@ -33,7 +34,8 @@ const createInjectorWithReq = (req: Request) => {
       useClass: RelPathInterceptor,
       multi: true,
     },
-  ]);
+  ];
+  const injector = ReflectiveInjector.resolveAndCreate([...CommonService, ...ServerService]);
   return injector;
 };
 

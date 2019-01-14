@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 
 interface IProps {
   initialValue?: any;
-  observable: Observable<any>;
+  stream: Observable<any>;
   children: (value: any) => React.ReactNode;
 }
 
@@ -11,7 +11,7 @@ interface IState {
   value: any;
 }
 
-class AsyncRender extends PureComponent<IProps, IState> {
+class AsyncPipe extends PureComponent<IProps, IState> {
   public state: IState = {
     value: this.props.initialValue,
   };
@@ -19,7 +19,7 @@ class AsyncRender extends PureComponent<IProps, IState> {
   private subscription: Subscription;
 
   public componentDidMount() {
-    this.subscription = this.props.observable.subscribe((value) => {
+    this.subscription = this.props.stream.subscribe((value) => {
       this.setState({ value });
     });
   }
@@ -33,4 +33,4 @@ class AsyncRender extends PureComponent<IProps, IState> {
   }
 }
 
-export default AsyncRender;
+export default AsyncPipe;

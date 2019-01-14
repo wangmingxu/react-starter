@@ -35,13 +35,13 @@ const clientConfig = merge(baseConfig, {
           test: /[\\/]node_modules[\\/](core-js|.+polyfill)[\\/]/,
           name: 'polyfill',
           chunks: 'all',
-          priority: 2,
+          priority: 20,
         },
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'initial',
           name: 'vendor',
-          priority: 1,
+          priority: 10,
         },
         'async-vendor': {
           // test: /[\\/]node_modules[\\/]/,
