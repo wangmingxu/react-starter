@@ -37,14 +37,14 @@ export const CommonService: Provider[] = [
   },
 ];
 
-export const ClientService = [
+export const ClientService = typeof window === 'object'?[
   { provide: APP_USERAGENT_TOKEN, useValue: navigator.userAgent },
   { provide: COOKIE_STR_TOKEN, useValue: document.cookie },
   { provide: JSB_SERVICE_TOKEN, useClass: JsBridgeService },
   { provide: 'jsbServ', useExisting: JSB_SERVICE_TOKEN },
   ShareService,
   { provide: 'shareServ', useExisting: ShareService },
-];
+]:null;
 
 const injector: ReflectiveInjector = typeof window === 'object'
   ? ReflectiveInjector.resolveAndCreate([...CommonService, ...ClientService])
