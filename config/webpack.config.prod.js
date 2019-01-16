@@ -110,9 +110,9 @@ const clientConfig = merge(baseConfig, {
     }),
     new ManifestPlugin({
       filter(file) {
-        return /\.(js|css)/.test(file.name)
+        return /\.(js|css)/.test(file.name);
       },
-    })
+    }),
   ].concat(build.bundleAnalyzerReport ? [
     /** 分析打包情况* */
     new BundleAnalyzerPlugin({
