@@ -9,14 +9,19 @@ interface IState {
 }
 
 interface IOption {
-  placeholder?: JSX.Element;
-  strategy?: 'once' | 'always';
+  placeholder?: JSX.Element | string | null;
+  strategy?: LoadDataStrategy;
 }
 
 enum ComponentDataStatus {
   Pending = -1,
   Resolved = 1,
   Reject = 2
+}
+
+export enum LoadDataStrategy {
+  OnlyFirstTime,
+  Always
 }
 
 type InferableComponentEnhancerWithProps < TInjectedProps , TNeedsProps > = (
@@ -27,7 +32,7 @@ type withAsyncData = <TInjectedProps = {}, TOwnProps = {}>(
   opt?: IOption
 ) => InferableComponentEnhancerWithProps<TInjectedProps, TOwnProps>;
 
-const withAsyncData: withAsyncData = (opt = {} as IOption) => (WrappedComponent) => {
+const withAsyncData: withAsyncData = (opt = { placeholder: null, strategy: LoadDataStrategy.Always }) => (WrappedComponent) => {
   class Enhance extends React.Component<any, IState> {
     public static contextType = ServiceContext;
 
@@ -42,10 +47,12 @@ const withAsyncData: withAsyncData = (opt = {} as IOption) => (WrappedComponent)
     }
 
     public async componentDidMount() {
+      const isNotSsrOrFirstRender = !__ISOMORPHIC__ || this.state.data === void 0;
+      const isNeedFetchRepeated = (WrappedComponent as any)._dataStatus === void 0 || opt.strategy === LoadDataStrategy.Always;
       if (
-        (this.state.data === void 0 || !__ISOMORPHIC__ )
+        isNeedFetchRepeated
         && (WrappedComponent as any).getInitialProps !== void 0
-        && ((WrappedComponent as any)._dataStatus === void 0 || opt.strategy === 'always')
+        && isNotSsrOrFirstRender
       ) {
         this.setState({ loading: true });
         (WrappedComponent as any)._dataStatus = ComponentDataStatus.Pending;

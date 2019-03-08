@@ -57,7 +57,7 @@
       }
     }
   },
-  "author": "MX <wangmingxu@lizhi.fm>",
+  "author": "MX <wangmingxu@bytedance.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -66,8 +66,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@hot-loader/react-dom": "^16.7.0-alpha.2.4",
-    "@lizhife/lz-market-component": "^1.0.3",
-    "@lizhife/lz-market-service": "^2.0.1",
     "@types/express": "^4.16.0",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^10.12.18",
@@ -104,11 +102,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.4",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-react-jsx": "^7.2.0",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-env": "^7.3.4",
     "@babel/preset-typescript": "^7.1.0",
     "@babel/register": "^7.0.0-beta.47",
     "@types/webpack-env": "^1.13.6",
@@ -135,7 +133,7 @@
     "fork-ts-checker-webpack-plugin": "^0.5.2",
     "gulp": "^4.0.0",
     "gulp-tinypng": "^1.0.2",
-    "hbs": "^4.0.1",
+    "hbs": "^4.0.3",
     "html-webpack-plugin": "^3.1.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",

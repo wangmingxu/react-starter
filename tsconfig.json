@@ -26,8 +26,6 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["client/*"],
-      "@lz-service/*": ["node_modules/@lizhife/lz-market-service/package/*"],
-      "@lz-component/*": ["node_modules/@lizhife/lz-market-component/lib/*"],
       "@common-service/*": ["node_modules/di-sdk/package/*"]
     }
   },
