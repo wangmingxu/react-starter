@@ -20,8 +20,6 @@
     ]
   ],
   "plugins": [
-    /**react热更新*/
-    "react-hot-loader/babel",
     /**转换jsx**/
     "@babel/plugin-transform-react-jsx",
     /**支持class-properties语法*/
