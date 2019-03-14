@@ -47,8 +47,8 @@ const withAsyncData: withAsyncData = (opt = { placeholder: null, strategy: LoadD
     }
 
     public async componentDidMount() {
-      const isNotSsrOrFirstRender = !__ISOMORPHIC__ || this.state.data === void 0;
       const isNeedFetchRepeated = (WrappedComponent as any)._dataStatus === void 0 || opt.strategy === LoadDataStrategy.Always;
+      const isNotSsrOrFirstRender = !__ISOMORPHIC__ || this.state.data === void 0;
       if (
         isNeedFetchRepeated
         && (WrappedComponent as any).getInitialProps !== void 0

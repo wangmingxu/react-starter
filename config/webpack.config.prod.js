@@ -17,6 +17,8 @@ const { common, build } = require('./build.config');
 const utils = require('./utils');
 const info = require('./info');
 const baseConfig = require('./webpack.config.base');
+const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const { RENDER_MODE } = process.env;
@@ -104,6 +106,7 @@ const clientConfig = merge(baseConfig, {
     new webpack.HashedModuleIdsPlugin(),
     new webpack.NamedChunksPlugin(),
     new CrossOriginPlugin(),
+    new DuplicatePackageCheckerPlugin(),
     new PreloadWebpackPlugin({
       rel: 'prefetch',
     }),
@@ -174,6 +177,7 @@ const serverConfig = {
     ], // 当requrie的模块找不到时，添加这些后缀
     alias: baseConfig.resolve.alias,
   },
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
@@ -194,8 +198,21 @@ const serverConfig = {
       },
       {
         test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
         use: [
-          'babel-loader?cacheDirectory',
+          {
+            loader: 'babel-loader?cacheDirectory',
+            options: {
+              plugins: [
+                [
+                  "import", {
+                    "libraryName": "antd-mobile",
+                    "style": false,
+                  },
+                ]
+              ]
+            }
+          },
           {
             loader: 'awesome-typescript-loader',
             options: {
@@ -204,14 +221,10 @@ const serverConfig = {
             },
           },
         ],
-        exclude: /node_modules/,
       },
       {
         test: /\.(css|less)$/,
-        use: [
-          'css-loader',
-          'less-loader',
-        ],
+        use: 'null-loader',
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)$/,

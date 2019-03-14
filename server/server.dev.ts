@@ -111,7 +111,6 @@ app.get('/:path?/:filename(*.*)', webpackDevMiddleware(compiler, {
 if (RENDER_MODE === 'ssr') {
   app.set('views', path.resolve(__dirname, '../views/dev'));
   app.set('view engine', 'html');
-  // app.engine('html', require('ejs').renderFile);
   app.engine('html', hbs.__express);
 
   // '/'会默认跳到webpack-dev-server的index.html

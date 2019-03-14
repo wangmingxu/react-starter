@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const ProgressBarPlugin = require('webpackbar');
 const { common, dev, build } = require('./build.config');
 const utils = require('./utils');
 const { theme } = require('../package.json');
@@ -92,7 +92,9 @@ const baseConfig = {
   plugins: [
     /** 只引入zh-cn语言包 */
     new webpack.ContextReplacementPlugin(/^\.\/locale$/, /zh-cn/),
-    new ProgressBarPlugin(),
+    new ProgressBarPlugin(
+      // { reporters: ['profile'], profile: true }
+    ),
     new webpack.DefinePlugin({
       __ISOMORPHIC__: RENDER_MODE === 'ssr',
       PUBLIC_URL: JSON.stringify(publicPath.slice(0, -1)),
