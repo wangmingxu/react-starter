@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
+const cssnano = require('cssnano');
 
 module.exports = {
   plugins: [
@@ -9,5 +10,6 @@ module.exports = {
       selectorBlackList: [/\s+body$/],
     }),
     autoprefixer,
+    cssnano
   ],
 };

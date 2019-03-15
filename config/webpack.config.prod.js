@@ -72,9 +72,9 @@ const clientConfig = merge(baseConfig, {
           {
             loader: 'css-loader',
             options: {
+              context: path.resolve(common.clientPath, 'styles'),
               modules: true,
               localIdentName: '[name]__[local]--[hash:base64:5]',
-              minimize: true, // css压缩
               importLoaders: 2,
             },
           },

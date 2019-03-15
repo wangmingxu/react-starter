@@ -62,7 +62,6 @@ const baseConfig = {
           {
             loader: 'css-loader',
             options: {
-              minimize: true, // css压缩
               importLoaders: 2,
             },
           },

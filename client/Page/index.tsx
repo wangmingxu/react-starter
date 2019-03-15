@@ -21,12 +21,12 @@ class Index extends React.Component<InjectedProps> {
 
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={require('@/assets/logo.svg')} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div styleName="App">
+        <header styleName="App-header">
+          <img src={require('@/assets/logo.svg')} styleName="App-logo" alt="logo" />
+          <h1 styleName="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <p styleName="App-intro">
           To get started, edit
           {' '}
           <code>src/App.tsx</code>
