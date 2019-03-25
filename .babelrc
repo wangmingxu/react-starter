@@ -27,21 +27,6 @@
     /**支持import异步加载语法*/
     "@babel/plugin-syntax-dynamic-import",
     [
-      "react-css-modules",
-      {
-        "context": "client/styles",
-        "exclude": "node_modules",
-        "filetypes": {
-          ".less": {
-            "syntax": "postcss-less",
-          },
-        },
-        "handleMissingStyleName": "warn",
-        "generateScopedName": "[name]__[local]--[hash:base64:5]",
-        "removeImport": false,
-      },
-    ],
-    [
       "import", {
         "libraryName": "antd-mobile",
         "style": true,

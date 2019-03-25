@@ -48,6 +48,7 @@ require('@babel/register')({
 
 // Css require hook
 cssModulesRequireHook({
+  rootDir: path.resolve(common.clientPath, 'styles'),
   extensions: ['.less', '.css'],
   processorOpts: { parser: lessParser },
   generateScopedName: '[name]__[local]--[hash:base64:5]',

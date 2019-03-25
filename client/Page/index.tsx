@@ -1,12 +1,14 @@
 import ServiceContext from '@/Context/ServiceContext';
 import withAsyncData, { LoadDataStrategy } from '@/Hoc/withAsyncData';
 import * as React from 'react';
-import '../styles/test.less';
+import * as CSSModules from 'react-css-modules';
+import * as styles from '../styles/test.less';
 
 interface InjectedProps {
   initialData: string;
 }
 
+@CSSModules(styles)
 class Index extends React.Component<InjectedProps> {
   public static contextType = ServiceContext;
 

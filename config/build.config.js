@@ -1,5 +1,4 @@
 const path = require('path');
-const { name } = require('../package.json');
 
 const ROOT_PATH = path.resolve(__dirname, '..'); // 项目根目录
 const CLIENT_PATH = path.join(ROOT_PATH, 'client'); // 源码目录
@@ -18,11 +17,11 @@ module.exports = {
     serverPath: SERVER_PATH,
   },
   build: {
-    port: 8080,
+    port: 80,
     BASE_PATH: '', // 用于React-Router的basename
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'client', // 单独创建一个目录存放静态资源，方便upload
-    assetsPublicPath: `https://bizadv.lizhi.fm/festatic/${name}/`,
+    assetsPublicPath: '/',
     codeSplit: true, // 是否启用路由按需加载
     bundleAnalyzerReport: true,
     analyzerPort: 7777,

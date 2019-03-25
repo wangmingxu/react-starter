@@ -127,7 +127,7 @@ const clientConfig = merge(baseConfig, {
       reportFilename: 'report.html',
       excludeAssets: [/eruda/, /fundebug/],
     }),
-  ] : []).concat(RENDER_MODE === 'spa' && build.usePWA ? [
+  ] : []).concat(RENDER_MODE === 'csr' && build.usePWA ? [
     new WorkboxPlugin.GenerateSW({
       swDest: 'service-worker.js',
       importWorkboxFrom: 'local',
@@ -224,7 +224,19 @@ const serverConfig = {
       },
       {
         test: /\.(css|less)$/,
-        use: 'null-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              context: path.resolve(common.clientPath, 'styles'),
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+              importLoaders: 2,
+              exportOnlyLocals: true
+            },
+          },
+          'less-loader',
+        ],
       },
       {
         test: /\.(gif|jpg|png|woff|svg|eot|ttf)$/,

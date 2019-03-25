@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  web:
+    image: ${IMAGE_REPOSITORY}:${IMAGE_TAG}
+    build:
+      context: .
+      args:
+        - APP_NAME=${APP_NAME}
+    environment:
+      - NODE_ENV=production
+    ports:
+      - ${HOST_HTTP_PORT}:80

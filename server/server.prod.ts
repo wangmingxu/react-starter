@@ -2,6 +2,9 @@ import 'reflect-metadata';
 
 import express from 'express';
 import hbs from 'hbs';
+// import * as heapdump from 'heapdump';
+import morgan from 'morgan';
+// import * as memwatch from 'node-memwatch';
 import path from 'path';
 import proxyMiddleware from 'proxy-middleware';
 import { build } from '../config/build.config';
@@ -9,6 +12,8 @@ import * as proxyTable from '../proxy/prod/proxyTable';
 import clientRoute from './middlewares/clientRoute';
 
 const app = express();
+
+app.use(morgan('tiny'));
 
 // proxy api requests
 Object.keys(proxyTable).forEach((context) => {
@@ -28,3 +33,19 @@ app.use(clientRoute);
 app.listen(build.port, () => {
   console.log(`App listening on port ${build.port}!\n`);
 });
+
+// memory profile watch
+// const hd = new memwatch.HeapDiff();
+// memwatch.on('leak', (info) => {
+//   console.log('--leak--');
+//   console.log(info);
+//   console.log('--leak--');
+//   const diff = hd.end();
+//   console.log('--Heap Diff--');
+//   console.dir(diff, { depth: 10 });
+//   console.log('--Heap Diff--');
+//   const filename = `${__dirname}/heapdump-${process.pid}-${Date.now()}.heapsnapshot`;
+//   heapdump.writeSnapshot(filename, () => {
+//     console.log(`${filename} dump completed.`);
+//   });
+// });

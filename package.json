@@ -5,41 +5,34 @@
   "scripts": {
     "start": "npm run dev:ssr",
     "dev:ssr": "better-npm-run dev:ssr",
-    "dev:spa": "better-npm-run dev:spa",
+    "dev:csr": "better-npm-run dev:csr",
     "pre:ssr": "better-npm-run pre:ssr",
-    "pre:spa": "better-npm-run pre:spa",
+    "pre:csr": "better-npm-run pre:csr",
     "build:ssr": "better-npm-run build:ssr",
-    "build:spa": "better-npm-run build:spa",
+    "build:csr": "better-npm-run build:csr",
+    "build": "npm run build:csr",
     "tinypng": "gulp --gulpfile config/tinypng.js tinypng",
     "upload:map": "node config/mapFileUpload.js"
   },
   "betterScripts": {
     "dev:ssr": {
-      "command": "nodemon --exec 'ts-node --project ./tsconfig.node.json --transpileOnly' ./server/server.dev.ts --watch server --watch config --watch proxy",
-      "env": {
-        "NODE_ENV": "development",
-        "RENDER_MODE": "ssr"
-      }
+      "command": "pm2 start ecosystem.config.js --no-daemon --env ssr"
     },
-    "dev:spa": {
-      "command": "nodemon --exec 'ts-node --project ./tsconfig.node.json --transpileOnly' ./server/server.dev.ts --watch server --watch config --watch proxy",
-      "env": {
-        "NODE_ENV": "development",
-        "RENDER_MODE": "spa"
-      }
+    "dev:csr": {
+      "command": "pm2 start ecosystem.config.js --no-daemon --env csr"
     },
     "pre:ssr": {
-      "command": "webpack --config config/webpack.config.prod.js&&node ./dist/server/server.js",
+      "command": "webpack --config config/webpack.config.prod.js&&pm2 start ./dist/server/server.js -i max --no-daemon",
       "env": {
         "NODE_ENV": "development",
         "RENDER_MODE": "ssr"
       }
     },
-    "pre:spa": {
+    "pre:csr": {
       "command": "webpack --config config/webpack.config.prod.js&&node ./server/server.pre.spa.js",
       "env": {
         "NODE_ENV": "development",
-        "RENDER_MODE": "spa"
+        "RENDER_MODE": "csr"
       }
     },
     "build:ssr": {
@@ -49,11 +42,11 @@
         "RENDER_MODE": "ssr"
       }
     },
-    "build:spa": {
+    "build:csr": {
       "command": "webpack --config config/webpack.config.prod.js",
       "env": {
         "NODE_ENV": "production",
-        "RENDER_MODE": "spa"
+        "RENDER_MODE": "csr"
       }
     }
   },
@@ -78,6 +71,8 @@
     "injection-js": "^2.2.1",
     "lib-flexible": "^0.3.2",
     "lodash-es": "^4.17.11",
+    "morgan": "^1.9.1",
+    "pm2": "^3.4.0",
     "prop-types": "^15.6.0",
     "proxy-middleware": "^0.15.0",
     "react": "^16.7.0",
@@ -123,7 +118,7 @@
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-module-resolver": "^3.1.1",
-    "babel-plugin-react-css-modules": "^5.0.0",
+    "babel-plugin-react-css-modules": "^5.2.1",
     "better-npm-run": "^0.1.0",
     "bundle-loader": "^0.5.5",
     "clean-webpack-plugin": "^1.0.0",
@@ -136,14 +131,10 @@
     "fork-ts-checker-webpack-plugin": "^0.5.2",
     "gulp": "^4.0.0",
     "gulp-tinypng": "^1.0.2",
-    "heapdump": "^0.3.12",
     "html-webpack-plugin": "^3.1.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "mini-css-extract-plugin": "^0.5.0",
-    "node-memwatch": "^1.0.1",
-    "nodemon": "^1.18.9",
-    "null-loader": "^0.1.1",
     "postcss": "^7.0.7",
     "postcss-less": "^3.1.0",
     "postcss-loader": "^3.0.0",
