@@ -9,22 +9,10 @@ interface IState {
 }
 
 interface IOption {
-  placeholder?: JSX.Element | string | null;
-  strategy?: LoadDataStrategy;
+  placeholder?: React.ReactNode;
 }
 
-enum ComponentDataStatus {
-  Pending = -1,
-  Resolved = 1,
-  Reject = 2
-}
-
-export enum LoadDataStrategy {
-  OnlyFirstTime,
-  Always
-}
-
-type InferableComponentEnhancerWithProps < TInjectedProps , TNeedsProps > = (
+type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> = (
   component: React.ComponentType<TInjectedProps & TNeedsProps>
 ) => React.ComponentClass<TNeedsProps>;
 
@@ -32,7 +20,9 @@ type withAsyncData = <TInjectedProps = {}, TOwnProps = {}>(
   opt?: IOption
 ) => InferableComponentEnhancerWithProps<TInjectedProps, TOwnProps>;
 
-const withAsyncData: withAsyncData = (opt = { placeholder: null, strategy: LoadDataStrategy.Always }) => (WrappedComponent) => {
+const withAsyncData: withAsyncData = (
+  opt = { placeholder: null }
+) => WrappedComponent => {
   class Enhance extends React.Component<any, IState> {
     public static contextType = ServiceContext;
 
@@ -47,21 +37,15 @@ const withAsyncData: withAsyncData = (opt = { placeholder: null, strategy: LoadD
     }
 
     public async componentDidMount() {
-      const isNeedFetchRepeated = (WrappedComponent as any)._dataStatus === void 0 || opt.strategy === LoadDataStrategy.Always;
-      const isNotSsrOrFirstRender = !__ISOMORPHIC__ || this.state.data === void 0;
       if (
-        isNeedFetchRepeated
-        && (WrappedComponent as any).getInitialProps !== void 0
-        && isNotSsrOrFirstRender
+        (WrappedComponent as any).getInitialProps !== void 0 &&
+        (!__ISOMORPHIC__ || this.state.data === void 0)
       ) {
         this.setState({ loading: true });
-        (WrappedComponent as any)._dataStatus = ComponentDataStatus.Pending;
         try {
           const data = await (WrappedComponent as any).getInitialProps({ injector: this.context });
           this.setState({ data });
-          (WrappedComponent as any)._dataStatus = ComponentDataStatus.Resolved;
         } catch (error) {
-          (WrappedComponent as any)._dataStatus = ComponentDataStatus.Reject;
           console.log(error);
         } finally {
           this.setState({ loading: false });

@@ -1,5 +1,5 @@
 import ServiceContext from '@/Context/ServiceContext';
-import withAsyncData, { LoadDataStrategy } from '@/Hoc/withAsyncData';
+import withAsyncData from '@/Hoc/withAsyncData';
 import * as React from 'react';
 import * as CSSModules from 'react-css-modules';
 import * as styles from '../styles/test.less';
@@ -40,4 +40,4 @@ class Index extends React.Component<InjectedProps> {
   }
 }
 
-export default withAsyncData({ strategy: LoadDataStrategy.OnlyFirstTime })(Index);
+export default withAsyncData()(Index);
