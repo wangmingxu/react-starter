@@ -1,192 +1,104 @@
-@import './mixin.less';
 @keyframes addvotes {
-    from {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(100%);
-    }
+	from {
+		opacity: 1;
+		transform: translateX(0px);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(100%);
+	}
 }
 .program-item {
-    position: relative;
-    width: 100%;
-    background-color: rgb(43, 3, 135);
-    overflow: hidden;
-    height: 200px;
-    border: 2px solid black;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    &:last-child {
-        margin-bottom: 0px;
-    }
-    .cnt {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 715px;
-        height: 100%;
-        box-sizing: border-box;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        .rank_wrap {
-            width: 60px;
-            text-align: right;
-        }
-        .rank {
-            display: inline-block;
-            line-height: 30px;
-            height: 30px;
-            width: 30px;
-            text-align: center;
-            border-radius: 8px;
-            &.No1 {
-                background-image: linear-gradient(
-                    to top,
-                    rgb(196, 138, 0) 0%,
-                    rgb(255, 180, 0) 56%,
-                    rgb(255, 211, 57) 99%
-                );
-            }
-            &.No2 {
-                background-image: linear-gradient(
-                    to top,
-                    rgb(173, 173, 173) 0%,
-                    rgb(219, 219, 219) 73%
-                );
-            }
-            &.No3 {
-                background-image: linear-gradient(
-                    to top,
-                    rgb(173, 173, 173) 0%,
-                    rgb(160, 109, 109) 0%,
-                    rgb(210, 161, 159) 57%,
-                    rgb(243, 188, 186) 98%
-                );
-            }
-        }
-        .avatar-wrapper {
-            width: 110px;
-            height: 110px;
-            border-radius: 50% 50%;
-            overflow: hidden;
-            border: 5px solid rgb(47, 77, 187);
-            margin: 0 15px 0 25px;
-            box-sizing: border-box;
-            position: relative;
-        }
-        .avatar {
-            width: 100%;
-            height: 100%;
-        }
-        .btn-control {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-repeat: no-repeat;
-            background-size: 100% auto;
-            background-position: center;
-            width: 110px;
-            height: 110px;
-            &.play {
-                background-image: url('../assets/play.svg');
-            }
-            &.pause {
-                background-image: url('../assets/pause.svg');
-                background-size: 60px auto;
-            }
-        }
-        .info {
-            flex: 1;
-            margin-right: 35px;
-            overflow: hidden;
-            .name {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 12px;
-                .s-votes {
-                    float: right;
-                }
-            }
-            .title,
-            .votes {
-                font-size: 22px;
-                margin-bottom: 12px;
-            }
-            .title {
-                color: #c4c0d7;
-                min-height: 30px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-            .votes {
-                .add {
-                    animation: addvotes 1s forwards;
-                    display: inline-block;
-                }
-            }
-            .operation {
-                display: flex;
-                justify-content: flex-end;
-                &.withSchool {
-                    .btn {
-                        margin-right: 18px;
-                    }
-                }
-                .schoolName {
-                    flex: 1;
-                    text-align: left;
-                    color: #c4c0d7;
-                    font-size: 22px;
-                    line-height: 45px;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-                .btn {
-                    .btn-mixin();
-                    margin-right: 40px;
-                    &:last-child {
-                        margin-right: 0px;
-                    }
-                }
-                .btn-listen {
-                    background: url('../assets/campus-line/btn-listen.png')
-                        no-repeat;
-                    background-size: 100% auto;
-                    background-position: center;
-                    color: #fff;
-                    &:active {
-                        background: #2eabee;
-                        border: 2px solid black;
-                    }
-                }
-                .btn-vote {
-                    background: url('../assets/campus-line/btn-vote.png')
-                        no-repeat;
-                    background-size: 100% auto;
-                    background-position: center;
-                    &:active {
-                        background: #71cf64;
-                        border: 2px solid black;
-                    }
-                }
-                .btn-share {
-                    background: url('../assets/campus-line/btn-share.png')
-                        no-repeat;
-                    background-size: 100% auto;
-                    background-position: center;
-                    &:active {
-                        background: #e591b9;
-                        border: 2px solid black;
-                    }
-                }
-            }
-        }
-    }
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 38px;
+	&:last-child{
+		margin-bottom: 0;
+	}
+	.avatar-wrapper {
+		width: 88px;
+		height: 88px;
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid rgb(93, 238, 255);
+		margin: 0 15px 0 25px;
+		box-sizing: border-box;
+		position: relative;
+	}
+	.avatar {
+		width: 100%;
+		height: 100%;
+	}
+	.btn-control {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+		background-position: center;
+		width: 110px;
+		height: 110px;
+		&.play {
+			background-image: url('../assets/play.svg');
+		}
+		&.pause {
+			background-image: url('../assets/pause.svg');
+			background-size: 60px auto;
+		}
+	}
+	.info {
+		flex: 1;
+		margin-right: 15px;
+		position: relative;
+		.name {
+			font-size: 30px;
+			margin-bottom: 20px;
+			color: #ff5db8;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.votes {
+			font-size: 25px;
+			color: #5deeff;
+		}
+		.votes {
+			.add {
+				animation: addvotes 1s forwards;
+				display: inline-block;
+			}
+		}
+		.operation {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			justify-content: flex-end;
+			.btn {	
+				width: 111px;
+				height: 39px;	
+				border-radius: 10px;
+				margin-right: 35px;
+				text-align: center;
+				font-size: 25px;
+				line-height: 39px;
+				&:last-child {
+					margin-right: 0px;
+				}
+			}
+			.btn-vote {
+				color: rgb(255, 93, 184);
+				background-color: rgb(93, 238, 255);
+			}
+			.btn-share {
+				color: rgb(93, 238, 255);
+				background-color: rgb(255, 93, 184);
+			}
+		}
+	}
 }
