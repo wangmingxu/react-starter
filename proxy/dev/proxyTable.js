@@ -5,5 +5,5 @@ module.exports = {
   '/hangzhou': url.parse('https://city.lizhi.fm/hangzhou'),
   '/activity': url.parse('https://city.lizhi.fm/activity'),
   // '/newvoice': url.parse('http://192.168.11.237:8080/newvoice'),
-  '/newvoice': url.parse('https://mkactivitypre.lizhifm.com/newvoice'),
+  '/newvoice': url.parse('https://mkactivity.lizhifm.com/newvoice'),
 };

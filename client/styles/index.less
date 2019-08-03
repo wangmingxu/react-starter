@@ -1,196 +1,47 @@
-@import './mixin.less';
-.index-page {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    .scroller{
-        flex: 1;
-        // overflow: auto;
-        // -webkit-overflow-scrolling: touch;
-        position: relative;
+.page--index{
+    background: url('../assets//toyota/bg-index.png') no-repeat;
+    background-size: 100% auto;
+    position: relative;
+    height: 2778px;
+    .logo{
+        position: absolute;
+        left: 198px;
+        top: 81px;
+        width: 130px;
+        height: 47px;
     }
-    .notice-bar{
-        #notice-row-mixin.container();
-        .cl-notice {
-            #notice-row-mixin.cl-notice();
-        }    
-        .rest-votes{
-            #notice-row-mixin.rest-votes();
-        }
-        .laba {
-            #notice-row-mixin.laba();
-        }
+    .title{
+        position: absolute;
+        left: 0;
+        top: 48px;
+        width: 100%;
+        height: 870px;
+        background: url('../assets//toyota/title-index.png') no-repeat;
+        background-size: 100% auto;
     }
-    .user-card {
-        border: 2px solid black;
-        border-radius: 12px;
-        background-color: rgb(43, 3, 135);
-        width: 715px;
-        height: 505px;
-        margin: 0 auto 38px;
-        padding: 30px 15px 0px;
-        box-sizing: border-box;
-        .user-info{
-            display: flex;
-            position: relative;
-            align-items: center;
-            margin-bottom: 45px;
-            .btn-my_voice{
-                width: 195px;
-                height: 56px;
-                background: url('../assets/campus-line/my-voice.png') no-repeat;
-                background-size: 100% auto;
-                position: absolute;
-                top: 26px;
-                left: 474px;
-                font-size: 28px;
-                font-weight: bold;
-                text-align: center;
-                line-height: 56px;
-                box-sizing: border-box;
-                border-radius: 28px;
-                color: #fff;
-                &:active{
-                    background: #2eabee;
-                    border: 2px solid black;
-                }
-            }
-            .avatar{
-                width: 140px;
-                height: 140px;
-                border-radius: 50% 50%;
-                border: 5px solid rgb(47, 77, 187);
-                box-sizing: border-box;
-                margin: 7px 27px 0 5px;
-            }
-            .stat{
-                flex: 1;
-                font-size: 24px;
-                color: #fff;
-                .nickName{
-                    line-height: 45px;
-                    font-weight: bold;
-                }
-                .btn-login{
-                    width: 117px;
-                    height: 45px;
-                    background: url('../assets/campus-line/btn-login.png') no-repeat;
-                    background-size: 100% auto;
-                    margin-bottom: 15px;
-                    font-size: 24px;
-                    font-weight: bold;
-                    text-align: center;
-                    line-height: 45px;
-                    box-sizing: border-box;
-                    border-radius: 45/2px;
-                    &:active{
-                        background: #ff5680;
-                        border: 2px solid black;
-                    }
-                }
-                .rest-votes{
-                    font-weight: bold;
-                    margin-bottom: 15px;
-                }
-                .history-votes{
-                    display: flex;
-                    .today{
-                        flex: 1;
-                    }
-                    .total{
-                        flex: 1;
-                    }
-                }
-            }
-        }
-        .my-community{
-            .title{
-                color: #13baff;
-                font-size: 28px;
-                font-weight: bold;
-                text-align: center;
-                position: relative;
-                margin-bottom: 15px;
-                &::before{
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    width: 76px;
-                    height: 2px;
-                    background: url('../assets/campus-line/line.png') no-repeat;
-                    background-size: 100% auto;
-                    left: 160px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                }
-                &::after{
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    width: 76px;
-                    height: 2px;
-                    background: url('../assets/campus-line/line.png') no-repeat;
-                    background-size: 100% auto;
-                    right: 160px;
-                    top: 50%;
-                    transform: translateY(-50%) rotateZ(180deg);
-                }
-            }
-            .empty{
-                text-align: center;
-                margin-top: 60px;
-                color: #fff;
-            }
-        }
+    .kol--container{
+        position: absolute;
+        left: 0;
+        top: 994px;
+        width: 100%;
     }
-    .tabs{
-        position: sticky;
-        top: 0px;
-        left: 35/2px;
-        z-index: 10;
-        margin: 0 auto 34px;
-        width: 715px;
-        // height: 73px;
-        // line-height: 79px;
-        // border: 2px solid rgb(47, 77, 187);
-        line-height: 73px;
-        box-sizing: border-box;
-        font-size: 28px;
-        color: #fff;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        background-color: #2b0387;
-        .item{
-            text-align: center;
-            flex: 1;
-            border-radius: 10px;
-            &.active{
-                position: relative;
-                background-image: linear-gradient( to right, rgb(152,139,227) 2%, rgb(112,124,231) 25%, rgb(71,108,234) 56%);
-            }
-        }
+    .activity-detail{
+        width: 183px;
+        height: 28px;
+        position: absolute;
+        left: 507px;
+        top: 1600px;
+        background: url('../assets/toyota/activity-detail-btn.png') no-repeat;
+        background-size: 100% auto;
     }
-    .search-box{
-        .search-box-mixin();
-        margin: 0px auto 30px;
-    }
-    .list{
-        width: 715px;
-        box-sizing: border-box;
-        margin: 0 auto;
-        padding-bottom: 96+15px;
-        .empty{
-            text-align: center;
-            padding: 50px;
-            color: #fff;
-            font-size: 28px;
-        }
-    }
-    .btn-join{
-        .ft-btn-mixin();
-        position: fixed;
-        bottom: 0px;
-        left: 0px;
+    .saicheng{
+        width: 553px;
+        height: 212px;
+        background: url('../assets/toyota/saicheng.png') no-repeat;
+        background-size: 100% auto;
+        position: absolute;
+        left: 50%;
+        top: 1671px;
+        transform: translateX(-50%);
     }
 }
