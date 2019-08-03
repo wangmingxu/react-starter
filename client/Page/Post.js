@@ -52,7 +52,7 @@ class Post extends React.Component {
       Toast.info(error);
     }
   }
-  showSchoolSelect=() => {
+  showSchoolSelect = () => {
     this.setState({ selectingSchool: true });
   }
   handlePhoneChange = (e) => {
@@ -77,7 +77,6 @@ class Post extends React.Component {
       <React.Fragment>
         {selectingSchool ? <SchoolSelector onSelect={this.handleSchoolChange} /> : null}
         <div styleName="page-post">
-          <Banner logo detail />
           <div styleName="main">
             <div styleName="card">
               <div styleName="feild">
@@ -85,14 +84,11 @@ class Post extends React.Component {
                 <input styleName="ipt" onFocus={this.fixIpt} onChange={this.handleTitleChange} value={title} />
               </div>
               <div styleName="feild">
-                <div styleName="lab">学校(必填)</div>
-                <div styleName="ipt school" onClick={this.showSchoolSelect}>{school.schoolName}</div>
-              </div>
-              <div styleName="feild">
                 <div styleName="lab">手机号(必填)</div>
                 <input styleName="ipt" type="tel" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} />
               </div>
-            </div></div>
+            </div>
+          </div>
           <div styleName="btn-submit" onClick={this.submit}>提交</div>
         </div>
       </React.Fragment>

@@ -4,7 +4,7 @@ import Index from 'Page/index';
 import Info from 'Page/Info';
 // import Voice from 'Page/Voice';
 // import Post from 'Page/Post';
-// import Record from 'Page/Record';
+import Record from 'Page/Record';
 // import ActivityDetail from 'Page/ActivityDetail';
 // import Mine from 'Page/Mine';
 // import School from 'Page/School';
@@ -20,11 +20,11 @@ const routes = [
     component: createComponent(Info),
     exact: true,
   },
-  // {
-  //   path: '/record',
-  //   component: createComponent(Record),
-  //   exact: true,
-  // },
+  {
+    path: '/record',
+    component: createComponent(Record),
+    exact: true,
+  },
   // {
   //   path: '/voice/:id',
   //   component: createComponent(Voice),
