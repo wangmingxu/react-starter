@@ -1,6 +1,7 @@
 import { createComponent } from 'Component/Bundle'; // bundle模型用来异步加载组件
 
 import Index from 'Page/index';
+import Info from 'Page/Info';
 // import Voice from 'Page/Voice';
 // import Post from 'Page/Post';
 // import Record from 'Page/Record';
@@ -12,6 +13,11 @@ const routes = [
   {
     path: '/',
     component: createComponent(Index),
+    exact: true,
+  },
+  {
+    path: '/info',
+    component: createComponent(Info),
     exact: true,
   },
   // {

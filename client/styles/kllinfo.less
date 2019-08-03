@@ -1,0 +1,133 @@
+.f--h {
+  display: flex;
+  align-items: center;
+}
+.btn-clear {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.infor-wrap {
+  background: #070d19;
+  height: 100vh;
+  //   background: #070d19 url(../assets/toyota/info-bg.png) no-repeat left top;
+  //   background-size: 100% auto;
+  //   position: relative;
+  //   height: 100vh;
+
+  .wrap-inner {
+    background: #070d19 url(../assets/toyota/info-bg.png) no-repeat left top;
+    background-size: 100% auto;
+    position: relative;
+    padding-bottom: 25px;
+    //   height: 100vh;
+  }
+
+  .btn-box {
+    padding: 710px 30px 0;
+    justify-content: space-between;
+
+    button {
+      width: 206px;
+      height: 74px;
+      background: url(../assets/toyota/info-btn-bg.png) no-repeat center;
+      color: #d2dae6;
+    }
+  }
+
+  .main-box {
+    // width: 690px;
+    padding: 0 30px;
+    margin: 25px auto 0;
+
+    .main-inner {
+      height: 495px;
+      border: 2px solid #c8d1de;
+      border-radius: 15px;
+      padding: 0 30px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      font-size: 28px;
+      color: #d2dae6;
+      margin: 25px 0;
+
+      .tag-name {
+        width: 150px;
+        height: 50px;
+        line-height: 50px;
+      }
+
+      input.fl {
+        width: 450px;
+        height: 44px;
+        border: 2px solid #d2dae6;
+        border-radius: 15px;
+        background: none;
+      }
+    }
+
+    .reade-box {
+      .name {
+        font-size: 20px;
+        color: #d2dae6;
+        font-size: 20px;
+      }
+      a {
+        color: #fff799;
+        font-size: 20px;
+      }
+    }
+    .am-checkbox-agree-label {
+      font-size: 20px;
+      color: #d2dae6;
+    }
+
+    .submit-btn {
+      width: 182px;
+      height: 50px;
+      background: #d2dae6;
+      border-radius: 15px;
+      color: #070d1b;
+      font-size: 28px;
+      text-align: center;
+      line-height: 50px;
+      margin: 25px auto;
+      display: block;
+    }
+  }
+}
+:global {
+  .info-checkbox {
+    padding: 0;
+    .am-checkbox-wrapper {
+      margin-left: 120px;
+    }
+    .am-checkbox {
+      position: relative;
+      width: 40px;
+    }
+    .am-checkbox-inner {
+      top: 10px;
+      width: 28px;
+      height: 28px;
+    }
+    .am-checkbox.am-checkbox-checked .am-checkbox-inner {
+      border-color: #d2dae6;
+      background: #d2dae6;
+      &::after {
+        border-color: #1b212f;
+        top: 2px;
+        right: 7px;
+        z-index: 999;
+        width: 8px;
+        height: 16px;
+      }
+    }
+  }
+}
