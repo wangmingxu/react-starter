@@ -40,7 +40,7 @@ const api = apiConfig({
   voteSchool: 'GET /newvoice/voteSchool', // 给学校投入10贡献值 token 用户token   sId 学校id
   getLoginVote: 'GET /newvoice/getLoginVote', // 领取每天登陆的贡献值 token 用户token
   getShareVote: 'GET /newvoice/getShareVote', // 领取每天分享的贡献值 token 用户token
-  listAllAudio: 'GET /newvoice/listAllAudio', // 所有节目榜单 page 页数  pageSize 每页大小（可不传，默认10）  nickName 查询的昵称（可不传）
+  listAllAudio: 'GET /commonvote/common/hot', // 所有节目榜单 pageIndex 页数  pageSize 每页大小（可不传，默认10）  nickName 查询的昵称（可不传）
   listSchoolAudio: 'GET /newvoice/listSchoolAudio', // 列出某个学校的节目列表 page 页数  pageSize 每页大小（可不传，默认10）sId 学校id
   listMyAudio: 'GET /newvoice/listMyAudio', // 列出个人的节目列表 page 页数  pageSize 每页大小（可不传，默认10）  token 用户token
   listAllSchool: 'GET /newvoice/listAllSchool', // 列出所有的学校

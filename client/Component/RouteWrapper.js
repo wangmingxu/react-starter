@@ -36,16 +36,9 @@ class RouteWrapper extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <ReactCSSTransitionGroup
-        transitionName="fade"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
-        component={React.Fragment}
-      >
-        <div key={location.pathname}>
-          {React.cloneElement(this.props.children, { location })}
-        </div>
-      </ReactCSSTransitionGroup>
+      <div key={location.pathname}>
+        {React.cloneElement(this.props.children, { location })}
+      </div>
     );
   }
 }
