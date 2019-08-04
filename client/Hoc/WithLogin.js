@@ -12,30 +12,31 @@ import { preventDefault } from 'utils/domHelper';
  * @param {*} cb 登录完之后的回调
  */
 const WithLogin = (forceLogin = true, cb) => (Wrapper) => {
-  class WithLoginComponent extends Wrapper {
+  class WithLoginComponent extends React.Component {
     static propTypes = {
       isLogin: PropTypes.bool.isRequired,
-    }
-    constructor(props) {
-      super(props);
-    }
+    };
     async componentDidMount() {
-      const isLogin = await this.props.checkAuthStatus();
-      if (!isLogin) {
-        if (forceLogin) {
-          await this.props.login();
+      try {
+        const isLogin = await this.props.checkAuthStatus();
+        if (!isLogin) {
+          if (forceLogin) {
+            await this.props.login();
+          } else {
+            lz.on('user:login', () => {
+              cb && cb(this.props.dispatch);
+            });
+          }
         } else {
-          lz.on('user:login', () => {
-            cb && cb(this.props.dispatch);
-          });
+          cb && cb(this.props.dispatch);
         }
-      } else {
-        cb && cb(this.props.dispatch);
+      } catch (error) {
+        console.log(error);
       }
     }
     render() {
       const { isLogin } = this.props;
-      return ((!isLogin && forceLogin) ? null : <Wrapper {...this.props} />);
+      return !isLogin && forceLogin ? null : <Wrapper {...this.props} />;
     }
   }
   return connect(
@@ -53,13 +54,13 @@ class WithLoginBtn extends React.Component {
   }
   render() {
     const { isLogin, login } = this.props;
-    return (<React.Fragment>
-      {
-        isLogin ?
-          this.props.render() :
-          React.cloneElement(this.props.render(), { onClick: preventDefault(login) })
-      }
-    </React.Fragment>);
+    return (
+      <React.Fragment>
+        {isLogin
+          ? this.props.render()
+          : React.cloneElement(this.props.render(), { onClick: preventDefault(login) })}
+      </React.Fragment>
+    );
   }
 }
 

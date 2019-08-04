@@ -41,12 +41,13 @@ class Program extends React.PureComponent {
     this.player.off(EventMap.STATUS_CHANGE, this.handlePlayerStatus);
     this.player.off(EventMap.ERROR, this.handlePlayerError);
     this.player.off('playIdChange', this.handlePlayIdChange);
-    if (this.state.playId === this.props.data.aid) this.player.pause();
+    if (this.state.playId === this.props.data.id) this.player.pause();
   }
   handlePlayerStatus = status => {
     this.setState({ playStatus: status });
   };
   handlePlayIdChange = id => {
+    console.log(id);
     this.setState({ playId: id });
   };
   play = throttle(() => {
@@ -55,13 +56,13 @@ class Program extends React.PureComponent {
       Toast.info('该节目违规，已被删除', 1);
     } else {
       this.player.setAudioSrc(data.file);
-      this.player.emit('playIdChange', data.aid);
+      this.player.emit('playIdChange', data.id);
     }
   }, 1000);
   handlePlayerError = error => {
     const { playId } = this.state;
     const { data } = this.props;
-    playId === data.aid && console.log(error);
+    playId === data.id && console.log(error);
   };
   pause = throttle(() => {
     this.player.pause();
@@ -100,7 +101,7 @@ class Program extends React.PureComponent {
   };
   gotoVoicePage = () => {
     const { history, data } = this.props;
-    history.push(`/voice/${data.id}`);
+    history.push(`/voice/${data.id}?activity=${data.aid}`);
   };
   render() {
     const { style, className, ua, data } = this.props;
@@ -114,7 +115,7 @@ class Program extends React.PureComponent {
       >
         <div styleName="avatar-wrapper">
           <img styleName="avatar" alt="avatar" src={data.coverThumb} />
-          {playStatus === AudioStatus.PLAYING && playId === data.aid
+          {playStatus === AudioStatus.PLAYING && playId === data.id
             ? <div
               styleName="btn-control pause"
               onClick={stopPropagation(this.pause)}

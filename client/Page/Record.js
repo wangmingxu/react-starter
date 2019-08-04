@@ -8,8 +8,6 @@ import api from 'utils/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
-import { recordTextArr } from 'constant';
-import sample from 'lodash/sample';
 
 @connect(
   state => ({ post: state.Post, mine: state.Mine }),
@@ -35,7 +33,6 @@ class Record extends React.PureComponent {
       onReplayStatusChange: this.handleReplayStatusChange,
       onRecordTimeout: this.handleRecordTimeout,
     });
-    this.recordText = sample(recordTextArr);
     this.sTime = 0;
     this.timer = null;
   }

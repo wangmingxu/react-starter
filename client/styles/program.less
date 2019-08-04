@@ -1,104 +1,105 @@
 @keyframes addvotes {
-	from {
-		opacity: 1;
-		transform: translateX(0px);
-	}
-	to {
-		opacity: 0;
-		transform: translateX(100%);
-	}
+  from {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
 }
 .program-item {
-	position: relative;
-	width: 100%;
-	box-sizing: border-box;
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	margin-bottom: 38px;
-	&:last-child{
-		margin-bottom: 0;
-	}
-	.avatar-wrapper {
-		width: 88px;
-		height: 88px;
-		border-radius: 10px;
-		overflow: hidden;
-		border: 1px solid rgb(93, 238, 255);
-		margin: 0 15px 0 25px;
-		box-sizing: border-box;
-		position: relative;
-	}
-	.avatar {
-		width: 100%;
-		height: 100%;
-	}
-	.btn-control {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		background-repeat: no-repeat;
-		background-size: 100% auto;
-		background-position: center;
-		width: 110px;
-		height: 110px;
-		&.play {
-			background-image: url('../assets/play.svg');
-		}
-		&.pause {
-			background-image: url('../assets/pause.svg');
-			background-size: 60px auto;
-		}
-	}
-	.info {
-		flex: 1;
-		margin-right: 15px;
-		position: relative;
-		.name {
-			font-size: 30px;
-			margin-bottom: 20px;
-			color: #ff5db8;
-			text-overflow: ellipsis;
-			overflow: hidden;
-			white-space: nowrap;
-		}
-		.votes {
-			font-size: 25px;
-			color: #5deeff;
-		}
-		.votes {
-			.add {
-				animation: addvotes 1s forwards;
-				display: inline-block;
-			}
-		}
-		.operation {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			display: flex;
-			justify-content: flex-end;
-			.btn {	
-				width: 111px;
-				height: 39px;	
-				border-radius: 10px;
-				margin-right: 35px;
-				text-align: center;
-				font-size: 25px;
-				line-height: 39px;
-				&:last-child {
-					margin-right: 0px;
-				}
-			}
-			.btn-vote {
-				color: rgb(255, 93, 184);
-				background-color: rgb(93, 238, 255);
-			}
-			.btn-share {
-				color: rgb(93, 238, 255);
-				background-color: rgb(255, 93, 184);
-			}
-		}
-	}
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 38px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .avatar-wrapper {
+    width: 88px;
+    height: 88px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgb(93, 238, 255);
+    margin: 0 15px 0 25px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  .avatar {
+    width: 100%;
+    height: 100%;
+  }
+  .btn-control {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+    width: 110px;
+    height: 110px;
+    &.play {
+      background-image: url("../assets/play.svg");
+    }
+    &.pause {
+      background-image: url("../assets/pause.svg");
+      background-size: 60px auto;
+    }
+  }
+  .info {
+    flex: 1;
+    overflow: hidden;
+    margin-right: 15px;
+    position: relative;
+    .name {
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: #ff5db8;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .votes {
+      font-size: 25px;
+      color: #5deeff;
+    }
+    .votes {
+      .add {
+        animation: addvotes 1s forwards;
+        display: inline-block;
+      }
+    }
+    .operation {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      .btn {
+        width: 111px;
+        height: 39px;
+        border-radius: 10px;
+        margin-right: 35px;
+        text-align: center;
+        font-size: 25px;
+        line-height: 39px;
+        &:last-child {
+          margin-right: 0px;
+        }
+      }
+      .btn-vote {
+        color: rgb(255, 93, 184);
+        background-color: rgb(93, 238, 255);
+      }
+      .btn-share {
+        color: rgb(93, 238, 255);
+        background-color: rgb(255, 93, 184);
+      }
+    }
+  }
 }

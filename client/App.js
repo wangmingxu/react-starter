@@ -12,55 +12,39 @@ import * as GlobalActions from 'Action/Global';
 import { withUserAgent } from 'rc-useragent';
 // import dayjs from 'dayjs';
 
-const getLoginVote = async (dispatch) => {
-  try {
-    const lzReady = new Promise(resolve => lz.ready(resolve));
-    const timeout = new Promise(resolve => setTimeout(resolve, 1500));
-    await Promise.race([lzReady, timeout]);
-    const { deviceId } = await lz.getAppInfo();
-    console.log(deviceId);
-    await api.getLoginVote({ deviceId }, { needAuth: true, timeout: 3000 });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    dispatch(MineActions.loadMineInfo());
-  }
+const hanldeLogin = async (dispatch) => {
+  dispatch(MineActions.loadMineInfo());
 };
-
 
 @connect(
   state => ({ mine: state.Mine }),
   dispatch => bindActionCreators({ ...GlobalActions, ...MineActions }, dispatch),
 )
-@WithLogin(false, getLoginVote)
+@WithLogin(true, hanldeLogin)
 @withUserAgent
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    this.props.checkActivityStatus();
-    this.props.ua.isLizhiFM && this.listenShare();
-  }
-  listenShare = async () => {
-    await new Promise(resolve => lz.ready(resolve));
-    lz.on('shareFinish', (ret) => {
-      if (ret.statusCode === 0) {
-        api.getShareVote({}, { needAuth: true });
-        this.props.loadMineInfo();
-      }
-    });
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
+  // componentDidMount() {
+  //   this.props.checkActivityStatus();
+  //   this.props.ua.isLizhiFM && this.listenShare();
+  // }
+  // listenShare = async () => {
+  //   await new Promise(resolve => lz.ready(resolve));
+  //   lz.on('shareFinish', (ret) => {
+  //     if (ret.statusCode === 0) {
+  //       api.getShareVote({}, { needAuth: true });
+  //       this.props.loadMineInfo();
+  //     }
+  //   });
+  // }
   render() {
-    return (<HashRouter>
-      <Route
-        render={props => (
-          <RouteWrapper {...props}>
-            {renderRoutes(routes)}
-          </RouteWrapper>
-        )}
-      />
-    </HashRouter>);
+    return (
+      <HashRouter>
+        <Route render={props => <RouteWrapper {...props}>{renderRoutes(routes)}</RouteWrapper>} />
+      </HashRouter>
+    );
   }
 }
 

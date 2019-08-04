@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { wxConfig } from 'config';
 import withUserAgent from 'rc-useragent/withUserAgent';
 import { getDefaultShareData, getSchoolShareData, getPersonShareData } from 'constant';
@@ -24,7 +23,9 @@ class RouteWrapper extends React.Component {
     }
   }
   initShare() {
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname },
+    } = this.props;
     if (/voice\/\d+/.test(pathname)) {
       Object.assign(window.shareData, getPersonShareData());
     } else if (/school\/\d+/.test(pathname)) {
@@ -36,9 +37,7 @@ class RouteWrapper extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <div key={location.pathname}>
-        {React.cloneElement(this.props.children, { location })}
-      </div>
+      <div key={location.pathname}>{React.cloneElement(this.props.children, { location })}</div>
     );
   }
 }

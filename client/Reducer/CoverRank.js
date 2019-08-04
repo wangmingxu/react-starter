@@ -1,11 +1,12 @@
 const initState = {
   pageIndex: 1,
   list: [],
+  hasMore: true,
 };
 
-const SchoolRank = (state = initState, action) => {
+const CoverRank = (state = initState, action) => {
   switch (action.type) {
-  case 'setSchoolRank': {
+  case 'setCoverRank': {
     const { pageIndex, totalPage } = action.payload;
     return {
       ...action.payload,
@@ -17,4 +18,4 @@ const SchoolRank = (state = initState, action) => {
   }
 };
 
-export default SchoolRank;
+export default CoverRank;

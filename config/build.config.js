@@ -35,6 +35,6 @@ module.exports = {
     SERVER_URL: '',
     autoOpenBrowser: false,
     assetsSubDirectory: 'client',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/static/',
   },
 };
