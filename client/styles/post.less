@@ -1,4 +1,3 @@
-@import './mixin.less';
 .page-post{
     position: absolute;
     width: 100%;
@@ -8,46 +7,53 @@
     -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
+    background: url('../assets/toyota/bg-post.png') no-repeat;
+    background-size: 100% auto;
+    background-color: #070d19;
     .main{
-        .center-container-mixin();
-    }
-    .card{
-        border: 2px solid black;
-        border-radius: 12px;
-        background-color: rgb(43, 3, 135);
-        width: 715px;
-        box-sizing: border-box;
-        height: 525px;
-        // margin: 45px auto 0px;
-        color: #fff;
-        padding: 45px 30px 0px;
+        position: absolute;
+        top: 703px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .feild{
             margin-bottom: 40px;
             .lab{
                 font-size: 28px;
                 text-indent: 15px;
                 margin-bottom: 10px;
+                color: #ffffff;
             }
             .ipt{
-                background-color: #3c04bd;
-                border: 2px solid black;
-                border-radius: 30px;
-                height: 60px;
-                line-height: 56px;
-                width: 625px;
+                background: transparent;             
+                border: 2px solid rgb(93, 238, 255);
+                border-radius: 10px;
+                height: 72px;
+                line-height: 68px;
+                width: 600px;
                 box-sizing: border-box;
                 color: #fff;
                 padding-left: 35px;
-                &.school{
-                    background-image: url('../assets/campus-line/icon-arrow.png');
-                    background-size: 13px 23px;
-                    background-repeat: no-repeat;
-                    background-position: 582px center;
-                }
             }
         }
-    }
-    .btn-submit {
-        .ft-btn-mixin();
+        .tips{
+            font-size: 26px;
+            color: #5deeff;
+            text-align: center;
+            margin-bottom: 67px;
+        }
+        .btn-submit {
+            width: 604px;
+            height: 79px;
+            margin: 0 auto;
+            background: url('../assets/toyota/btn-submit.png') no-repeat;
+            background-size: 100% auto;
+            font-size: 30px;
+            text-align: center;
+            color: #ffffff;
+            line-height: 79px;
+        }
     }
 }

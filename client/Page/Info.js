@@ -37,7 +37,7 @@ class Info extends Component {
                   <a>《保密声明》</a>
                 </Checkbox.AgreeItem>
               </div>
-              <button styleName="btn-clear submit-btn">1确认提交</button>
+              <button styleName="btn-clear submit-btn">确认提交</button>
             </div>
           </div>
         </div>

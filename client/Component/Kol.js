@@ -30,7 +30,7 @@ export default class Kol extends Component {
             <div styleName="kol">
                 <div styleName="title" />
                 <div styleName="list">
-                    {list.map((item, i) => (<div styleName="item" key={item.id}>
+                    {list.map((item, i) => (<div styleName="item" key={i}>
                         <img src={item.avatar} styleName="avatar" />
                         <div styleName="name">{item.name}</div>
                     </div>))}

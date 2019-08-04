@@ -1,6 +1,4 @@
 import React from 'react';
-import SchoolSelector from 'Component/SchoolSelector';
-import Banner from 'Component/Banner';
 import '../styles/post.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,14 +15,9 @@ class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      school: {},
-      selectingSchool: false,
       phone: '',
       title: '',
     };
-  }
-  get schoolId() {
-    return this.state.school.id;
   }
   get phone() {
     return this.state.phone;
@@ -32,16 +25,12 @@ class Post extends React.Component {
   get title() {
     return this.state.title;
   }
-  handleSchoolChange = (school) => {
-    this.setState({ school, selectingSchool: false });
-  }
   submit = async () => {
     const { post, history } = this.props;
     try {
       const { data: audioId } = await api.addAudio({
         ...post,
         title: this.title,
-        sId: this.schoolId,
         link: this.phone,
       }, { needAuth: true });
       Toast.info('发布成功', 1);
@@ -51,9 +40,6 @@ class Post extends React.Component {
     } catch (error) {
       Toast.info(error);
     }
-  }
-  showSchoolSelect = () => {
-    this.setState({ selectingSchool: true });
   }
   handlePhoneChange = (e) => {
     const { value: phone } = e.target;
@@ -70,26 +56,24 @@ class Post extends React.Component {
   }
   render() {
     const {
-      selectingSchool, school, phone, title,
+      phone, title,
     } = this.state;
     console.log(this.props.post);
     return (
       <React.Fragment>
-        {selectingSchool ? <SchoolSelector onSelect={this.handleSchoolChange} /> : null}
         <div styleName="page-post">
           <div styleName="main">
-            <div styleName="card">
-              <div styleName="feild">
-                <div styleName="lab">标题(必填)</div>
-                <input styleName="ipt" onFocus={this.fixIpt} onChange={this.handleTitleChange} value={title} />
-              </div>
-              <div styleName="feild">
-                <div styleName="lab">手机号(必填)</div>
-                <input styleName="ipt" type="tel" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} />
-              </div>
+            <div styleName="feild">
+              <div styleName="lab">标题(必填)</div>
+              <input styleName="ipt" onFocus={this.fixIpt} onChange={this.handleTitleChange} value={title} placeholder="请填写标题" />
             </div>
+            <div styleName="feild">
+              <div styleName="lab">手机号(必填)</div>
+              <input styleName="ipt" type="tel" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} placeholder="请填写手机号码" />
+            </div>
+            <div styleName="tips">建议通过荔枝app参与活动，以便接收后续活动信息</div>
+            <div styleName="btn-submit" onClick={this.submit}>提交</div>
           </div>
-          <div styleName="btn-submit" onClick={this.submit}>提交</div>
         </div>
       </React.Fragment>
     );

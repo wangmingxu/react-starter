@@ -6,8 +6,8 @@ const { common } = require('./build.config');
 
 module.exports = {
   app: {
-    title: '高校新声榜',
-    description: '高校新声榜',
+    title: 'Way爱而声',
+    description: 'Way爱而声',
     keywords: 'lizhi',
     favicon: path.join(common.clientPath, 'assets/favicon.ico'),
   },

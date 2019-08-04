@@ -1,5 +1,4 @@
 import React from 'react';
-import Banner from 'Component/Banner';
 import '../styles/voice.less';
 import Player, { AudioStatus, EventMap } from '@lz-component/Player';
 import { showVoteDialog } from 'Component/VoteDialog';
@@ -11,7 +10,7 @@ import * as mineActions from 'Action/Mine';
 import { showShareOverlay } from '@lz-component/ShareOverlay';
 import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
-import { showDownloadDialog } from 'Component/DownloadDialog';
+import { showDownloadDialog } from '@lz-component/DownloadDialog';
 import { getPersonShareData, ProgramType, defaultAvatar } from 'constant';
 import { Toast } from 'antd-mobile';
 
@@ -94,46 +93,30 @@ class Voice extends React.Component {
     const { ua } = this.props;
     return (
       <div styleName="voice-page">
-        <Banner logo detail />
         <div styleName="main">
           <div styleName="panl">
-            <div styleName="panl-title">
-              <div styleName="avatar-wrapper">
-                <img
-                  styleName="avatar"
-                  src={voiceInfo.image || defaultAvatar}
-                  alt="avatar"
-                />
-                {status === AudioStatus.PLAYING ? <div styleName="btn-control pause" onClick={this.pause} /> : <div styleName="btn-control play" onClick={this.play} />}
-              </div>
-              <div styleName="nickname">{voiceInfo.nickName}</div>
+            <div styleName="avatar-wrapper">
+              <img
+                styleName="avatar"
+                src={voiceInfo.image || defaultAvatar}
+                alt="avatar"
+              />
+              {status === AudioStatus.PLAYING ? <div styleName="btn-control pause" onClick={this.pause} /> : <div styleName="btn-control play" onClick={this.play} />}
             </div>
-            <div styleName="panl-content">
-              <div styleName="center">
-                <div styleName="row">{voiceInfo.title}</div>
-                <div styleName="row">
-                  <div styleName="cl1">{voiceInfo.schoolName}</div>
-                  <div styleName="cl2">总榜排名：{voiceInfo.rank}</div>
-                </div>
-                <div styleName="row">
-                  <div styleName="cl1">新声值：{voiceInfo.votes}</div>
-                  <div styleName="cl2">同校排名：{voiceInfo.schoolRank}</div>
-                </div>
-                <div styleName="row">
-                  <div styleName="cl1">
-                    {ua.isLizhiFM ?
-                      <WithLoginBtn render={() => <div styleName="btn btn-vote" onClick={this.vote}>贡献</div>} /> :
-                      <div styleName="btn btn-vote" onClick={this.downloadApp}>贡献</div>}
-                  </div>
-                  <div styleName="cl2">
-                    <div styleName="btn btn-share" onClick={this.share}>转发</div>
-                  </div>
-                </div>
-              </div>
+            <div styleName="info">
+              <div styleName="title">{voiceInfo.title}</div>
+              <div styleName="votes">目前得票数：{voiceInfo.votes}</div>
+              <div styleName="rank">排名：{voiceInfo.rank}</div>
             </div>
           </div>
+          <div styleName="operation">
+            <div styleName="btn share" onClick={this.share}>拉票</div>
+            {ua.isLizhiFM ?
+              <WithLoginBtn render={() => <div styleName="btn vote" onClick={this.vote}>投票</div>} /> :
+              <div styleName="btn vote" onClick={this.downloadApp}>投票</div>}
+          </div>
         </div>
-        <Link styleName="btn-back" to="/">回到首页</Link>
+        {/* <Link styleName="btn-back" to="/">回到首页</Link> */}
       </div>
     );
   }

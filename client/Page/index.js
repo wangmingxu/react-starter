@@ -4,6 +4,7 @@ import logo from '@/assets/logo.png'
 import Kol from '@/Component/Kol';
 import Rank from '@/Component/Rank';
 import { showRecordDialog } from '@/Component/RecordDialog';
+import { showDetailDialog } from '@/Component/ActivityDetail'
 import '../styles/index.less';
 
 export default class index extends PureComponent {
@@ -22,9 +23,7 @@ export default class index extends PureComponent {
                 <div styleName="kol--container">
                     <Kol />
                 </div>
-                <Link to="/activity-detail">
-                    <div styleName="activity-detail" />
-                </Link>
+                <div styleName="activity-detail" onClick={showDetailDialog} />
                 <div styleName="saicheng" />
                 <div styleName="rank">
                     <Rank />
@@ -33,7 +32,7 @@ export default class index extends PureComponent {
                         <div styleName="btn" onClick={this.gotoRecord}>参与说说</div>
                     </div>
                 </div>
-                <div styleName="btn-appointment">预约试驾</div>
+                <Link styleName="btn-appointment" to="/info">预约试驾</Link>
             </div>
         )
     }
