@@ -1,4 +1,4 @@
-import { tokenKey, wxAuthUrl, syncTokenKey } from 'constant';
+import { lzTokenKey, lzSyncTokenKey, tokenKey, wxAuthUrl, syncTokenKey } from 'constant';
 import ClientDetect from 'rc-useragent/ClientDetect';
 import { Cookies } from 'react-cookie';
 
@@ -25,8 +25,8 @@ export const getToken = async () => {
     });
     const ret = await lz.getToken({ needRefresh: true });
     if (ret.status === 'success') {
-      cookies.set(tokenKey, ret.token);
-      cookies.set(syncTokenKey, ret.token);
+      cookies.set(lzTokenKey, ret.token);
+      cookies.set(lzSyncTokenKey, ret.token);
       return ret.token;
     }
   } else if (client.isWeiXin) {
@@ -52,7 +52,8 @@ const clientCheckLogin = async () => {
     const ret = await lz.getSessionUser();
     const isLogin = Boolean(ret.id);
     if (!isLogin) {
-      cookies.remove(tokenKey);
+      cookies.remove(lzTokenKey);
+      cookies.remove(lzSyncTokenKey);
     }
     return isLogin;
   } else if (client.isWeiXin) {

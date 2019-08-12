@@ -50,9 +50,16 @@ class Rank extends Component {
     tabs: [{ name: '最热翻唱', id: 0 }, { name: '最热说说', id: 1 }, { name: '我的音频', id: 2 }],
     myAudio: [],
   };
+  rankListRef = React.createRef();
   async componentDidMount() {
     this.loadData();
+    this.restoreScroll();
   }
+  restoreScroll = () => {
+    if (sessionStorage.getItem('restoreScroll')) {
+      this.rankListRef.current.scrollIntoView();
+    }
+  };
   loadData = (params = {}) => {
     const { tab } = this.props;
     switch (tab) {
@@ -109,7 +116,7 @@ class Rank extends Component {
   };
   render() {
     const { tabs } = this.state;
-    const { tab, mine } = this.props;
+    const { tab } = this.props;
     return (
       <div>
         <div styleName="tabs">
@@ -132,7 +139,7 @@ class Rank extends Component {
             {this.ticket}
           </div>
         </div>
-        <div styleName="rank-list">
+        <div styleName="rank-list" ref={this.rankListRef}>
           <InfiniteScroll
             pageStart={0}
             initialLoad={false}

@@ -16,22 +16,10 @@ class RouteWrapper extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       // window.scrollTo(0, 0);
-      this.initShare();
+      // this.initShare();
       if (this.props.ua.isWeiXin) {
         wxConfig(); // spa跳转之后重新获取wx-sdk授权
       }
-    }
-  }
-  initShare() {
-    const {
-      location: { pathname },
-    } = this.props;
-    if (/voice\/\d+/.test(pathname)) {
-      Object.assign(window.shareData, getPersonShareData());
-    } else if (/school\/\d+/.test(pathname)) {
-      Object.assign(window.shareData, getSchoolShareData());
-    } else {
-      Object.assign(window.shareData, getDefaultShareData());
     }
   }
   render() {

@@ -19,6 +19,11 @@ class Post extends React.Component {
       title: '',
     };
   }
+  get activityId() {
+    const { location } = this.props;
+    const params = new URLSearchParams(location.search);
+    return params.get('activityId');
+  }
   get phone() {
     return this.state.phone;
   }
@@ -28,36 +33,38 @@ class Post extends React.Component {
   submit = async () => {
     const { post, history } = this.props;
     try {
-      const { data: audioId } = await api.addAudio({
-        ...post,
-        title: this.title,
-        link: this.phone,
-      }, { needAuth: true });
+      const { data: audioId } = await api.addAudio(
+        {
+          ...post,
+          name: this.title,
+          link: this.phone,
+          activityId: this.activityId,
+        },
+        { needAuth: true },
+      );
       Toast.info('发布成功', 1);
       this.props.loadMineInfo();
       await new Promise(resolve => setTimeout(resolve, 1000));
-      history.push(`/voice/${audioId}`);
+      history.push(`/voice/${audioId}?activityId=${this.activityId}`);
     } catch (error) {
       Toast.info(error);
     }
-  }
+  };
   handlePhoneChange = (e) => {
     const { value: phone } = e.target;
     this.setState({ phone });
-  }
+  };
   handleTitleChange = (e) => {
     const { value: title } = e.target;
     this.setState({ title });
-  }
+  };
   fixIpt = ({ target }) => {
     setTimeout(() => {
       target.scrollIntoView();
     }, 500);
-  }
+  };
   render() {
-    const {
-      phone, title,
-    } = this.state;
+    const { phone, title } = this.state;
     console.log(this.props.post);
     return (
       <React.Fragment>
@@ -65,14 +72,29 @@ class Post extends React.Component {
           <div styleName="main">
             <div styleName="feild">
               <div styleName="lab">标题(必填)</div>
-              <input styleName="ipt" onFocus={this.fixIpt} onChange={this.handleTitleChange} value={title} placeholder="请填写标题" />
+              <input
+                styleName="ipt"
+                onFocus={this.fixIpt}
+                onChange={this.handleTitleChange}
+                value={title}
+                placeholder="请填写标题"
+              />
             </div>
             <div styleName="feild">
               <div styleName="lab">手机号(必填)</div>
-              <input styleName="ipt" type="tel" onFocus={this.fixIpt} onChange={this.handlePhoneChange} value={phone} placeholder="请填写手机号码" />
+              <input
+                styleName="ipt"
+                type="tel"
+                onFocus={this.fixIpt}
+                onChange={this.handlePhoneChange}
+                value={phone}
+                placeholder="请填写手机号码"
+              />
             </div>
             <div styleName="tips">建议通过荔枝app参与活动，以便接收后续活动信息</div>
-            <div styleName="btn-submit" onClick={this.submit}>提交</div>
+            <div styleName="btn-submit" onClick={this.submit}>
+              提交
+            </div>
           </div>
         </div>
       </React.Fragment>

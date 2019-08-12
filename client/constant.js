@@ -2,10 +2,14 @@ import shareCover from './assets/share_cover.jpg';
 
 export { default as defaultAvatar } from 'assets/campus-line/avatar-default.png';
 
-export const cookiePrefix = 'commonvote_Tanya_';
+export const coverActivityName = 'toyota-test1'; // TODO: 改用线上活动
+export const talkActivityName = 'gushidasai'; // TODO: 改用线上活动
+export const cookiePrefix = `commonvote_${coverActivityName}_`;
 export const tokenKey = `${cookiePrefix}wxid`;
-export const syncCookiePrefix = 'commonvote_gushidasai_';
+export const lzTokenKey = `${cookiePrefix}token`;
+export const syncCookiePrefix = `commonvote_${talkActivityName}_`;
 export const syncTokenKey = `${syncCookiePrefix}wxid`;
+export const lzSyncTokenKey = `${syncCookiePrefix}token`;
 
 export const wxJsConfUrl = '//oauthbiz.lizhi.fm/weixin/jsconfig?tag=brand';
 export const wxAuthUrl = '//oauthbiz.lizhi.fm/weixin/auth?tag=advert';
@@ -16,15 +20,15 @@ export const baiduTongjiID = '8623977c9cb6885ce12906b6b2d44b7b';
 export const baseUrlPath = process.env.NODE_ENV === 'production' ? '/newvoice' : '/';
 
 export const ProgramType = {
-  COVER: 4,
+  COVER: 47, // TODO: 改用线上活动
   TALK: 45,
 };
 
 export const getDefaultShareData = () => ({
   url: `${location.origin}${location.pathname}#/`,
   link: `${location.origin}${location.pathname}#/`,
-  title: '荔枝高校新声榜火热开战，最美新声等你pick',
-  desc: '好声音成就大梦想，全国寻找最美新声，让全校听见你的声音',
+  title: '',
+  desc: '',
   'image-url': shareCover,
   imgUrl: shareCover,
 });

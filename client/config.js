@@ -43,6 +43,7 @@ export function wxConfig() {
         'playVoice',
         'pauseVoice',
         'stopVoice',
+        'onVoicePlayEnd',
         'uploadVoice',
         'downloadVoice',
         'chooseImage',

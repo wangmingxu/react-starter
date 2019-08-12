@@ -7,35 +7,45 @@ import { registerInterceptor } from 'utils/api';
 import { clientJWTInterceptor } from 'utils/JWTInterceptor';
 import ClientDetect from 'rc-useragent/ClientDetect';
 
-require.ensure([], (require) => {
-  const fundebug = require('fundebug-javascript');
-  fundebug.apikey = fundebugApiKey;
-  fundebug.releasestage = process.env.NODE_ENV;
-  fundebug.sampleRate = 0.3;
-  fundebug.silentHttp = true;
-  fundebug.filters = [
-    {
-      message: /^Script error\.$/,
-    },
-    {
-      message: /Network Error/,
-    },
-    {
-      message: /JSBridge/,
-    },
-    {
-      target: {
-        tagName: /^IMG$/,
+require.ensure(
+  [],
+  (require) => {
+    const fundebug = require('fundebug-javascript');
+    fundebug.apikey = fundebugApiKey;
+    fundebug.releasestage = process.env.NODE_ENV;
+    fundebug.sampleRate = 0.3;
+    fundebug.silentHttp = true;
+    fundebug.filters = [
+      {
+        message: /^Script error\.$/,
       },
-    },
-  ];
-}, console.log, 'fundebug');
+      {
+        message: /Network Error/,
+      },
+      {
+        message: /JSBridge/,
+      },
+      {
+        target: {
+          tagName: /^IMG$/,
+        },
+      },
+    ];
+  },
+  console.log,
+  'fundebug',
+);
 
 if (/debug/.test(location.href)) {
-  require.ensure([], (require) => {
-    const eruda = require('eruda');
-    eruda.init();
-  }, console.log, 'eruda');
+  require.ensure(
+    [],
+    (require) => {
+      const eruda = require('eruda');
+      eruda.init();
+    },
+    console.log,
+    'eruda',
+  );
 }
 
 FastClick.attach(document.body);
@@ -50,13 +60,9 @@ window.shareData = getDefaultShareData();
 if (client.isLizhiFM) {
   appConfig();
   lz.ready(() => {
-    LizhiJSBridge.call(
-      'configShareUrl',
-      window.shareData,
-      (ret) => {
-        console.log(ret);
-      },
-    );
+    LizhiJSBridge.call('configShareUrl', window.shareData, (ret) => {
+      console.log(ret);
+    });
   });
 }
 

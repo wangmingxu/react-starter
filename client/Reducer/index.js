@@ -3,6 +3,7 @@ import Mine from './Mine';
 import Post from './Post';
 import TalkRank from './TalkRank';
 import CoverRank from './CoverRank';
+import ActivityInfo from './ActivityInfo';
 
 export default {
   Global,
@@ -10,4 +11,5 @@ export default {
   Post,
   TalkRank,
   CoverRank,
+  ActivityInfo,
 };

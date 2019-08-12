@@ -1,124 +1,132 @@
-.page-record{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('../assets/toyota/bg-record.png') no-repeat;
-    background-size: 100% 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .main{
-        width: 610px;
-        text-align: center;
-        .avatar-wrapper{
-              border: 1px solid rgb(93, 238, 255);    
-              width: 170px;
-              height: 170px;
-              border-radius: 15px;
-              margin: 0 auto;
-              position: relative;
-              margin-bottom: 52px;
-              &::after{
-                  position: absolute;
-                  content: '';
-                  width: 80px;
-                  height: 68px;
-                  background: url('../assets/toyota/audio-graph2.png') no-repeat;
-                  background-size: 100% auto;
-                  left: -90px;
-                  bottom: 0px;
-              }  
-              &::before{
-                position: absolute;
-                content: '';
-                width: 80px;
-                height: 68px;
-                background: url('../assets/toyota/audio-graph2.png') no-repeat;
-                background-size: 100% auto;
-                right: -90px;
-                bottom: 0px;
-            }
-              .avatar{
-                  width: 100%;
-                  height: 100%;
-                  border-radius: 15px;
-              }
-              .btn-control{
-                  width: 72px;
-                  height: 92px;
-                  background: url('../assets/toyota/btn-play.png') no-repeat;
-                  background-size: 100% auto;
-                  position: absolute;
-                  left: 50%;
-                  top: 50%;
-                  transform: translate(-50%,-50%);
-                  .pause{
-                      background-image: url('../assets/toyota/btn-pause.png');
-                  }
-              }     
+.page-record {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/toyota/bg-record.png") no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .main {
+    width: 610px;
+    text-align: center;
+    .avatar-wrapper {
+      border: 1px solid rgb(93, 238, 255);
+      width: 170px;
+      height: 170px;
+      border-radius: 15px;
+      margin: 0 auto;
+      position: relative;
+      margin-bottom: 52px;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 80px;
+        height: 68px;
+        background: url("../assets/toyota/audio-graph2.png") no-repeat;
+        background-size: 100% auto;
+        left: -95px;
+        bottom: 0px;
+      }
+      &::before {
+        position: absolute;
+        content: "";
+        width: 80px;
+        height: 68px;
+        background: url("../assets/toyota/audio-graph2.png") no-repeat;
+        background-size: 100% auto;
+        right: -95px;
+        bottom: 0px;
+      }
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+      }
+      .btn-control {
+        width: 72px;
+        height: 92px;
+        background: url("../assets/toyota/btn-play.png") no-repeat;
+        background-size: 100% auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        &.pause {
+          background-image: url("../assets/toyota/btn-pause.png");
+          background-size: 45px auto;
+          background-position: center;
         }
-        .nickname{
-                font-size: 50px;
-                color: rgb(255, 93, 184);
-        }
-        .time{
-            font-size: 33px;
-            color: rgb(255, 93, 184);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 120px;
-            .icon-clock{
-                width: 36px;
-                height: 36px;
-                background: url('../assets/toyota/icon-clock.png') no-repeat;
-                background-size: 100% auto;
-                margin-right: 15px;
-            }
-        }
-        .btn-record{
-            width: 508px;
-            height: 79px;
-            background: url('../assets/toyota/btn-record.png') no-repeat;
-            background-size: 100% auto;
-            font-size: 50px;
-            line-height: 79px;
-            color: #ffffff;
-            margin: 0 auto 85px;
-            position: relative;
-            &.recording::after{
-                content: '正在录音...';
-                position: absolute;
-                top: 90px;
-                left: 50%;
-                transform: translateX(-50%);
-                font-size: 28px;
-                color: #ffffff;
-            }
-        }
-        .finish{
-            display: flex;
-            font-size: 42px;
-            line-height: 79px;
-            color: #ffffff;
-            justify-content: space-around;
-            .btn-remake{
-                width: 217px;
-                height: 79px;
-                background: url('../assets/toyota/btn-record.png') no-repeat;
-                background-size: 100% 100%;
-            }
-            .btn-finish{
-                width: 217px;
-                height: 79px;
-                background: url('../assets/toyota/btn-record.png') no-repeat;
-                background-size: 100% 100%;
-            }
-        }
-        .tips{
-            color: #5deeff;
-            font-size: 28px;
-        }
+      }
     }
+    .nickname {
+      font-size: 50px;
+      color: rgb(255, 93, 184);
+    }
+    .time {
+      font-size: 33px;
+      color: rgb(255, 93, 184);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 120px;
+      .icon-clock {
+        width: 36px;
+        height: 36px;
+        background: url("../assets/toyota/icon-clock.png") no-repeat;
+        background-size: 100% auto;
+        margin-right: 15px;
+      }
+    }
+    .btn-record {
+      width: 508px;
+      height: 79px;
+      background: url("../assets/toyota/btn-record.png") no-repeat;
+      background-size: 100% auto;
+      font-size: 50px;
+      line-height: 79px;
+      color: #ffffff;
+      margin: 0 auto 85px;
+      position: relative;
+      &.recording {
+        &.disable {
+          pointer-events: none;
+        }
+        &::after {
+          content: "正在录音...";
+          position: absolute;
+          top: 90px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 28px;
+          color: #ffffff;
+        }
+      }
+    }
+    .finish {
+      display: flex;
+      font-size: 42px;
+      line-height: 79px;
+      color: #ffffff;
+      justify-content: space-around;
+      margin-bottom: 85px;
+      .btn-remake {
+        width: 217px;
+        height: 79px;
+        background: url("../assets/toyota/btn-record.png") no-repeat;
+        background-size: 100% 100%;
+      }
+      .btn-finish {
+        width: 217px;
+        height: 79px;
+        background: url("../assets/toyota/btn-record.png") no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+    .tips {
+      color: #5deeff;
+      font-size: 28px;
+    }
+  }
 }

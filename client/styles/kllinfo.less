@@ -36,6 +36,9 @@
       background: url(../assets/toyota/info-btn-bg.png) no-repeat center;
       color: #d2dae6;
     }
+    .cur-tab {
+      background: url(../assets/toyota/info-btn-cur.png) no-repeat center;
+    }
   }
 
   .main-box {
@@ -47,7 +50,37 @@
       height: 495px;
       border: 2px solid #c8d1de;
       border-radius: 15px;
+    }
+    .formWrap {
       padding: 0 30px;
+    }
+
+    .v-container {
+      width: 100%;
+      height: 495px;
+      position: relative;
+
+      video {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: contain;
+        object-fit: contain;
+        outline: none;
+        z-index: 9999;
+        // background: #000;
+      }
+      .video-btn {
+        position: absolute;
+        width: 128px;
+        height: 128px;
+        border-radius: 50% 50%;
+        background: url(../assets/toyota/info-play-btn.png) no-repeat center;
+        background-size: 100% auto;
+        z-index: 2;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
 
     .row {
@@ -63,12 +96,50 @@
         line-height: 50px;
       }
 
-      input.fl {
+      .fl {
         width: 450px;
-        height: 44px;
+        height: 45px;
         border: 2px solid #d2dae6;
+        box-sizing: border-box;
         border-radius: 15px;
         background: none;
+        color: #d2dae6;
+        box-sizing: border-box;
+      }
+      input {
+        padding-left: 20px;
+      }
+      .fl.area {
+        display: flex;
+        border: none;
+        .select {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          .select-bd {
+            flex: 1;
+            border: 2px solid #d2dae6;
+            border-radius: 15px;
+          }
+        }
+      }
+      .select-bd {
+        padding-left: 20px;
+        font-size: 20px;
+        line-height: 45px;
+        position: relative;
+        &::after {
+          display: block;
+          content: "";
+          width: 24px;
+          height: 13px;
+          background: url("../assets/toyota/sjx.png") no-repeat;
+          background-size: 100% auto;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
       }
     }
 
