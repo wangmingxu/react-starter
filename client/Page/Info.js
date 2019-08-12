@@ -3,17 +3,24 @@ import '../styles/kllinfo.less';
 import { Checkbox, Carousel, Picker, List } from 'antd-mobile';
 import pic from '../assets/toyota/title-index.png';
 import classNames from 'classnames';
+import api from 'utils/api';
 
 const distributorList = [
   {
     label: 'aaa',
-    value: 'aaa',
+    value: '111',
   },
   {
     label: 'bbb',
-    value: 'bbb',
+    value: '222',
   },
 ];
+
+function PickerExtra(props) {
+  console.log(props);
+  return <div onClick={props.onClick}>{props.extra}</div>;
+}
+
 const myWayTabs = ['预约试驾', '精彩视频', '精美车图'];
 class Info extends Component {
   constructor(props) {
@@ -25,9 +32,17 @@ class Info extends Component {
       tel: '',
       address: '',
       distributor: [],
+      provinces: [],
+      province: null,
+      regionCitys: [],
+      regionCity: null,
     };
     this.videoRef = React.createRef();
     this.controlBtnRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.getProvince();
   }
 
   componentDidUpdate() {
@@ -74,7 +89,45 @@ class Info extends Component {
     });
   }
 
+  getProvince = async () => {
+    const res = await api.getProvince();
+    this.setState({ provinces: res.slice(1).map(item => ({ label: item.name, value: item.cid })) });
+  };
+
+  handleProvinceChange = (e) => {
+    this.setState({ province: e }, () => {
+      this.getRegionCity();
+    });
+  };
+
+  getRegionCity = async () => {
+    const res = await api.getRegionCity();
+    this.setState({
+      regionCitys: res.slice(1).map(item => ({ label: item.name, value: item.cid })),
+    });
+  };
+
+  handleRegionCityChange = (e) => {
+    this.setState({ regionCity: e }, () => {
+      this.getDealer();
+    });
+  };
+
+  getDealer = async () => {
+    const { data } = await api.getDealer();
+    this.setState({ dealers: data.map(item => ({ label: item.name, value: item.id })) });
+  };
+
+  handleDealerChange = (e) => {
+    this.setState({ dealer: e }, () => {
+      this.getRegionCity();
+    });
+  };
+
   render() {
+    const {
+      province, regionCity, provinces, regionCitys,dealer,dealers
+    } = this.state;
     const formWrap = (
       <div styleName="main-inner formWrap">
         <div styleName="row">
@@ -92,16 +145,26 @@ class Info extends Component {
           <div styleName="fl area">
             <div styleName="select">
               <div styleName="select-bd">
-                <Picker data={distributorList} cols={2} value={this.state.distributor}>
-                  <div>请选择省份</div>
+                <Picker
+                  data={provinces}
+                  cols={1}
+                  value={province}
+                  onChange={this.handleProvinceChange}
+                >
+                  <PickerExtra>请选择省份</PickerExtra>
                 </Picker>
               </div>
               <div style={{ margin: '0 5px' }}>省</div>
             </div>
             <div styleName="select">
               <div styleName="select-bd">
-                <Picker data={distributorList} cols={2} value={this.state.distributor}>
-                  <div>请选择市</div>
+                <Picker
+                  data={regionCitys}
+                  cols={1}
+                  value={regionCity}
+                  onChange={this.handleRegionCityChange}
+                >
+                  <PickerExtra>请选择市</PickerExtra>
                 </Picker>
               </div>
               <div>市</div>
@@ -111,8 +174,8 @@ class Info extends Component {
         <div styleName="row">
           <span styleName="tag-name">经销商</span>
           <div styleName="fl select-bd">
-            <Picker data={distributorList} cols={1} value={this.state.distributor}>
-              <div>请选择经销商</div>
+            <Picker data={dealers} cols={1} value={dealer} onChange={this.handleDealerChange}>
+              <PickerExtra>请选择经销商</PickerExtra>
             </Picker>
           </div>
         </div>

@@ -9,7 +9,7 @@ import api from 'utils/api';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
-import { defaultAvatar } from 'constant';
+import { defaultAvatar, ProgramType } from 'constant';
 
 @connect(
   state => ({ post: state.Post }),
@@ -34,6 +34,7 @@ class Record extends React.PureComponent {
       needPreAuth: false,
       isShowWXProgressTips: 0,
       lzRecordType: 2,
+      maxRecordTime: props.ua.isWX ? 60 * 1000 : 5 * 60 * 1000,
       onRecordStatusChange: this.handleStatusChange,
       onError: this.handleRecordError,
       onRecordTimeChange: this.handleTimeChange,
@@ -56,7 +57,9 @@ class Record extends React.PureComponent {
     const { ua } = this.props;
     let userInfo;
     if (ua.isWeiXin) {
-      userInfo = await api.getUserInfo({ activityId: 4 }, { needAuth: true }).then(res => res.data);
+      userInfo = await api
+        .getUserInfo({ activityId: ProgramType.COVER }, { needAuth: true })
+        .then(res => res.data);
     } else if (ua.isLizhiFM) {
       userInfo = await lz.getSessionUser().then(res => ({
         head_cover: defaultAvatar,
@@ -70,10 +73,10 @@ class Record extends React.PureComponent {
     this.recordManager.startRecord();
   };
   endRecord = () => {
-    const { currentTime } = this.state;
-    if (currentTime > 5000) {
-      this.recordManager.endRecord();
-    }
+    // const { currentTime } = this.state;
+    // if (currentTime > 5000) {
+    this.recordManager.endRecord();
+    // }
   };
   remakeRecord = () => {
     this.recordManager.remakeRecord();
@@ -101,7 +104,7 @@ class Record extends React.PureComponent {
       errMsg = '录音上传失败';
       break;
     case ErrorType.TIME_SHORT:
-      errMsg = '录音时间太短，来不及分析呢';
+      errMsg = '录音时间太短';
       break;
     case ErrorType.CALL_RECORD_FAIL:
       errMsg = '调起录音功能失败';
@@ -209,10 +212,7 @@ class Record extends React.PureComponent {
             </div>
           ) : null}
           {status === RecordStatus.RECORD_START ? (
-            <div
-              styleName={classNames('btn-record', 'recording', { disable: currentTime < 5000 })}
-              onClick={this.endRecord}
-            >
+            <div styleName={classNames('btn-record', 'recording')} onClick={this.endRecord}>
               完成
             </div>
           ) : null}

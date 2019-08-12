@@ -46,6 +46,9 @@ const api = apiConfig({
   getTicket: 'GET /commonvote/common/remain',
   getUserInfo: 'GET /commonvote/common/userInfo',
   getActivityInfo: 'GET /commonvote/common/activityInfo',
+  getProvince: 'GET /Openapi/SetClues/getCity1?cid=0',
+  getRegionCity: 'GET /Openapi/SetClues/getRegionCity',
+  getDealer: 'GET /Openapi/SetClues/getDealer',
 });
 
 export default api;

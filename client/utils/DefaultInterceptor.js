@@ -6,7 +6,7 @@ const rDataMap = {
   msg: 'msg',
 };
 
-  // 后端返回的状态码
+// 后端返回的状态码
 const rCodeMap = {
   SUCCESS: 0,
   NO_LOGIN: 2,
@@ -16,7 +16,12 @@ const rCodeMap = {
 export function DefaultInterceptor() {
   this.interceptors.request.use((config) => {
     const { url } = config;
-    if (!url.startsWith('https://') && !url.startsWith('http://') && !url.startsWith('//') && process.env.SERVER_URL) {
+    if (
+      !url.startsWith('https://') &&
+      !url.startsWith('http://') &&
+      !url.startsWith('//') &&
+      process.env.SERVER_URL
+    ) {
       config.url = process.env.SERVER_URL + url;
     }
     return config;
@@ -24,7 +29,11 @@ export function DefaultInterceptor() {
   this.interceptors.response.use(
     ({ data: response }) => {
       const { status, msg } = rDataMap;
-      if (response[status] === rCodeMap.SUCCESS || response[status] === rCodeMap.POLLING) {
+      if (
+        !(status in response) ||
+        response[status] === rCodeMap.SUCCESS ||
+        response[status] === rCodeMap.POLLING
+      ) {
         return Promise.resolve(response); // 避免每次都要写res.data.xxx
       }
       return Promise.reject(response[msg]);
