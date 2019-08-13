@@ -70,7 +70,16 @@ class Record extends React.PureComponent {
     this.setState({ userInfo });
   }
   startRecord = () => {
-    this.recordManager.startRecord();
+    const { ua } = this.props;
+    if (ua.isLizhiFM && this.activityId === ProgramType.COVER) {
+      this.recordManager.startRecord({
+        config: {
+          materialId: '5059856088840984198'
+        }
+      });
+    } else {
+      this.recordManager.startRecord();
+    }
   };
   endRecord = () => {
     // const { currentTime } = this.state;
@@ -94,29 +103,30 @@ class Record extends React.PureComponent {
   handleRecordError = (type) => {
     let errMsg;
     switch (type) {
-    case ErrorType.NO_PERMISSION:
-      errMsg = '没有录音权限';
-      break;
-    case ErrorType.RECORD_SAVE_FAIL:
-      errMsg = '录音保存失败';
-      break;
-    case ErrorType.UPLOAD_FAIL:
-      errMsg = '录音上传失败';
-      break;
-    case ErrorType.TIME_SHORT:
-      errMsg = '录音时间太短';
-      break;
-    case ErrorType.CALL_RECORD_FAIL:
-      errMsg = '调起录音功能失败';
-      break;
-    default:
-      errMsg = '录音失败';
-      break;
+      case ErrorType.NO_PERMISSION:
+        errMsg = '没有录音权限';
+        break;
+      case ErrorType.RECORD_SAVE_FAIL:
+        errMsg = '录音保存失败';
+        break;
+      case ErrorType.UPLOAD_FAIL:
+        errMsg = '录音上传失败';
+        break;
+      case ErrorType.TIME_SHORT:
+        errMsg = '录音时间太短';
+        break;
+      case ErrorType.CALL_RECORD_FAIL:
+        errMsg = '调起录音功能失败';
+        break;
+      default:
+        errMsg = '录音失败';
+        break;
     }
     Toast.info(errMsg, 1);
   };
   handleRecordTimeout = () => {
-    Toast.info('录音最长不超过60秒', 1);
+    const { ua } = this.props;
+    Toast.info(`录音最长不超过${ua.isWX ? '60秒' : '5分钟'}`, 1);
   };
   handleUploadStart = () => {
     Toast.loading('正在上传录音...', 0);
@@ -196,8 +206,8 @@ class Record extends React.PureComponent {
                 {replayStatus === ReplayStatus.PLAYING ? (
                   <div styleName="btn-control pause" onClick={this.stopReplay} />
                 ) : (
-                  <div styleName="btn-control play" onClick={this.startReplay} />
-                )}
+                    <div styleName="btn-control play" onClick={this.startReplay} />
+                  )}
               </React.Fragment>
             ) : null}
           </div>

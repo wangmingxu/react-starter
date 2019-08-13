@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import {fixedBody,looseBody} from 'utils/scroll'
 import '../styles/activity-detail.less';
 
 const ActivityDetail = (props) => {
@@ -66,8 +67,9 @@ export default ActivityDetail;
 export const showDetailDialog = (props) => {
   const div = document.createElement('div');
   document.body.appendChild(div);
-
+  fixedBody();
   function close() {
+    looseBody();
     ReactDOM.unmountComponentAtNode(div);
     if (div && div.parentNode) {
       div.parentNode.removeChild(div);
