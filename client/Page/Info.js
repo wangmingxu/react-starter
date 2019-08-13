@@ -4,17 +4,7 @@ import { Checkbox, Carousel, Picker, List } from 'antd-mobile';
 import pic from '../assets/toyota/title-index.png';
 import classNames from 'classnames';
 import api from 'utils/api';
-
-const distributorList = [
-  {
-    label: 'aaa',
-    value: '111',
-  },
-  {
-    label: 'bbb',
-    value: '222',
-  },
-];
+import videoUrl from '../assets/toyota/toyota.mp4';
 
 function PickerExtra(props) {
   console.log(props);
@@ -30,8 +20,6 @@ class Info extends Component {
       imgList: ['saicheng', 'title-index'],
       name: '',
       tel: '',
-      address: '',
-      distributor: [],
       provinces: [],
       province: null,
       regionCitys: [],
@@ -43,6 +31,7 @@ class Info extends Component {
 
   componentDidMount() {
     this.getProvince();
+    console.log(videoUrl);
   }
 
   componentDidUpdate() {
@@ -76,28 +65,9 @@ class Info extends Component {
     });
   };
 
-  playVideo = () => {
-    this.videoRef.current.play();
-    console.log(this.videoRef);
-    console.log(this.controlBtnRef);
-    this.controlBtnRef.current.hidden = true;
-  };
-
-  changeTab(type) {
-    this.setState({
-      curTab: type,
-    });
-  }
-
   getProvince = async () => {
     const res = await api.getProvince();
     this.setState({ provinces: res.slice(1).map(item => ({ label: item.name, value: item.cid })) });
-  };
-
-  handleProvinceChange = (e) => {
-    this.setState({ province: e }, () => {
-      this.getRegionCity();
-    });
   };
 
   getRegionCity = async () => {
@@ -107,15 +77,32 @@ class Info extends Component {
     });
   };
 
+  getDealer = async () => {
+    const { data } = await api.getDealer();
+    this.setState({ dealers: data.map(item => ({ label: item.name, value: item.id })) });
+  };
+
+  handleProvinceChange = (e) => {
+    this.setState({ province: e }, () => {
+      this.getRegionCity();
+    });
+  };
+
   handleRegionCityChange = (e) => {
     this.setState({ regionCity: e }, () => {
       this.getDealer();
     });
   };
 
-  getDealer = async () => {
-    const { data } = await api.getDealer();
-    this.setState({ dealers: data.map(item => ({ label: item.name, value: item.id })) });
+  changeTab(type) {
+    this.setState({
+      curTab: type,
+    });
+  }
+
+  playVideo = () => {
+    this.videoRef.current.play();
+    this.controlBtnRef.current.hidden = true;
   };
 
   handleDealerChange = (e) => {
@@ -126,7 +113,7 @@ class Info extends Component {
 
   render() {
     const {
-      province, regionCity, provinces, regionCitys,dealer,dealers
+      province, regionCity, provinces, regionCitys, dealer, dealers,
     } = this.state;
     const formWrap = (
       <div styleName="main-inner formWrap">
@@ -213,12 +200,7 @@ class Info extends Component {
             {this.state.curTab === 0 && formWrap}
             {this.state.curTab === 1 && (
               <div styleName="v-container" onClick={this.playVideo}>
-                <video
-                  ref={this.videoRef}
-                  src="https://bizadv.lizhi.fm/static/2018/hytVideo/10.mp4"
-                  poster="https://bizadv.lizhi.fm/static/2018/hytVideo/poster10.png"
-                  preload="metadata"
-                />
+                <video ref={this.videoRef} src={videoUrl} preload="metadata" />
                 <div ref={this.controlBtnRef} styleName="video-btn" />
               </div>
             )}
@@ -230,7 +212,7 @@ class Info extends Component {
                       key={val}
                       src={pic}
                       alt=""
-                      style={{ width: '100%', height: '495px', verticalAlign: 'top' }}
+                      styleName="pic"
                     />
                   ))}
                 </Carousel>
