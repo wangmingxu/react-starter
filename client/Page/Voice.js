@@ -10,7 +10,7 @@ import { showShareOverlay } from '@lz-component/ShareOverlay';
 import { withUserAgent } from 'rc-useragent';
 import { WithLoginBtn } from 'Hoc/WithLogin';
 import { showDownloadDialog } from '@lz-component/DownloadDialog';
-import { defaultAvatar } from 'constant';
+import { defaultAvatar, ProgramType } from 'constant';
 import { Toast } from 'antd-mobile';
 
 @connect(
@@ -32,6 +32,14 @@ class Voice extends React.Component {
     const params = new URLSearchParams(location.search);
     return params.get('activityId');
   }
+  get ticket() {
+    const { mine } = this.props;
+    const ticketMap = {
+      [ProgramType.COVER]: mine.coverTicket,
+      [ProgramType.TALK]: mine.talkTicket
+    }
+    return ticketMap[this.activityId];
+  }
   async componentDidMount() {
     this.player = Player.getInstance();
     await this.loadVoiceInfo();
@@ -39,10 +47,10 @@ class Voice extends React.Component {
     Object.assign(window.shareData, {
       url: `${location.origin}${location.pathname}#/voice/${this.voiceId}?activityId=${
         this.activityId
-      }`,
+        }`,
       link: `${location.origin}${location.pathname}#/voice/${this.voiceId}?activityId=${
         this.activityId
-      }`,
+        }`,
     });
   }
   componentWillUnmount() {
@@ -109,7 +117,7 @@ class Voice extends React.Component {
     });
   };
   render() {
-    const { status, voiceInfo } = this.state;
+    const { status, voiceInfo, mine } = this.state;
     const { ua } = this.props;
     return (
       <div styleName="voice-page">
@@ -120,11 +128,11 @@ class Voice extends React.Component {
               {status === AudioStatus.PLAYING ? (
                 <div styleName="btn-control pause" onClick={this.pause} />
               ) : (
-                <div styleName="btn-control play" onClick={this.play} />
-              )}
+                  <div styleName="btn-control play" onClick={this.play} />
+                )}
             </div>
             <div styleName="info">
-              <div styleName="title">{voiceInfo.name}</div>
+              <div styleName="nickName">{voiceInfo.nickName}</div>
               <div styleName="votes">
                 目前得票数：
                 {voiceInfo.vote}
@@ -135,6 +143,7 @@ class Voice extends React.Component {
               </div>
             </div>
           </div>
+          <div styleName="title">{voiceInfo.name}</div>
           <div styleName="operation">
             <div styleName="btn share" onClick={this.share}>
               拉票
@@ -143,18 +152,18 @@ class Voice extends React.Component {
               <WithLoginBtn
                 render={() => (
                   <div styleName="btn vote" onClick={this.vote}>
-                    投票
+                    投票({this.ticket})
                   </div>
                 )}
               />
             ) : (
-              <div styleName="btn vote" onClick={this.downloadApp}>
-                投票
+                <div styleName="btn vote" onClick={this.downloadApp}>
+                  投票
               </div>
-            )}
+              )}
           </div>
         </div>
-        {/* <Link styleName="btn-back" to="/">回到首页</Link> */}
+        {/**<Link styleName="btn-back" to="/">回到首页</Link>**/}
       </div>
     );
   }
