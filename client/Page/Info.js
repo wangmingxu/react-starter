@@ -5,19 +5,8 @@ import pic from '../assets/toyota/title-index.png';
 import classNames from 'classnames';
 import api from 'utils/api';
 
-const distributorList = [
-  {
-    label: 'aaa',
-    value: '111',
-  },
-  {
-    label: 'bbb',
-    value: '222',
-  },
-];
-
 function PickerExtra(props) {
-  console.log(props);
+  // console.log(props);
   return <div onClick={props.onClick}>{props.extra}</div>;
 }
 
@@ -95,26 +84,34 @@ class Info extends Component {
   };
 
   handleProvinceChange = (e) => {
-    this.setState({ province: e }, () => {
+    this.setState({ province: e, regionCity: null, dealer: null }, () => {
       this.getRegionCity();
     });
   };
 
   getRegionCity = async () => {
-    const res = await api.getRegionCity();
+    const fd = new FormData();
+    fd.append('cid', this.state.province)
+    const res = await api.getRegionCity(fd);
     this.setState({
       regionCitys: res.slice(1).map(item => ({ label: item.name, value: item.cid })),
     });
   };
 
   handleRegionCityChange = (e) => {
-    this.setState({ regionCity: e }, () => {
+    this.setState({ regionCity: e, dealer: null }, () => {
       this.getDealer();
     });
   };
 
   getDealer = async () => {
-    const { data } = await api.getDealer();
+    const fd = new FormData();
+    const { provinces, regionCitys, province, regionCity } = this.state;
+    const cityName = provinces.find(item => province.includes(item.value)).label;
+    const provinceName = regionCitys.find(item => regionCity.includes(item.value)).label;
+    fd.append('cityName', cityName);
+    fd.append('provinceName', provinceName);
+    const { data } = await api.getDealer(fd);
     this.setState({ dealers: data.map(item => ({ label: item.name, value: item.id })) });
   };
 
@@ -124,9 +121,13 @@ class Info extends Component {
     });
   };
 
+  onSubmit = () => {
+    console.log(this.state);
+  }
+
   render() {
     const {
-      province, regionCity, provinces, regionCitys,dealer,dealers
+      province, regionCity, provinces, regionCitys, dealer, dealers
     } = this.state;
     const formWrap = (
       <div styleName="main-inner formWrap">
@@ -187,7 +188,7 @@ class Info extends Component {
             </span>
           </Checkbox.AgreeItem>
         </div>
-        <button styleName="btn-clear submit-btn">确认提交</button>
+        <button styleName="btn-clear submit-btn" onClick={this.onSubmit}>确认提交</button>
       </div>
     );
 
@@ -215,8 +216,8 @@ class Info extends Component {
               <div styleName="v-container" onClick={this.playVideo}>
                 <video
                   ref={this.videoRef}
-                  src="https://bizadv.lizhi.fm/static/2018/hytVideo/10.mp4"
-                  poster="https://bizadv.lizhi.fm/static/2018/hytVideo/poster10.png"
+                  src="blob:https://pan.baidu.com/059b6059-196e-494e-a598-27d58e8b0158"
+                  // poster="https://bizadv.lizhi.fm/static/2018/hytVideo/poster10.png"
                   preload="metadata"
                 />
                 <div ref={this.controlBtnRef} styleName="video-btn" />

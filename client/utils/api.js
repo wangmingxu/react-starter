@@ -47,8 +47,8 @@ const api = apiConfig({
   getUserInfo: 'GET /commonvote/common/userInfo',
   getActivityInfo: 'GET /commonvote/common/activityInfo',
   getProvince: 'GET /Openapi/SetClues/getCity1?cid=0',
-  getRegionCity: 'GET /Openapi/SetClues/getRegionCity',
-  getDealer: 'GET /Openapi/SetClues/getDealer',
+  getRegionCity: 'POST /Openapi/SetClues/getRegionCity',
+  getDealer: 'POST /Openapi/SetClues/getDealer',
 });
 
 export default api;
