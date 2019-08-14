@@ -16,18 +16,17 @@ const baseConfig = {
   },
   output: {
     path: common.distPath,
-    filename: NODE_ENV === 'production'
-      ? utils.assetsPath('js/[name].js?[chunkhash]')
-      : utils.assetsPath('js/[name].js?[hash]'),
+    filename:
+      NODE_ENV === 'production'
+        ? utils.assetsPath('js/[name].js?[chunkhash]')
+        : utils.assetsPath('js/[name].js?[hash]'),
     chunkFilename: utils.assetsPath('js/[name].js?[chunkhash]'),
     publicPath,
     crossOriginLoading: NODE_ENV === 'production' ? 'anonymous' : false, // 只有按需加载chunk时才会加这个属性
   },
   resolve: {
     modules: [common.clientPath, 'node_modules'],
-    extensions: [
-      '.js', '.jsx', '.json', '.scss', '.less',
-    ], // 当requrie的模块找不到时，添加这些后缀
+    extensions: ['.js', '.jsx', '.json', '.scss', '.less'], // 当requrie的模块找不到时，添加这些后缀
     alias: {
       '@': common.clientPath,
       '@lz-component': '@lizhife/cityfm-tools/dist/Component',
@@ -40,14 +39,14 @@ const baseConfig = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         include: common.clientPath,
-        use: [{
-          loader: 'babel-loader?cacheDirectory',
-          options: {
-            plugins: [
-              '@babel/plugin-external-helpers',
-            ],
+        use: [
+          {
+            loader: 'babel-loader?cacheDirectory',
+            options: {
+              plugins: ['@babel/plugin-external-helpers'],
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(css|less)$/,
@@ -71,7 +70,7 @@ const baseConfig = {
         ],
       },
       {
-        test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
+        test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf|mp4)$/, // 这些资源包括在js中import或在css中background url引入都会被处理
         use: [
           {
             loader: 'url-loader',
@@ -93,7 +92,10 @@ const baseConfig = {
       PUBLIC_URL: JSON.stringify(publicPath.slice(0, -1)),
     }),
     /** 抽取css文件* */
-    new MiniCssExtractPlugin({ filename: utils.assetsPath('css/[name].css?[contenthash]'), allChunks: true }),
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].css?[contenthash]'),
+      allChunks: true,
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {},
     }),
