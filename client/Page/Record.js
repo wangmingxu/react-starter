@@ -71,10 +71,11 @@ class Record extends React.PureComponent {
   }
   startRecord = () => {
     const { ua } = this.props;
-    if (ua.isLizhiFM && this.activityId === ProgramType.COVER) {
+    if (ua.isLizhiFM && this.activityId === `${ProgramType.COVER}`) {
       this.recordManager.startRecord({
         config: {
-          materialId: '5059856088840984198'
+          materialId: 'mxmp31009',
+          bgmVolume: "100"
         }
       });
     } else {

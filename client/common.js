@@ -63,6 +63,15 @@ if (client.isLizhiFM) {
     LizhiJSBridge.call('configShareUrl', window.shareData, (ret) => {
       console.log(ret);
     });
+    lz.downloadMaterial({
+      materialId: "mxmp31009", //素材ID，由用户指定
+      name: "toyota", //歌曲名
+      singer: "toyota", //歌手[可选]
+      fileType: "0", // 0表示普通背景音乐 1表示音效文件
+      format: "mp3", // 文件格式, 比如mp3、flac
+      url:
+        "https://bizadv.lizhi.fm/festatic/idc/bg.mp3" //下载地址
+    })
   });
 }
 

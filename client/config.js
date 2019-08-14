@@ -81,6 +81,7 @@ export function appConfig() {
       'stopRecordVoice',
       'uploadRecordVoice',
       'replayRecordVoice',
+      'downloadMaterial'
     ],
     eventList: ['user:login', 'recordStateChange', 'shareFinish'],
   });

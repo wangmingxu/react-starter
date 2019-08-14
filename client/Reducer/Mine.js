@@ -1,13 +1,14 @@
 const initState = {
-  ticket: 0,
+  coverTicket: 0,
+  talkTicket: 0,
 };
 
 const Mine = (state = initState, action) => {
   switch (action.type) {
-  case 'setMineInfo':
-    return action.info;
-  default:
-    return state;
+    case 'setMineInfo':
+      return action.info;
+    default:
+      return state;
   }
 };
 
