@@ -121,6 +121,7 @@ class Voice extends React.Component {
     const { ua } = this.props;
     return (
       <div styleName="voice-page">
+        <div styleName="opacity"></div>
         <div styleName="main">
           <div styleName="panl">
             <div styleName="avatar-wrapper">
@@ -163,7 +164,7 @@ class Voice extends React.Component {
               )}
           </div>
         </div>
-        {/**<Link styleName="btn-back" to="/">回到首页</Link>**/}
+        <Link styleName="btn-back" to="/">回到首页</Link>
       </div>
     );
   }

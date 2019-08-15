@@ -47,10 +47,13 @@ class index extends PureComponent {
     const { ua } = this.props;
     return (
       <div styleName="page--index">
-        <img src={logo} alt="logo" styleName="logo" />
-        <div styleName="title" />
+        <a href="#" styleName="btn-guanzhu"></a>
+        {/**<img src={logo} alt="logo" styleName="logo" />**/}
         <div styleName="kol--container">
-          <Kol />
+          <Kol data={{
+            file: 'http://cdn5.lizhi.fm/audio/2019/07/14/2748477102085197318_hd.mp3',
+            id: 'kol00'
+          }} />
         </div>
         <div styleName="activity-detail" onClick={showDetailDialog} />
         <div styleName="saicheng" />
@@ -59,8 +62,8 @@ class index extends PureComponent {
           {ua.isLizhiFM || ua.isWeiXin ? (
             <WithLoginBtn render={this.renderOperation} />
           ) : (
-            this.renderOperation({ onClick: this.downloadApp })
-          )}
+              this.renderOperation({ onClick: this.downloadApp })
+            )}
         </div>
         <Link styleName="btn-appointment" to="/info">
           预约试驾

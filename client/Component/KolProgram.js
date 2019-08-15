@@ -1,9 +1,9 @@
 import React from 'react';
-import Program from './Program';
+import { SuperProgram } from './Program';
 import { AudioStatus } from '@lz-component/Player';
 import '../styles/kol-program.less';
 
-class KolProgram extends Program {
+class KolProgram extends SuperProgram {
   render() {
     const { data } = this.props;
     const { playStatus, playId } = this.state;
@@ -13,12 +13,12 @@ class KolProgram extends Program {
           {playStatus === AudioStatus.PLAYING && playId === data.id ? (
             <div styleName="btn-control pause" onClick={this.pause} />
           ) : (
-            <div styleName="btn-control play" onClick={this.play} />
-          )}
-          <div styleName="btn-control play" />
+              <div styleName="btn-control play" onClick={this.play} />
+            )}
           <img src={data.coverThumb} styleName="avatar" alt="" />
         </div>
         <div styleName="name">{data.name}</div>
+        <div styleName="desc">{data.desc}</div>
       </div>
     );
   }

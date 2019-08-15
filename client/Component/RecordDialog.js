@@ -8,6 +8,7 @@ function RecordDialog(props) {
   return status ? (
     <div className="mask" onClick={onClose}>
       <div styleName="record-dialog">
+        <div styleName="btn-x"></div>
         <div styleName="icon-record" />
         <div styleName="tip">即将前往录音界面，录音完成后，</div>
         <div styleName="tip">

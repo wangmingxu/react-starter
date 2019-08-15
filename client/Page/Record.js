@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as PostActions from 'Action/Post';
 import { defaultAvatar, ProgramType } from 'constant';
+import { showLyrics } from 'Component/Lyrics';
 
 @connect(
   state => ({ post: state.Post }),
@@ -52,6 +53,7 @@ class Record extends React.PureComponent {
   }
   componentWillUnmount() {
     this.recordManager.destroy();
+    if (this.closeLyrics) this.closeLyrics.close();
   }
   async loadUserInfo() {
     const { ua } = this.props;
@@ -192,10 +194,14 @@ class Record extends React.PureComponent {
   stopReplay = () => {
     this.recordManager.stopReplay();
   };
+  showLyrics = () => {
+    this.closeLyrics = showLyrics();
+  }
   render() {
     const {
       status, currentTime, replayStatus, userInfo,
     } = this.state;
+    const { ua } = this.props;
     const time = dayjs(currentTime).format('mm:ss');
     return (
       <div styleName="page-record">
@@ -217,6 +223,7 @@ class Record extends React.PureComponent {
             <div styleName="icon-clock" />
             <div>{time}</div>
           </div>
+          <div styleName="btn-lyrics" style={{ opacity: ua.isLizhiFM && this.activityId === `${ProgramType.COVER}` ? 0 : 1 }} onClick={this.showLyrics}>看歌词</div>
           {status === RecordStatus.WAITING_RECORD ? (
             <div styleName="btn-record" onClick={this.startRecord}>
               开始录音

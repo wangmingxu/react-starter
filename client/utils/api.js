@@ -46,9 +46,14 @@ const api = apiConfig({
   getTicket: 'GET /commonvote/common/remain',
   getUserInfo: 'GET /commonvote/common/userInfo',
   getActivityInfo: 'GET /commonvote/common/activityInfo',
-  getProvince: 'GET https://api.ftms.com.cn/Openapi/Openapi/SetClues/getCity1?cid=0',
-  getRegionCity: 'POST https://api.ftms.com.cn/Openapi/Openapi/SetClues/getRegionCity',
-  getDealer: 'POST https://api.ftms.com.cn/Openapi/Openapi/SetClues/getDealer',
+  getProvince: 'GET /Openapi/SetClues/getCity1?cid=0',
+  getRegionCity: 'POST /Openapi/SetClues/getRegionCity',
+  getDealer: 'POST /Openapi/SetClues/getDealer',
+  postLead: 'POST /Openapi/postLead'
+  // getProvince: 'GET https://www.qmlid.top/Openapi/SetClues/getCity1?cid=0',
+  // getRegionCity: 'POST https://www.qmlid.top/Openapi/SetClues/getRegionCity',
+  // getDealer: 'POST https://www.qmlid.top/Openapi/SetClues/getDealer',
+  // postLead: 'POST https://www.qmlid.top/Openapi/postLead'
 });
 
 export default api;

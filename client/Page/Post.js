@@ -81,7 +81,7 @@ class Post extends React.Component {
               />
             </div>
             <div styleName="feild">
-              <div styleName="lab">手机号(选填)</div>
+              <div styleName="lab">手机号(必填)</div>
               <input
                 styleName="ipt"
                 type="tel"

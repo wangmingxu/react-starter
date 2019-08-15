@@ -15,13 +15,7 @@ import { Toast } from 'antd-mobile';
 import throttle from 'lodash/throttle';
 import api from 'utils/api';
 
-@connect(
-  state => ({ mine: state.Mine }),
-  dispatch => bindActionCreators(mineActions, dispatch),
-)
-@withUserAgent
-@withRouter
-class Program extends React.PureComponent {
+class SuperProgram extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,8 +127,8 @@ class Program extends React.PureComponent {
           {playStatus === AudioStatus.PLAYING && playId === data.id ? (
             <div styleName="btn-control pause" onClick={stopPropagation(this.pause)} />
           ) : (
-            <div styleName="btn-control play" onClick={stopPropagation(this.play)} />
-          )}
+              <div styleName="btn-control play" onClick={stopPropagation(this.play)} />
+            )}
         </div>
         <div styleName="info">
           <div styleName="name">{data.name}</div>
@@ -156,10 +150,10 @@ class Program extends React.PureComponent {
                 )}
               />
             ) : (
-              <div styleName="btn btn-vote" onClick={stopPropagation(this.downloadApp)}>
-                投票
+                <div styleName="btn btn-vote" onClick={stopPropagation(this.downloadApp)}>
+                  投票
               </div>
-            )}
+              )}
             <div styleName="btn btn-share" onClick={stopPropagation(this.share)}>
               拉票
             </div>
@@ -168,6 +162,20 @@ class Program extends React.PureComponent {
       </div>
     );
   }
+}
+
+@connect(
+  state => ({ mine: state.Mine }),
+  dispatch => bindActionCreators(mineActions, dispatch),
+)
+@withUserAgent
+@withRouter
+class Program extends SuperProgram {
+
+}
+
+export {
+  SuperProgram
 }
 
 export default Program;
